@@ -27,7 +27,7 @@ var map = new mapboxgl.Map({
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
 
-var hoveredStateId = null;
+// var hoveredStateId = null;
 
 map.on('load', function() {
 
@@ -106,27 +106,36 @@ map.on('load', function() {
 
         // When the user moves their mouse over the states-fill layer, we'll update the 
         // feature state for the feature under the mouse.
-        map.on("mousemove", "tile-fills", function(e) {
-            if (e.features.length > 0) {
-                if (hoveredStateId) {
-                    map.setFeatureState({source: 'tiles', id: hoveredStateId}, { hover: false});
-                }
-                hoveredStateId = e.features[0].properties.id;
-                map.setFeatureState({source: 'tiles', id : hoveredStateId}, { hover: true});
-                console.log(hoveredStateId);
-            }
-        });
+        // map.on("mousemove", "tile-fills", function(e) {
+        //     if (e.features.length > 0) {
+        //         if (hoveredStateId) {
+        //             map.setFeatureState({source: 'tiles', id : hoveredStateId}, { hover: false});
+        //         }
+        //         hoveredStateId = e.features[0].properties.id;
+        //         map.setFeatureState({source: 'tiles', id : hoveredStateId}, { hover: true});
+        //         console.log(hoveredStateId);
+        //     }
+        // });
+
+        // think I need to access via feature.properties.id rather than id, which doesn't seem to be working
 
         // Reset the state-fills-hover layer's filter when the mouse leaves the layer.
-        map.on("mouseleave", "tile-fills", function() {
-            if (hoveredStateId) {
-                map.setFeatureState({source: 'tiles', id: hoveredStateId}, { hover: false});
-            }
-            console.log(hoveredStateId);
-            hoveredStateId =  null;
-        });
+    //         if (hoveredStateId) {
+    //             map.setFeatureState({source: 'tiles', id: hoveredStateId}, { hover: false});
+    //         }
+    //         console.log(hoveredStateId);
+    //         hoveredStateId =  null;
+    //     });
 
     });
+
+    // map.on('mousemmove', function(e) {
+    //     var features = map.queryRenderedFeatures(e.point);
+    //     console.log(features);
+    //     document.getElementById('features').setPaintProperty({
+    //         'fill-opacity': 0.8
+    //     });
+    // })
 
     // map.on('mouseenter', 'tiles', function(e) {
     //     map.setPaintProperty('tiles', {
