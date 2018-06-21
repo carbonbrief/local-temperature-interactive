@@ -24,6 +24,9 @@ var map = new mapboxgl.Map({
     maxZoom: 12
 });
 
+// Add zoom and rotation controls to the map.
+map.addControl(new mapboxgl.NavigationControl());
+
 map.on('load', function() {
     map.addLayer({
         id: 'tiles',
@@ -40,4 +43,11 @@ map.on('load', function() {
         // 'fill-outline-opacity': 0.5
 
     });
+
+    // map.on('mouseenter', 'tiles', function(e) {
+    //     map.setPaintProperty('tiles', 'fill-opacity' {
+
+    //     })
+    // })
+
 });
