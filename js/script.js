@@ -27,8 +27,6 @@ var map = new mapboxgl.Map({
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl());
 
-// var hoveredStateId = null;
-
 map.on('load', function() {
 
     map.addSource("tiles", {
@@ -37,16 +35,15 @@ map.on('load', function() {
     });
 
     map.addLayer({
-        "id": 'tile-fills',
-        "type": 'fill',
-        "source": "tiles",
-        "layout": {},
-        "paint": {
+        id: 'tile-fills',
+        type: 'fill',
+        source: "tiles",
+        paint: {
             "fill-color": "#f3f3f3",
             "fill-opacity": ["case",
                 ["boolean", ["feature-state", "hover"], false],
                 0.1,
-                0.5
+                0.8
             ]
         }
         // filter: [ 'all',
@@ -81,75 +78,30 @@ map.on('load', function() {
         }
     });
 
-    map.on('mousemove', function (e) {
+    var hoveredTileId = null;
 
-        // var features = map.queryRenderedFeatures(e.point);
+    map.on("mousemove", "tile-fills", function(e) {
 
-        // console.log(e.point, features)
+        if (e.features.length > 0) {
+            if (hoveredTileId) {
+                map.setFeatureState({source: 'tiles', id: hoveredTileId}, { hover: false});
+            }
+            hoveredTileId = e.features[0].id;
 
-        // var ids = features.map(function (feat) { return feat.properties.id })
+            // console.log(e.features[0]);
+            // console.log(hoveredTileId);
 
-        // map.setFilter('tiles', [ 'all',
-        //     [ 'in', 'id' ].concat(ids)
-        // ])
-
-        // query the map for the under the mouse
-        // map.featuresAt(e.point, { radius: 5, includeGeometry: true }, function (err, features) {
-        //     if (err) throw err
-        //     console.log(e.point, features)
-        //     var ids = features.map(function (feat) { return feat.properties.id })
-
-        //     // set the filter on the hover style layer to only select the features
-        //     // currently under the mouse
-            
-        // })
-
-        // When the user moves their mouse over the states-fill layer, we'll update the 
-        // feature state for the feature under the mouse.
-        // map.on("mousemove", "tile-fills", function(e) {
-        //     if (e.features.length > 0) {
-        //         if (hoveredStateId) {
-        //             map.setFeatureState({source: 'tiles', id : hoveredStateId}, { hover: false});
-        //         }
-        //         hoveredStateId = e.features[0].properties.id;
-        //         map.setFeatureState({source: 'tiles', id : hoveredStateId}, { hover: true});
-        //         console.log(hoveredStateId);
-        //     }
-        // });
-
-        // think I need to access via feature.properties.id rather than id, which doesn't seem to be working
-
-        // Reset the state-fills-hover layer's filter when the mouse leaves the layer.
-    //         if (hoveredStateId) {
-    //             map.setFeatureState({source: 'tiles', id: hoveredStateId}, { hover: false});
-    //         }
-    //         console.log(hoveredStateId);
-    //         hoveredStateId =  null;
-    //     });
-
+            map.setFeatureState({source: 'tiles', id: hoveredTileId}, { hover: true});
+        }
     });
 
-    // map.on('mousemmove', function(e) {
-    //     var features = map.queryRenderedFeatures(e.point);
-    //     console.log(features);
-    //     document.getElementById('features').setPaintProperty({
-    //         'fill-opacity': 0.8
-    //     });
-    // })
-
-    // map.on('mouseenter', 'tiles', function(e) {
-    //     map.setPaintProperty('tiles', {
-    //         'fill-opacity': 0.8
-    //     });
-    // })
-
-    // polygonLayer.on('mouseover', function (this) {
-    //     this.setStyle({
-    //         fillOpacity: 0,
-    //         color: 'black'
-    //         });
-    // });
-
-
+    // Reset the state-fills-hover layer's filter when the mouse leaves the layer.
+    map.on("mouseleave", "tile-fills", function() {
+        if (hoveredTileId) {
+            map.setFeatureState({source: 'tiles', id: hoveredTileId}, { hover: false});
+        }
+        hoveredStateId =  null;
+        // console.log("leave");
+    });
 
 });
