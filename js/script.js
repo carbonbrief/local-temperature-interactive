@@ -46,9 +46,6 @@ map.on('load', function() {
                 0.05
             ]
         }
-        // filter: [ 'all',
-        //     [ '==', 'id', 'NONE' ] // start with a filter that doesn't select anything
-        // ]
     });
 
     map.addLayer({
