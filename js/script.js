@@ -52,7 +52,7 @@ map.on('load', function() {
                     [4.0, '#E66f5d'],
                     [4.8, '#f79649'],
                     [5.6, '#Fbc53d'],
-                    [6.4, '#F0f73f']
+                    [6.5, '#F0f73f']
                 ]
             },
             "fill-opacity": ["case",

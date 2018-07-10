@@ -11,3 +11,95 @@ body {
     width: 100%;
     height: 800px;
 }
+
+p {
+    color: #f3f3f3;
+    font-size: 14px;
+}
+
+#key {
+    background-color: #333333;
+    border-radius: 5px;
+    position: fixed;
+    width: 260px;
+    right: 10px;
+    bottom: 30px;
+}
+
+#key div {
+    margin: 10px;
+}
+
+#key-title {
+    font-size: 15px;
+    color: #f3f3f3;
+}
+
+#key-title h3 {
+    margin: 0px;
+}
+
+#key-labels {
+    margin-bottom: 0px !important;
+}
+
+.unit {
+    margin: 0px !important;
+    display: inline-block;
+    width: 32%;
+}
+
+.unit p {
+    margin-top: 2px;
+    margin-bottom: 0px;
+}
+
+#unit2 {
+    text-align: center;
+}
+
+#unit3 {
+    text-align: right;
+}
+
+.label-text {
+    font-family: PT Serif;
+    font-style: italic;
+    color: #bbbbbb;
+    font-size: 12px;
+}
+
+#ticks {
+    width: calc(100% - 22px);
+    border-left: 1px solid #757575;
+    border-right: 1px solid #757575;
+    height: 10px;
+    margin-bottom: 0px !important;
+    margin-top: 2px !important;
+    z-index: 0;
+}
+
+.tick {
+    display: inline-block;
+    margin: 0px !important;
+    height: 20px;
+}
+
+#tick1 {
+    width: calc(50% - 1px);
+    border-right: 1px solid #757575;
+}
+
+#tick2 {
+    width: calc(50% - 2px);
+}
+
+#colors {
+    background: linear-gradient(to right, #0f1d85, #4b269f, #802ba4, #Aa2d93, #Ca4a78, #E66f5d, #f79649, #Fbc53d, #F0f73f);
+    width: calc(100% - 22px);
+    border: 1px solid #757575;
+    border-top: none;
+    height: 10px;
+    margin-top: 0px !important;
+    z-index: 333333;
+}
