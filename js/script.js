@@ -20,6 +20,7 @@ var map = new mapboxgl.Map({
             "maxzoom": 22
         }]
     },
+    // style: 'https://openmaptiles.github.io/positron-gl-style/style-cdn.json',
     center: [0, 10],
     maxZoom: 12
 });
@@ -31,7 +32,7 @@ map.on('load', function() {
 
     map.addSource("tiles", {
         "type": 'geojson',
-        "data": './data/tiles.geojson'
+        "data": './data/tiles-merge.geojson'
     });
 
     map.addLayer({
@@ -40,10 +41,24 @@ map.on('load', function() {
         source: "tiles",
         paint: {
             "fill-color": "#f3f3f3",
+            'fill-color': {
+                property: 'rcp26',
+                stops: [
+                    [0, '#0f1d85'],
+                    [0.8, '#4b269f'],
+                    [1.6, '#802ba4'],
+                    [2.7, '#Aa2d93'],
+                    [3.2, '#Ca4a78'],
+                    [4.0, '#E66f5d'],
+                    [4.8, '#f79649'],
+                    [5.6, '#Fbc53d'],
+                    [6.4, '#F0f73f']
+                ]
+            },
             "fill-opacity": ["case",
                 ["boolean", ["feature-state", "hover"], false],
-                0.4,
-                0.05
+                0.05,
+                0.6
             ]
         }
     });
