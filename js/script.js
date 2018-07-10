@@ -42,7 +42,7 @@ map.on('load', function() {
             "fill-color": "#f3f3f3",
             "fill-opacity": ["case",
                 ["boolean", ["feature-state", "hover"], false],
-                0.3,
+                0.4,
                 0.05
             ]
         }
