@@ -12,6 +12,21 @@ body {
     height: 800px;
 }
 
+#landing-console {
+    position: absolute;
+    width: 350px;
+    margin: 10px;
+    padding: 10px 25px;
+    padding-right: 35px;
+    background-color: rgba(51, 51, 51, 0.796);
+    border-radius: 5px;
+    z-index: 5;
+  }
+  
+.session {
+    margin-bottom: 15px;
+}
+
 p {
     color: #f3f3f3;
     font-size: 14px;
@@ -21,7 +36,6 @@ p {
     background-color: #333333;
     border-radius: 5px;
     position: fixed;
-    width: 260px;
     right: 10px;
     bottom: 30px;
 }
@@ -30,12 +44,12 @@ p {
     margin: 10px;
 }
 
-#key-title {
+h2 {
     font-size: 15px;
     color: #f3f3f3;
 }
 
-#key-title h3 {
+#key h2 {
     margin: 0px;
 }
 
@@ -102,4 +116,10 @@ p {
     height: 10px;
     margin-top: 0px !important;
     z-index: 333333;
+}
+
+.row {
+    height: 12px;
+    width: calc(100% - 20px);
+    margin-left:0px;
 }

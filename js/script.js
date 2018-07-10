@@ -45,14 +45,14 @@ map.on('load', function() {
                 property: 'rcp26',
                 stops: [
                     [0, '#0f1d85'],
-                    [0.9, '#4b269f'],
-                    [1.75, '#802ba4'],
-                    [2.6, '#Aa2d93'],
-                    [3.5, '#Ca4a78'],
-                    [4.4, '#E66f5d'],
-                    [5.25, '#f79649'],
-                    [6.1, '#Fbc53d'],
-                    [7, '#F0f73f']
+                    [0.45, '#4b269f'],
+                    [0.9, '#802ba4'],
+                    [1.35, '#Aa2d93'],
+                    [2, '#Ca4a78'],
+                    [2.45, '#E66f5d'],
+                    [2.9, '#f79649'],
+                    [3.35, '#Fbc53d'],
+                    [4, '#F0f73f']
                 ]
             },
             "fill-opacity": ["case",
@@ -90,6 +90,48 @@ map.on('load', function() {
         }
     });
 
+    // SCENARIO SLIDER INTERACTIONS
+
+    var getScenario = {
+        "1": "rcp26",
+        "2": "rcp45",
+        "3": "rcp60",
+        "4": "rcp85"
+    }
+
+    // update hour filter when the slider is dragged
+    document.getElementById('slider').addEventListener('input', function(e) {
+
+        var value = parseInt(e.target.value);
+
+        var scenario = getScenario[value];
+
+        // update the tile fills
+        map.setPaintProperty('tile-fills', 'fill-color', {
+            property: scenario,
+            type: 'exponential',
+            stops: [
+                [0, '#0f1d85'],
+                [0.45, '#4b269f'],
+                [0.9, '#802ba4'],
+                [1.35, '#Aa2d93'],
+                [2, '#Ca4a78'],
+                [2.45, '#E66f5d'],
+                [2.9, '#f79649'],
+                [3.35, '#Fbc53d'],
+                [4, '#F0f73f']
+            ]
+        });
+        
+
+        // update text in the UI
+        document.getElementById('scenario').innerText = scenario;
+
+        updateTotal();
+
+    });
+
+
     var hoveredTileId = null;
 
     map.on("mousemove", "tile-fills", function(e) {
@@ -117,3 +159,4 @@ map.on('load', function() {
     });
 
 });
+
