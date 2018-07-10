@@ -22,7 +22,7 @@ var map = new mapboxgl.Map({
     },
     // style: 'https://openmaptiles.github.io/positron-gl-style/style-cdn.json',
     center: [0, 10],
-    maxZoom: 12
+    maxZoom: 6
 });
 
 // Add zoom and rotation controls to the map.
@@ -58,7 +58,7 @@ map.on('load', function() {
             "fill-opacity": ["case",
                 ["boolean", ["feature-state", "hover"], false],
                 0.05,
-                0.6
+                0.7
             ]
         }
     });
