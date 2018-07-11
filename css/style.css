@@ -127,4 +127,38 @@ h2 {
 form[name=rcps] label {    
     color: #bbbbbb;
     font-size: 12px;
-} 
+}
+
+#loading {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 999999;
+    background-color: rgba(36, 42, 58, 0.98);
+  }
+  
+#canvas-wrapper {
+    position: relative;
+    top: calc(50% - 60px);
+    left: calc(50% - 60px);
+}
+
+#adb {
+    position: fixed;
+    visibility: visible;
+    color: #333333;
+    z-index: -999999;
+    /* height: 100px; */
+    width: 30%;
+    margin-left: 45%;
+    margin-top: 140px;
+}
+
+#adb i {
+    font-size: 18px;
+}
+
+#adb li {
+    color: #333333;
+    list-style-type: circle;
+}
