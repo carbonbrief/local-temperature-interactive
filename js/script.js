@@ -147,3 +147,9 @@ map.on('load', function() {
 
 });
 
+// RESET RADIO ON WINDOW RELOAD
+
+$(document).ready(function () {
+    rcps.reset();
+})
+
