@@ -123,3 +123,8 @@ h2 {
     width: calc(100% - 20px);
     margin-left:0px;
 }
+
+form[name=rcps] label {    
+    color: #bbbbbb;
+    font-size: 12px;
+} 
