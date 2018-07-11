@@ -31,8 +31,24 @@
                 </div>
             </div>
             <div class="session">
-                <h2>Scenario: <span id="scenario">RCP 2.6</span></h2>
-                <input id='slider' autocomplete="off" class='row' type='range' min='1' max='4' step='1' value='1' />
+                <h2>Scenario</h2>
+                <div>
+                    <input type="radio" id="rcp26"
+                     name="rcp-radio" value="rcp26" checked="checked">
+                    <label for="rcp26">RCP 2.6</label>
+                
+                    <input type="radio" id="rcp45"
+                     name="rcp-radio" value="rcp45">
+                    <label for="rcp45">RCP 4.5</label>
+                
+                    <input type="radio" id="rcp60"
+                     name="rcp-radio" value="rcp60">
+                    <label for="rcp60">RCP 6.0</label>
+
+                    <input type="radio" id="rcp85"
+                     name="rcp-radio" value="rcp85">
+                    <label for="rcp85">RCP 8.5</label>
+                </div>
             </div>
         </div>
         <script src="js/script.js"></script>

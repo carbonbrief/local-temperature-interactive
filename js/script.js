@@ -22,6 +22,7 @@ var map = new mapboxgl.Map({
     },
     // style: 'https://openmaptiles.github.io/positron-gl-style/style-cdn.json',
     center: [0, 10],
+    zoom: 1.5,
     maxZoom: 6
 });
 
@@ -90,48 +91,34 @@ map.on('load', function() {
         }
     });
 
-    // SCENARIO SLIDER INTERACTIONS
+    // RADIO BUTTON INTERACTIONS
 
-    var getScenario = {
-        "1": "rcp26",
-        "2": "rcp45",
-        "3": "rcp60",
-        "4": "rcp85"
+    var radios = document.getElementsByName('rcp-radio');
+
+    for(var i = 0, max = radios.length; i < max; i++) {
+        radios[i].onclick = function() {
+
+            var scenario = this.value;
+
+            // update the tile fills
+            map.setPaintProperty('tile-fills', 'fill-color', {
+                property: scenario,
+                stops: [
+                    [0, '#0f1d85'],
+                    [0.45, '#4b269f'],
+                    [0.9, '#802ba4'],
+                    [1.35, '#Aa2d93'],
+                    [2, '#Ca4a78'],
+                    [2.45, '#E66f5d'],
+                    [2.9, '#f79649'],
+                    [3.35, '#Fbc53d'],
+                    [4, '#F0f73f']
+                ]
+            });
+        }
     }
 
-    // update hour filter when the slider is dragged
-    document.getElementById('slider').addEventListener('input', function(e) {
-
-        var value = parseInt(e.target.value);
-
-        var scenario = getScenario[value];
-
-        // update the tile fills
-        map.setPaintProperty('tile-fills', 'fill-color', {
-            property: scenario,
-            type: 'exponential',
-            stops: [
-                [0, '#0f1d85'],
-                [0.45, '#4b269f'],
-                [0.9, '#802ba4'],
-                [1.35, '#Aa2d93'],
-                [2, '#Ca4a78'],
-                [2.45, '#E66f5d'],
-                [2.9, '#f79649'],
-                [3.35, '#Fbc53d'],
-                [4, '#F0f73f']
-            ]
-        });
-        
-
-        // update text in the UI
-        document.getElementById('scenario').innerText = scenario;
-
-        updateTotal();
-
-    });
-
-
+    
     var hoveredTileId = null;
 
     map.on("mousemove", "tile-fills", function(e) {
