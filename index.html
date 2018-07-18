@@ -26,7 +26,7 @@
                 <div id="ticks">
                     <div id="tick1" class="tick"></div>
                 </div>
-                <div id="colors"></div>
+                <div id="key-colors" class="colors"></div>
                 <div>
                     <p class="label-text">Between 1880-1900 and 2080-2100 temperatures.</p>
                 </div>
@@ -50,11 +50,14 @@
                      name="rcp-radio" value="rcp85">
                     <label for="rcp85">RCP 8.5</label>
                 </form>
+                <p class="label-text">These four pathways describe different levels of greenhouse gases and other radiative forcings that might occur in the future.</p>
             </div>
         </div>
         <div id='loading'>
-            <div id="canvas-wrapper">
-                <canvas id="canvas-id" width="120" height="120"> </canvas>
+            <div id="loading-message">
+                <h1>How will your local area warm in the future?</h1>
+                <h4>Loading 64,800 regions&hellip;</h4>
+                <div class="colors" id="loading-colors"></div>
             </div>
         </div>
         <div id="map">
@@ -62,7 +65,8 @@
                 <i class="fa fa-info-circle" aria-hidden="true"></i><p>Map tiles failed to load. This might be because:<ul><li>Your adblocker is preventing the map tiles from rendering. Please try whitelisting this site and refreshing the page.</li><li>Your browser does not support WebGL – click <a href='https://get.webgl.org/' target="_blank">here</a> to check. Please upgrade or reopen this link in a <a href='https://www.mapbox.com/help/mapbox-browser-support/' target="_blank">modern web browser</a>, such as Firefox, Chrome or Safari (version 9.0+).</li></ul></p>
             </div>
         </div>
+        <div class="logo" id="logo-mobile"></div>
+        <div class="logo" id="logo-laptop"></div>
         <script src="js/script.js"></script>
-        <script src="js/loading.js"></script> 
     </body>
 </html>

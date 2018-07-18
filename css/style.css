@@ -17,11 +17,12 @@ body {
     width: 350px;
     margin: 10px;
     padding: 10px 25px;
+    bottom: 0px;
     padding-right: 35px;
     background-color: rgba(51, 51, 51, 0.796);
     border-radius: 5px;
     z-index: 5;
-  }
+}
   
 .session {
     margin-bottom: 15px;
@@ -44,9 +45,23 @@ p {
     margin: 10px;
 }
 
+h1 {
+    font-family: PT Sans Narrow;
+    font-weight: normal;
+    font-size: 38px;
+    color: #ffffff;
+}
+
 h2 {
     font-size: 15px;
     color: #f3f3f3;
+}
+
+h4 {
+    font-family: PT Serif, Georgia;
+    font-style: italic;
+    font-weight: normal;
+    color: #c4c4c4;
 }
 
 #key h2 {
@@ -108,14 +123,54 @@ h2 {
     width: calc(50% - 2px);
 }
 
-#colors {
+.colors {
+    z-index: 333333;
+}
+
+#key-colors {
     background: linear-gradient(to right, #0f1d85, #4b269f, #802ba4, #Aa2d93, #Ca4a78, #E66f5d, #f79649, #Fbc53d, #F0f73f);
-    width: calc(100% - 22px);
+    margin-top: 0px !important;
     border: 1px solid #757575;
     border-top: none;
     height: 10px;
-    margin-top: 0px !important;
-    z-index: 333333;
+    width: calc(100% - 22px);
+}
+
+#loading-colors {
+    background: linear-gradient(to right, #0f1d85, #4b269f, #802ba4, #Aa2d93, #Ca4a78, #E66f5d, #f79649, #Fbc53d, #F0f73f, #Fbc53d, #f79649, #E66f5d, #Ca4a78, #Aa2d93, #802ba4, #4b269f, #0f1d85);
+    background-size: 200% 100%;
+    -webkit-animation: Gradient 3s linear infinite;
+    -moz-animation: Gradient 3s linear infinite;
+    animation: Gradient 3s linear infinite;
+    height: 5px;
+    width: 100%;
+}
+
+@-webkit-keyframes Gradient {
+	0% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: -100% 50%
+	}
+}
+
+@-moz-keyframes Gradient {
+	0% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: -100% 50%
+	}
+}
+
+@keyframes Gradient {
+	0% {
+		background-position: 100% 50%
+	}
+	100% {
+		background-position: -100% 50%
+	}
 }
 
 .row {
@@ -125,7 +180,7 @@ h2 {
 }
 
 form[name=rcps] label {    
-    color: #bbbbbb;
+    color: #ffffff;
     font-size: 12px;
 }
 
@@ -137,10 +192,13 @@ form[name=rcps] label {
     background-color: rgba(36, 42, 58, 0.98);
   }
   
-#canvas-wrapper {
+#loading-message {
     position: relative;
-    top: calc(50% - 60px);
-    left: calc(50% - 60px);
+    top: 20%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 450px;
+    height: 250px;
 }
 
 #adb {
@@ -161,4 +219,29 @@ form[name=rcps] label {
 #adb li {
     color: #333333;
     list-style-type: circle;
+}
+
+#logo-laptop {
+    position: absolute;
+    top: 737px;
+    right: 0px;
+    z-index: 9000;
+    height: 45px;
+    width: 110px;
+    background-image:url(../img/logo-laptop.svg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    visibility: visible;
+}
+
+#logo-mobile {
+    position: absolute;
+    top: 518px;
+    right: 9px;
+    z-index: 9000;
+    height: 25px;
+    width: 25px;
+    background-image:url(../img/logo-mobile.svg);
+    background-repeat: no-repeat;
+    visibility: hidden;
 }

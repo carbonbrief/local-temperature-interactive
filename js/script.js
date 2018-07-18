@@ -21,19 +21,22 @@ var map = new mapboxgl.Map({
         }]
     },
     // style: 'https://openmaptiles.github.io/positron-gl-style/style-cdn.json',
-    center: [0, 10],
-    zoom: 1.5,
-    maxZoom: 6
+    center: [5, 10],
+    zoom: 1.8,
+    maxZoom: 6,
+    pitchWithRotate: false,
+    dragRotate: false,
+    touchZoomRotate: false
 });
 
 // Add zoom and rotation controls to the map.
-map.addControl(new mapboxgl.NavigationControl());
+map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
 
 map.on('load', function() {
 
     map.addSource("tiles", {
         "type": 'geojson',
-        "data": './data/tiles-merge.geojson'
+        "data": './data/tiles-merge3.geojson'
     });
 
     map.addLayer({
@@ -152,4 +155,10 @@ map.on('load', function() {
 $(document).ready(function () {
     rcps.reset();
 })
+
+// REMOVE LOADING MASK AFTER SHORT INTERVAL
+
+setTimeout (function() {
+    $('#loading').css('visibility', 'hidden');
+}, 5000);
 
