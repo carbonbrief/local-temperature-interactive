@@ -10,13 +10,14 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/toggle.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     </head>
     <body>
-        <div id="landing-console">
+        <div id="landing-console" class="console">
             <div class="session" id="#key">
                 <div id="key-title">
-                    <h2>Warming, &deg;C</h2>
+                    <h3>Warming, &deg;C</h3>
                 </div>
                 <div id="key-labels">
                     <div id="unit1" class="unit"><p>0</p></div>
@@ -32,7 +33,7 @@
                 </div>
             </div>
             <div class="session">
-                <h2>Scenario</h2>
+                <h3>Scenario</h3>
                 <form name="rcps">
                     <input type="radio" id="rcp26"
                      name="rcp-radio" value="rcp26" checked="checked">
@@ -64,6 +65,18 @@
             <div id="adb">
                 <i class="fa fa-info-circle" aria-hidden="true"></i><p>Map tiles failed to load. This might be because:<ul><li>Your adblocker is preventing the map tiles from rendering. Please try whitelisting this site and refreshing the page.</li><li>Your browser does not support WebGL – click <a href='https://get.webgl.org/' target="_blank">here</a> to check. Please upgrade or reopen this link in a <a href='https://www.mapbox.com/help/mapbox-browser-support/' target="_blank">modern web browser</a>, such as Firefox, Chrome or Safari (version 9.0+).</li></ul></p>
             </div>
+        </div>
+        <div id="second-console" class="console console-initial">
+            <div id="console-toggle">
+                <a href="#" class="toggle"><span class="arrow-left-hidden" id="arrow-left">&#10094;</span><span class="arrow-right-showing" id="arrow-right">&#10095;</span></a>
+            </div>
+            <h2>Temperature change near <span id="city">X</span></h2>
+            <h3>Historic</h3>
+            <p>This region has warmed by x% compared to the global average.</p>
+            <div id="graph1" class="session graph"></div>
+            <h3>Future</h3>
+            <p>It is predicted to warm by between <span>x</span>C-<span>y</span>C by 2050.</p>
+            <div id="graph2" class="session graph"></div>
         </div>
         <div class="logo" id="logo-mobile"></div>
         <div class="logo" id="logo-laptop"></div>

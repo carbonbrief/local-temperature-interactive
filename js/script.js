@@ -148,6 +148,18 @@ map.on('load', function() {
         // console.log("leave");
     });
 
+    map.on("click", "tile-fills", function(e) {
+
+        $('#second-console').removeClass('console-initial console-close').addClass('console-open');
+        $('#arrow-left').removeClass("arrow-left-showing").addClass("arrow-left-hidden");
+        $('#arrow-right').removeClass("arrow-right-hidden").addClass("arrow-right-showing");
+
+        console.log("show console");
+
+    })
+
+
+
 });
 
 // RESET RADIO ON WINDOW RELOAD
@@ -161,4 +173,12 @@ $(document).ready(function () {
 setTimeout (function() {
     $('#loading').css('visibility', 'hidden');
 }, 5000);
+
+// TOGGLE BUTTON
+
+$(".toggle").click(function() {
+    $("#second-console").toggleClass('console-close console-open');
+    $('#arrow-left').toggleClass('arrow-left-showing arrow-left-hidden');
+    $('#arrow-right').toggleClass('arrow-right-hidden arrow-right-showing');
+});
 
