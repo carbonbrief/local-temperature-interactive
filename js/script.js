@@ -156,6 +156,27 @@ map.on('load', function() {
 
         console.log("show console");
 
+        // var polygon = e.features[0].geometry.coordinates;
+        // var fit = new L.Polygon(polygon).getBounds();
+        // var southWest = new mapboxgl.LngLat(fit['_southWest']['lat'], fit['_southWest']['lng']);
+        // var northEast = new mapboxgl.LngLat(fit['_northEast']['lat'], fit['_northEast']['lng']);
+        // var center = new mapboxgl.LngLatBounds(southWest, northEast).getCenter();
+        // map.flyTo({center: center, zoom: 6});
+        // map.fitBounds(new mapboxgl.LngLatBounds(southWest, northEast));
+
+        var coordinates = e.features[0].geometry.coordinates[0];
+        var bounds = coordinates.reduce(function (bounds, coord) {
+            return bounds.extend(coord);
+        }, new mapboxgl.LngLatBounds(coordinates[0] - 4, coordinates[0]));
+
+        console.log(bounds);
+        // var center = new mapboxgl.LngLatBounds(bounds).getCenter();
+        // map.flyTo({center: center, zoom: 6});
+
+        map.fitBounds(bounds, {
+            padding: 20
+        });
+
     })
 
 
