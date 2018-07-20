@@ -23,7 +23,7 @@ var map = new mapboxgl.Map({
     // style: 'https://openmaptiles.github.io/positron-gl-style/style-cdn.json',
     center: [5, 10],
     zoom: 1.8,
-    maxZoom: 6,
+    maxZoom: 5.5,
     // remove options to rotate or change the pitch of the map
     pitchWithRotate: false,
     dragRotate: false,
@@ -154,47 +154,65 @@ map.on('load', function() {
 
     map.on("click", "tile-fills", function(e) {
 
+        // BRING IN CONSOLE
+
         $('#second-console').removeClass('console-initial console-close').addClass('console-open');
         $('#arrow-left').removeClass("arrow-left-showing").addClass("arrow-left-hidden");
         $('#arrow-right').removeClass("arrow-right-hidden").addClass("arrow-right-showing");
 
         console.log("show console");
 
-        // var polygon = e.features[0].geometry.coordinates;
-        // var fit = new L.Polygon(polygon).getBounds();
-        // var southWest = new mapboxgl.LngLat(fit['_southWest']['lat'], fit['_southWest']['lng']);
-        // var northEast = new mapboxgl.LngLat(fit['_northEast']['lat'], fit['_northEast']['lng']);
-        // var center = new mapboxgl.LngLatBounds(southWest, northEast).getCenter();
-        // map.flyTo({center: center, zoom: 6});
-        // map.fitBounds(new mapboxgl.LngLatBounds(southWest, northEast));
+        // HIGHLIGHT CLICKED FEATURE
+
+        var features = map.queryRenderedFeatures(e.point, { layers: ['tile-fills'] });
+        if (!features.length) {
+            return;
+        }
+        if (typeof map.getLayer('selectedTile') !== "undefined" ){         
+            map.removeLayer('selectedTile')
+            map.removeSource('selectedTile');   
+        }
+        var feature = features[0];
+        //I think you could add the vector tile feature to the map, but I'm more familiar with JSON
+        console.log(feature.toJSON());
+        map.addSource('selectedTile', {
+            "type":"geojson",
+            "data": feature.toJSON()
+        });
+        map.addLayer({
+            "id": "selectedTile",
+            "type": "line",
+            "source": "selectedTile",
+            "layout": {
+                "line-join": "round",
+                "line-cap": "round"
+            },
+            "paint": {
+                "line-color": "white",
+                'line-width': {
+                    "type": "exponential",
+                    "stops": [
+                        [1.5,0.5],
+                        [3,1],
+                        [5,2],
+                        [7,3.5]
+                    ]
+                }
+            }
+        });
+
+        // ADJUST VIEW OF MAP
 
         var coordinates = e.features[0].geometry.coordinates[0];
         var bounds = coordinates.reduce(function (bounds, coord) {
             return bounds.extend(coord);
         }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
 
-        console.log(bounds);
-
-        // var northEast = {
-        //     lng: bounds._ne.lng + 2,
-        //     lat: bounds._ne.lat
-        // };
-
-        // var southWest = {
-        //     lng: bounds._sw.lng + 2,
-        //     lat: bounds._sw.lat
-        // };
-
-        // newBounds = {
-        //     _ne: northEast,
-        //     _sw: southWest
-        // };
-
-        // console.log(newBounds);
+        // console.log(bounds);
 
         var getPaddingRight = screenWidth/2;
 
-        console.log(getPaddingRight);
+        // console.log(getPaddingRight);
 
         map.fitBounds(bounds, {
             padding: {
