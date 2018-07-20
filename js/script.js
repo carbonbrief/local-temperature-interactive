@@ -24,10 +24,14 @@ var map = new mapboxgl.Map({
     center: [5, 10],
     zoom: 1.8,
     maxZoom: 6,
+    // remove options to rotate or change the pitch of the map
     pitchWithRotate: false,
     dragRotate: false,
     touchZoomRotate: false
 });
+
+// variable to use throughout
+var screenWidth = $(window).width();
 
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
@@ -167,14 +171,38 @@ map.on('load', function() {
         var coordinates = e.features[0].geometry.coordinates[0];
         var bounds = coordinates.reduce(function (bounds, coord) {
             return bounds.extend(coord);
-        }, new mapboxgl.LngLatBounds(coordinates[0] - 4, coordinates[0]));
+        }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
 
         console.log(bounds);
-        // var center = new mapboxgl.LngLatBounds(bounds).getCenter();
-        // map.flyTo({center: center, zoom: 6});
+
+        // var northEast = {
+        //     lng: bounds._ne.lng + 2,
+        //     lat: bounds._ne.lat
+        // };
+
+        // var southWest = {
+        //     lng: bounds._sw.lng + 2,
+        //     lat: bounds._sw.lat
+        // };
+
+        // newBounds = {
+        //     _ne: northEast,
+        //     _sw: southWest
+        // };
+
+        // console.log(newBounds);
+
+        var getPaddingRight = screenWidth/2;
+
+        console.log(getPaddingRight);
 
         map.fitBounds(bounds, {
-            padding: 20
+            padding: {
+                top: 20,
+                right: getPaddingRight,
+                left: 20,
+                bottom: 20
+            }
         });
 
     })
