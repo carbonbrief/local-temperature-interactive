@@ -6,10 +6,10 @@ var map = new mapboxgl.Map({
             "simple-tiles": {
                 "type": "raster",
                 "tiles": [
-                    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}"
+                    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}"
                 ],
                 "tileSize": 256,
-                attribution: 'Tiles &copy; Esri &mdash; Source: USGS, Esri, TANA, DeLorme, and NPS'
+                attribution: 'Tiles &copy; Esri &mdash; Source: Esri'
             }
         },
         "layers": [{
@@ -23,7 +23,7 @@ var map = new mapboxgl.Map({
     // style: 'https://openmaptiles.github.io/positron-gl-style/style-cdn.json',
     center: [5, 10],
     zoom: 1.8,
-    maxZoom: 5.8,
+    maxZoom: 5.6,
     // remove options to rotate or change the pitch of the map
     pitchWithRotate: false,
     dragRotate: false,
@@ -65,8 +65,8 @@ map.on('load', function() {
             },
             "fill-opacity": ["case",
                 ["boolean", ["feature-state", "hover"], false],
-                0.05,
-                0.7
+                0.1,
+                0.65
             ]
         }
     });
@@ -157,10 +157,16 @@ map.on('load', function() {
         // BRING IN CONSOLE
 
         $('#second-console').removeClass('console-initial console-close').addClass('console-open');
-        $('#arrow-left').removeClass("arrow-left-showing").addClass("arrow-left-hidden");
-        $('#arrow-right').removeClass("arrow-right-hidden").addClass("arrow-right-showing");
+        $('#arrow-left').removeClass("arrow-showing").addClass("arrow-hidden");
+        $('#arrow-right').removeClass("arrow-hidden").addClass("arrow-showing");
 
-        console.log("show console");
+        // console.log("show console");
+
+        // BRING DOWN KEY
+
+        $('#landing-console').removeClass('console-up').addClass('console-down');
+        $('#arrow-down').removeClass("arrow-showing").addClass("arrow-hidden");
+        $('#arrow-up').removeClass("arrow-hidden").addClass("arrow-showing");
 
         // HIGHLIGHT CLICKED FEATURE
 
@@ -195,7 +201,7 @@ map.on('load', function() {
                         [1.5,0.5],
                         [3,1],
                         [5,2],
-                        [7,3.5]
+                        [7,3.2]
                     ]
                 }
             }
@@ -210,7 +216,7 @@ map.on('load', function() {
 
         // console.log(bounds);
 
-        var getPaddingRight = screenWidth/2;
+        var getPaddingRight = (screenWidth/2);
 
         // console.log(getPaddingRight);
 
@@ -243,9 +249,15 @@ setTimeout (function() {
 
 // TOGGLE BUTTON
 
-$(".toggle").click(function() {
+$("#toggle-across").click(function() {
     $("#second-console").toggleClass('console-close console-open');
-    $('#arrow-left').toggleClass('arrow-left-showing arrow-left-hidden');
-    $('#arrow-right').toggleClass('arrow-right-hidden arrow-right-showing');
+    $('#arrow-left').toggleClass('arrow-showing arrow-hidden');
+    $('#arrow-right').toggleClass('arrow-hidden arrow-showing');
+});
+
+$("#toggle-down").click(function() {
+    $("#landing-console").toggleClass('console-up console-down');
+    $('#arrow-up').toggleClass('arrow-showing arrow-hidden');
+    $('#arrow-down').toggleClass('arrow-hidden arrow-showing');
 });
 

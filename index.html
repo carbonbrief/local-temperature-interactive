@@ -14,72 +14,77 @@
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     </head>
     <body>
-        <div id="landing-console" class="console">
-            <div class="session" id="#key">
-                <div id="key-title">
-                    <h3>Warming, &deg;C</h3>
+        <div id="wrapper">
+            <div id="landing-console" class="console console-up">
+                <div id="landing-console-toggle">
+                    <a href="#" class="toggle" id="toggle-down"><span class="arrow-hidden" id="arrow-up">&#9650;</span><span class="arrow-showing" id="arrow-down">&#9660;</span></a>
                 </div>
-                <div id="key-labels">
-                    <div id="unit1" class="unit"><p>0</p></div>
-                    <div id="unit2" class="unit"><p>2</p></div>
-                    <div id="unit3" class="unit"><p>4+</p></div>
+                <div class="session" id="#key">
+                    <div id="key-title">
+                        <h3>Warming, &deg;C</h3>
+                    </div>
+                    <div id="key-labels">
+                        <div id="unit1" class="unit"><p>0</p></div>
+                        <div id="unit2" class="unit"><p>2</p></div>
+                        <div id="unit3" class="unit"><p>4+</p></div>
+                    </div>
+                    <div id="ticks">
+                        <div id="tick1" class="tick"></div>
+                    </div>
+                    <div id="key-colors" class="colors"></div>
+                    <div>
+                        <p class="label-text">Between 1880-1900 and 2080-2100 temperatures.</p>
+                    </div>
                 </div>
-                <div id="ticks">
-                    <div id="tick1" class="tick"></div>
+                <div class="session">
+                    <h3>Scenario</h3>
+                    <form name="rcps">
+                        <input type="radio" id="rcp26"
+                            name="rcp-radio" value="rcp26" checked="checked">
+                        <label for="rcp26">RCP 2.6</label>
+                    
+                        <input type="radio" id="rcp45"
+                            name="rcp-radio" value="rcp45">
+                        <label for="rcp45">RCP 4.5</label>
+                    
+                        <input type="radio" id="rcp60"
+                            name="rcp-radio" value="rcp60">
+                        <label for="rcp60">RCP 6.0</label>
+    
+                        <input type="radio" id="rcp85"
+                            name="rcp-radio" value="rcp85">
+                        <label for="rcp85">RCP 8.5</label>
+                    </form>
+                    <p class="label-text">These four pathways describe different levels of greenhouse gases and other radiative forcings that might occur in the future.</p>
                 </div>
-                <div id="key-colors" class="colors"></div>
-                <div>
-                    <p class="label-text">Between 1880-1900 and 2080-2100 temperatures.</p>
+            </div>
+            <div id='loading'>
+                <div id="loading-message">
+                    <h1>How will your local area warm in the future?</h1>
+                    <h4>Loading 64,800 regions&hellip;</h4>
+                    <div class="colors" id="loading-colors"></div>
                 </div>
             </div>
-            <div class="session">
-                <h3>Scenario</h3>
-                <form name="rcps">
-                    <input type="radio" id="rcp26"
-                     name="rcp-radio" value="rcp26" checked="checked">
-                    <label for="rcp26">RCP 2.6</label>
-                
-                    <input type="radio" id="rcp45"
-                     name="rcp-radio" value="rcp45">
-                    <label for="rcp45">RCP 4.5</label>
-                
-                    <input type="radio" id="rcp60"
-                     name="rcp-radio" value="rcp60">
-                    <label for="rcp60">RCP 6.0</label>
-
-                    <input type="radio" id="rcp85"
-                     name="rcp-radio" value="rcp85">
-                    <label for="rcp85">RCP 8.5</label>
-                </form>
-                <p class="label-text">These four pathways describe different levels of greenhouse gases and other radiative forcings that might occur in the future.</p>
+            <div id="map">
+                <div id="adb">
+                    <i class="fa fa-info-circle" aria-hidden="true"></i><p>Map tiles failed to load. This might be because:<ul><li>Your adblocker is preventing the map tiles from rendering. Please try whitelisting this site and refreshing the page.</li><li>Your browser does not support WebGL – click <a href='https://get.webgl.org/' target="_blank">here</a> to check. Please upgrade or reopen this link in a <a href='https://www.mapbox.com/help/mapbox-browser-support/' target="_blank">modern web browser</a>, such as Firefox, Chrome or Safari (version 9.0+).</li></ul></p>
+                </div>
             </div>
-        </div>
-        <div id='loading'>
-            <div id="loading-message">
-                <h1>How will your local area warm in the future?</h1>
-                <h4>Loading 64,800 regions&hellip;</h4>
-                <div class="colors" id="loading-colors"></div>
+            <div id="second-console" class="console console-initial">
+                <div id="console-toggle">
+                    <a href="#" class="toggle" id="toggle-across"><span class="arrow-hidden" id="arrow-left">&#9668;</span><span class="arrow-showing" id="arrow-right">&#9658;</span></a>
+                </div>
+                <h2>Temperature change near <span id="city">X</span>, [country name]</h2>
+                <h3>Historic</h3>
+                <p>This region has warmed by <b><span id="warming">x</span>%</b> compared to the global average.</p>
+                <div id="graph1" class="session graph"></div>
+                <h3>Future</h3>
+                <p>It is predicted to warm by between <b><span>x</span>C-<span>y</span>C</b> by 2050.</p>
+                <div id="graph2" class="session graph"></div>
             </div>
+            <div class="logo" id="logo-mobile"></div>
+            <div class="logo" id="logo-laptop"></div>
         </div>
-        <div id="map">
-            <div id="adb">
-                <i class="fa fa-info-circle" aria-hidden="true"></i><p>Map tiles failed to load. This might be because:<ul><li>Your adblocker is preventing the map tiles from rendering. Please try whitelisting this site and refreshing the page.</li><li>Your browser does not support WebGL – click <a href='https://get.webgl.org/' target="_blank">here</a> to check. Please upgrade or reopen this link in a <a href='https://www.mapbox.com/help/mapbox-browser-support/' target="_blank">modern web browser</a>, such as Firefox, Chrome or Safari (version 9.0+).</li></ul></p>
-            </div>
-        </div>
-        <div id="second-console" class="console console-initial">
-            <div id="console-toggle">
-                <a href="#" class="toggle"><span class="arrow-left-hidden" id="arrow-left">&#10094;</span><span class="arrow-right-showing" id="arrow-right">&#10095;</span></a>
-            </div>
-            <h2>Temperature change near <span id="city">X</span></h2>
-            <h3>Historic</h3>
-            <p>This region has warmed by <b><span id="warming">x</span>%</b> compared to the global average.</p>
-            <div id="graph1" class="session graph"></div>
-            <h3>Future</h3>
-            <p>It is predicted to warm by between <b><span>x</span>C-<span>y</span>C</b> by 2050.</p>
-            <div id="graph2" class="session graph"></div>
-        </div>
-        <div class="logo" id="logo-mobile"></div>
-        <div class="logo" id="logo-laptop"></div>
         <script src="js/script.js"></script>
     </body>
 </html>
