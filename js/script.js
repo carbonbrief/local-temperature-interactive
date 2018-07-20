@@ -6,10 +6,10 @@ var map = new mapboxgl.Map({
             "simple-tiles": {
                 "type": "raster",
                 "tiles": [
-                    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}"
+                    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Terrain_Base/MapServer/tile/{z}/{y}/{x}"
                 ],
                 "tileSize": 256,
-                attribution: 'Tiles &copy; Esri &mdash; Source: US National Park Service'
+                attribution: 'Tiles &copy; Esri &mdash; Source: USGS, Esri, TANA, DeLorme, and NPS'
             }
         },
         "layers": [{
@@ -23,7 +23,7 @@ var map = new mapboxgl.Map({
     // style: 'https://openmaptiles.github.io/positron-gl-style/style-cdn.json',
     center: [5, 10],
     zoom: 1.8,
-    maxZoom: 5.5,
+    maxZoom: 5.8,
     // remove options to rotate or change the pitch of the map
     pitchWithRotate: false,
     dragRotate: false,
