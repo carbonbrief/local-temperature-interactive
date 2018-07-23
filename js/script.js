@@ -1,3 +1,7 @@
+// variables to use throughout
+var screenWidth = $(window).width();
+var consoleWidth = $("#second-console").width();
+
 var map = new mapboxgl.Map({
     container: 'map',
     style: {
@@ -22,17 +26,30 @@ var map = new mapboxgl.Map({
     },
     // style: 'https://openmaptiles.github.io/positron-gl-style/style-cdn.json',
     center: [5, 10],
-    zoom: 1.8,
-    maxZoom: 5.5,
+    zoom: getMinZoom(screenWidth) + 0.3,
+    // set so that can zoom in less far on a mobile, to avoid disorientation
+    maxZoom: getMinZoom(screenWidth) + 4,
+    // set so that can zoom out less far on a desktop, to avoid having to render too many tiles
+    minZoom: getMinZoom(screenWidth),
     // remove options to rotate or change the pitch of the map
     pitchWithRotate: false,
     dragRotate: false,
     touchZoomRotate: false
 });
 
-// variables to use throughout
-var screenWidth = $(window).width();
-var consoleWidth = $("#second-console").width();
+function getMinZoom () {
+    if (screenWidth > 1200) {
+        return 1.5
+    } else if (1201 > screenWidth && screenWidth > 900) {
+        return 1
+    }  else if (901 > screenWidth && screenWidth > 600) {
+        return 0.5
+    }  else {
+        return 0
+    }
+}
+
+console.log(getMaxZoom(screenWidth));
 
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
@@ -67,7 +84,7 @@ map.on('load', function() {
             "fill-opacity": ["case",
                 ["boolean", ["feature-state", "hover"], false],
                 0.1,
-                0.6
+                0.62
             ]
         }
     });
@@ -219,8 +236,8 @@ map.on('load', function() {
 
         var getPaddingRight = (consoleWidth + 90);
 
-        console.log(consoleWidth);
-        console.log(getPaddingRight);
+        // console.log(consoleWidth);
+        // console.log(getPaddingRight);
 
         map.fitBounds(bounds, {
             padding: {

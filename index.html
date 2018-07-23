@@ -10,8 +10,8 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
         <link rel="stylesheet" href="css/style.css">
-        <link rel="stylesheet" href="css/responsive.css">
         <link rel="stylesheet" href="css/toggle.css">
+        <link rel="stylesheet" href="css/responsive.css">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
     </head>
     <body>
@@ -37,8 +37,8 @@
                         <p class="label-text">Between 1880-1900 and 2080-2100 temperatures.</p>
                     </div>
                 </div>
-                <div class="session">
-                    <h3>Scenario</h3>
+                <div class="session" id="pathway-toggle">
+                    <h3>Pathway</h3>
                     <form name="rcps">
                         <input type="radio" id="rcp26"
                             name="rcp-radio" value="rcp26" checked="checked">
@@ -56,7 +56,7 @@
                             name="rcp-radio" value="rcp85">
                         <label for="rcp85">RCP 8.5</label>
                     </form>
-                    <p class="label-text">These four pathways describe different levels of greenhouse gases and other radiative forcings that might occur in the future.</p>
+                    <p class="label-text">Different levels of greenhouse gases and other radiative forcings that might occur in the future.</p>
                 </div>
             </div>
             <div id='loading'>
