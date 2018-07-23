@@ -13,15 +13,17 @@
     right: 0px;
     top: 0px;
     padding: 10px;
+    padding-right: 15px;
     position: absolute;
     z-index: 99999999;
     width: 12px;
     height: 12px;
-    display: block;
+    display: inline;
 }
   
 .toggle {
-    color: #949494;
+    color: #888888;
+    font-size: 12.5px;
     text-decoration: none;
     text-align: right;
 }

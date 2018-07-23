@@ -23,15 +23,16 @@ var map = new mapboxgl.Map({
     // style: 'https://openmaptiles.github.io/positron-gl-style/style-cdn.json',
     center: [5, 10],
     zoom: 1.8,
-    maxZoom: 5.6,
+    maxZoom: 5.5,
     // remove options to rotate or change the pitch of the map
     pitchWithRotate: false,
     dragRotate: false,
     touchZoomRotate: false
 });
 
-// variable to use throughout
+// variables to use throughout
 var screenWidth = $(window).width();
+var consoleWidth = $("#second-console").width();
 
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
@@ -216,9 +217,10 @@ map.on('load', function() {
 
         // console.log(bounds);
 
-        var getPaddingRight = (screenWidth/2);
+        var getPaddingRight = (consoleWidth + 90);
 
-        // console.log(getPaddingRight);
+        console.log(consoleWidth);
+        console.log(getPaddingRight);
 
         map.fitBounds(bounds, {
             padding: {
