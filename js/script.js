@@ -49,8 +49,6 @@ function getMinZoom () {
     }
 }
 
-console.log(getMaxZoom(screenWidth));
-
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
 
