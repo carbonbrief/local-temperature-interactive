@@ -32,4 +32,53 @@
     .graph {
         height: 220px;
     }
+
+    #landing-console {
+        width: 300px;
+        top: 500px;
+    }
+
+    .console {
+        padding: 8px 20px;
+    }
+
+    h3 {
+        font-size: 14.5px;
+        margin-top: 12px;
+        margin-bottom: 12px;
+    }
+
+    .console-down {
+        transform: translateY(calc(55%)) !important;
+        -ms-transform: translateY(calc(55%)) !important;
+        -webkit-transform: translateY(calc(55%)) !important;
+    }
+}
+
+@media screen and (max-width: 900px) {
+
+}
+
+@media screen and (max-width: 570px) {
+
+    #map {
+        height: 510px;
+    }
+
+    #wrapper {
+        height: 510px;
+    }
+
+}
+
+@media screen and (max-width: 410px) {
+
+    #map {
+        height: 410px;
+    }
+
+    #wrapper {
+        height: 410px;
+    }
+
 }

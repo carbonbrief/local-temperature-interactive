@@ -67,7 +67,7 @@ map.on('load', function() {
             "fill-opacity": ["case",
                 ["boolean", ["feature-state", "hover"], false],
                 0.1,
-                0.65
+                0.6
             ]
         }
     });
