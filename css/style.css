@@ -34,7 +34,7 @@ body {
 #landing-console {
     position: absolute;
     width: 350px;
-    top: 508px;
+    top: 512px;
 }
 
 #second-console {
@@ -83,7 +83,6 @@ i {
     padding: 4px;
     border-radius: 2px;
     font-size: 12.5px;
-    
 }
 
 .download:hover {
@@ -329,7 +328,7 @@ form[name=rcps] label {
 
 #logo-mobile {
     position: absolute;
-    top: 445px;
+    top: 447px;
     right: 9px;
     height: 27px;
     width: 27px;

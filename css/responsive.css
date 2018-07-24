@@ -125,7 +125,8 @@
     }
 
     #landing-console {
-        width: 260px;
+        width: 250px;
+        top: 470px;
     }
 
     .graph {

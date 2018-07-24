@@ -71,16 +71,16 @@
     -ms-transform: translateY(0px);
     -webkit-transform: translateY(0px);
     transition-duration: 0.6s;
-    -webkit-transition-duration: 0.46;
+    -webkit-transition-duration: 0.6;
     transition-property: transform;
     -webkit-transition-property: transform;
     -moz-transition-property: transform;
 }
 
 .console-down {
-    transform: translateY(calc(50%));
-    -ms-transform: translateY(calc(50%));
-    -webkit-transform: translateY(calc(50%));
+    transform: translateY(calc(52%));
+    -ms-transform: translateY(calc(52%));
+    -webkit-transform: translateY(calc(52%));
     transition-duration: 0.6s;
     -webkit-transition-duration: 0.6s;
     transition-property: transform;
