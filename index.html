@@ -12,7 +12,7 @@
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/toggle.css">
         <link rel="stylesheet" href="css/responsive.css">
-        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     </head>
     <body>
         <div id="wrapper">
@@ -75,13 +75,16 @@
                 <div id="console-toggle">
                     <a href="#" class="toggle" id="toggle-across"><span class="arrow-hidden" id="arrow-left">&#9668;</span><span class="arrow-showing" id="arrow-right">&#9658;</span></a>
                 </div>
-                <h2>Temperature change near <span id="city">X</span>, [country name]</h2>
+                <h2>Temperature change near <span id="city">[city name]</span></h2>
+                <h4>[country name]</h4>
                 <h3>Historic</h3>
-                <p>This region has warmed by <b><span id="warming">x</span>%</b> compared to the global average.</p>
+                <p class="label-text">This region has warmed by <span class="stat"><span id="warming">x</span>%</span> compared to the global average.</p>
                 <div id="graph1" class="session graph"></div>
+                <div class="download-button"><a href="index.html" download="../data/placeholder.html" class="download">Data <i class="fas fa-file-download"></i></a></div>
                 <h3>Future</h3>
-                <p>It is predicted to warm by between <b><span>x</span>C-<span>y</span>C</b> by 2050.</p>
+                <p class="label-text">It is predicted to warm by between <span class="stat"><span id="future-warming1-highlight highlight"><span id="future-warming1">x</span>C</span> - <span id="future-warming2-highlight highlight"><span id="future-warming2">y</span>C</span></span> by 2050.</p>
                 <div id="graph2" class="session graph"></div>
+                <div class="download-button"><a href="index.html" download="../data/placeholder.html" class="download">Data <i class="fas fa-file-download"></i></a></div>
             </div>
             <div class="logo" id="logo-mobile"></div>
             <div class="logo" id="logo-laptop"></div>

@@ -24,7 +24,7 @@ body {
 }
 
 .console {
-    background-color: rgba(51, 51, 51, 0.796);
+    background-color: rgba(51, 51, 51, 0.82);
     z-index: 5;
     margin: 10px;
     border-radius: 5px;
@@ -43,6 +43,7 @@ body {
     position: absolute;
     left: 50%;
     padding-left: 35px;
+    overflow: scroll;
 }
   
 .session {
@@ -50,19 +51,47 @@ body {
 }
 
 .graph {
-    height: 250px;
+    height: 225px;
     background-color: rgba(51, 51, 51, 0.5);
     border-radius: 5px;
+    margin-bottom: 6px;
 }
 
 p {
     color: #f3f3f3;
     font-size: 14px;
+    margin-top: 0.8em;
+    margin-bottom: 0.8em;
 }
 
 a {
-    color: #802ba4;
     text-decoration: none;
+    color: #b4b4b4;
+}
+
+a:hover {
+    color: #ffffff;
+}
+
+i {
+    width: 12px;
+    height: 12px;
+}
+
+.download {
+    background: rgba(51, 51, 51, 0.5);
+    padding: 4px;
+    border-radius: 2px;
+    font-size: 12.5px;
+    
+}
+
+.download:hover {
+    background: rgba(41, 41, 41, 0.7);
+}
+
+.download-button {
+    text-align: right;
 }
 
 #key {
@@ -87,20 +116,26 @@ h1 {
 h2 {
     font-family: PT Sans Narrow;
     font-weight: bold;
-    font-size: 28px;
+    font-size: 27px;
     color: #ffffff;
+    margin-top: 0.6em;
+    margin-bottom: 0.6em;
 }
 
 h3 {
-    font-size: 15px;
+    font-size: 16px;
     color: #eeeeee;
+    margin-bottom: 10px;
 }
 
 h4 {
     font-family: PT Serif, Georgia;
     font-style: italic;
     font-weight: normal;
+    font-size: 16px;
     color: #c4c4c4;
+    margin-top: 0.6em;
+    margin-bottom: 1.2em;
 }
 
 #key h2 {
@@ -132,9 +167,15 @@ h4 {
 
 .label-text {
     font-family: PT Serif;
-    font-style: italic;
+    font-style: normal;
     color: #bbbbbb;
-    font-size: 12px;
+    font-size: 13px;
+}
+
+.stat {
+    font-family: PT Sans;
+    font-size: 15px;
+    font-style: bold;
 }
 
 #ticks {
@@ -252,6 +293,10 @@ form[name=rcps] label {
     margin-top: 140px;
 }
 
+#adb a {
+    color: #802ba4;
+}
+
 #adb i {
     font-size: 18px;
 }
@@ -265,16 +310,20 @@ form[name=rcps] label {
     color: #333333;
 }
 
+.logo {
+    z-index: 3;
+    opacity: 0.8;
+    background-repeat: no-repeat;
+}
+
 #logo-laptop {
     position: absolute;
     top: 737px;
     right: 0px;
-    z-index: 9000;
     height: 45px;
     width: 110px;
     background-image:url(../img/logo-laptop.svg);
     background-size: contain;
-    background-repeat: no-repeat;
     visibility: visible;
 }
 
@@ -282,10 +331,8 @@ form[name=rcps] label {
     position: absolute;
     top: 445px;
     right: 9px;
-    z-index: 9000;
     height: 27px;
     width: 27px;
     background-image:url(../img/logo-mobile.svg);
-    background-repeat: no-repeat;
     visibility: hidden;
 }

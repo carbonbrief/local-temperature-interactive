@@ -1,37 +1,50 @@
-/* make sure that graphs not super wide on large screen */
+/* make sure that graphs not super wide on large screens */
 
-@media screen and (min-width: 1750px) {
+@media screen and (min-width: 1599px) {
     #second-console {
-        width: calc(30% - 80px);
-        left: 70%;
+        width: calc(29% - 80px);
+        left: 71%;
     }
 }
 
-@media (min-width: 1650px) and (max-width: 1749px) {
+@media screen and (max-width: 1600px) and (min-width: 1499px) {
     #second-console {
-        width: calc(35% - 80px);
-        left: 65%;
+        width: calc(32% - 80px);
+        left: 68%;
     }
 }
 
-@media (min-width: 1550px) and (max-width: 1649px) {
+@media screen and (max-width: 1500px) and (min-width: 1399px)  {
     #second-console {
-        width: calc(40% - 80px);
-        left: 60%;
+        width: calc(36% - 80px);
+        left: 64%;
     }
 }
 
-@media (min-width: 1450px) and (max-width: 1549px) {
+@media screen and (max-width: 1400px) and (min-width: 1299px)  {
     #second-console {
-        width: calc(45% - 80px);
-        left: 55%;
+        width: calc(41% - 80px);
+        left: 59%;
     }
 }
+
+@media screen and (max-width: 1300px) and (min-width: 1199px)  {
+    #second-console {
+        width: calc(44% - 80px);
+        left: 56%;
+    }
+}
+
+@media screen and (max-width: 1200px) and (min-width: 1099px)  {
+    #second-console {
+        width: calc(46% - 80px);
+        left: 54%;
+    }
+}
+
+/* adjust design for smaller screens and as iframe height changes */
 
 @media screen and (max-width: 1024px) {
-    .graph {
-        height: 220px;
-    }
 
     #landing-console {
         width: 300px;
@@ -49,6 +62,10 @@
         -webkit-transform: translateX(calc(100% - 20px));
     }
 
+    h2 {
+        font-size: 24.5px;
+    }
+
     h3 {
         font-size: 14.5px;
         margin-top: 12px;
@@ -59,6 +76,17 @@
         transform: translateY(calc(55%)) !important;
         -ms-transform: translateY(calc(55%)) !important;
         -webkit-transform: translateY(calc(55%)) !important;
+    }
+}
+
+@media screen and (max-width: 950px) {
+
+    h2 {
+        font-size: 24px;
+    }
+
+    .graph {
+        height: 225px;
     }
 }
 
@@ -75,7 +103,49 @@
     }
 
     h2 {
-        font-size: 25px;
+        font-size: 23px;
+    }
+
+    h4 {
+        font-size: 15px;
+    }
+
+    .label-text {
+        font-size: 12.5px;
+    }
+
+    p {
+        font-size: 13.5px;
+    }
+
+    #loading-message {
+        top: 15%;
+        width: 400px;
+        height: 225px;
+    }
+
+    #landing-console {
+        width: 260px;
+    }
+
+    .graph {
+        height: 220px;
+    }
+
+}
+
+@media screen and (max-width: 700px) {
+
+    .graph {
+        height: 190px;
+    }
+
+    #landing-console {
+        width: 240px;
+    }
+
+    p {
+        font-size: 13px;
     }
 
 }
@@ -90,6 +160,42 @@
 
 }
 
+@media screen and (max-width: 600px) {
+
+    /* move the console around as they start to interfere with each other */
+
+    #landing-console {
+        width: 200px;
+    }
+
+    #second-console {
+        height: calc(800px - 100px);
+        width: calc(65% - 76px);
+        left: 35%;
+    }
+
+    #landing-console-toggle {
+        visibility: hidden;
+    }
+
+    #key-colors {
+        height: 7px;
+    }
+
+    .tick {
+        height: 17px;
+    }
+
+    /* hide landing console when second console is brought in */
+
+    .console-down {
+        transform: translateY(calc(120%)) !important;
+        -ms-transform: translateY(calc(120%)) !important;
+        -webkit-transform: translateY(calc(120%)) !important;
+    }
+
+}
+
 @media screen and (max-width: 570px) {
 
     /* breakpoint for our website's iframe */
@@ -99,18 +205,16 @@
     }
 
     #landing-console {
-        top: 230px;
+        top: 330px;
+        width: 200px;
     }
 
     #second-console {
         height: calc(510px - 40px);
-        width: calc(65% - 80px);
-        left: 35%;
-        overflow: scroll;
     }
 
     .graph {
-        height: 150px;
+        height: 160px;
     }
 
     #wrapper {
@@ -139,8 +243,30 @@
         font-size: 22px;
     }
 
+    h4 {
+        font-size: 14px;
+    }
+
+    .label-text {
+        font-size: 12px;
+    }
+
+    p {
+        font-size: 13px;
+    }
+
     #pathway-toggle {
         display: none;
+    }
+
+    #loading-message {
+        top: 10%;
+        width: 350px;
+        height: 200px;
+    }
+
+    .toggle {
+        font-size: 12px;
     }
 
 }
@@ -161,6 +287,39 @@
         width: 25px;
         height: 25px;
         top: 350px;
+    }
+
+    #loading-message {
+        top: 8%;
+        width: 250px;
+        height: 170px;
+    }
+
+    h1 {
+        font-size: 29px;
+    }
+
+    h2 {
+        font-size: 19px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    .toggle {
+        font-size: 11.5px;
+    }
+
+    #second-console {
+        height: calc(410px - 40px);
+        width: calc(70% - 80px);
+        left: 30%;
+    }
+
+    #landing-console {
+        top: 220px;
+        width: 170px;
     }
 
 }
