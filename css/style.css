@@ -335,3 +335,10 @@ form[name=rcps] label {
     background-image:url(../img/logo-mobile.svg);
     visibility: hidden;
 }
+
+#scroll-area {
+    position: absolute;
+    right: 0px;
+    width: 40px;
+    height: 800px;       
+}

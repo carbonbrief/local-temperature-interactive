@@ -77,6 +77,10 @@
         -ms-transform: translateY(calc(55%)) !important;
         -webkit-transform: translateY(calc(55%)) !important;
     }
+
+    #scroll-area {
+        width: 30px;
+    }
 }
 
 @media screen and (max-width: 950px) {
@@ -147,6 +151,10 @@
 
     p {
         font-size: 13px;
+    }
+
+    #scroll-area {
+        width: 20px;
     }
 
 }
