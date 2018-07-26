@@ -89,6 +89,10 @@ i {
     background: rgba(41, 41, 41, 0.7);
 }
 
+.share {
+    margin-right: 3px;
+}
+
 .download-button {
     text-align: right;
 }

@@ -10,10 +10,10 @@ var map = new mapboxgl.Map({
             "simple-tiles": {
                 "type": "raster",
                 "tiles": [
-                    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Shaded_Relief/MapServer/tile/{z}/{y}/{x}"
+                    "https://server.arcgisonline.com/ArcGIS/rest/services/World_Physical_Map/MapServer/tile/{z}/{y}/{x}"
                 ],
                 "tileSize": 256,
-                attribution: 'Tiles &copy; Esri &mdash; Source: Esri'
+                attribution: 'Tiles &copy; Esri &mdash; Source: US National Park Service'
             }
         },
         "layers": [{
@@ -28,7 +28,7 @@ var map = new mapboxgl.Map({
     center: [5, 10],
     zoom: getMinZoom(screenWidth) + 0.3,
     // set so that can zoom in less far on a mobile, to avoid disorientation
-    maxZoom: getMinZoom(screenWidth) + 4,
+    maxZoom: getMinZoom(screenWidth) + 3.8,
     // set so that can zoom out less far on a desktop, to avoid having to render too many tiles
     minZoom: getMinZoom(screenWidth),
     // remove options to rotate or change the pitch of the map
@@ -81,8 +81,8 @@ map.on('load', function() {
             },
             "fill-opacity": ["case",
                 ["boolean", ["feature-state", "hover"], false],
-                0.1,
-                0.62
+                0.2,
+                0.65
             ]
         }
     });
@@ -98,8 +98,8 @@ map.on('load', function() {
                 "type": "exponential",
                 "stops": [
                     [1.5,0],
-                    [3,0.2],
-                    [5,0.4],
+                    [3,0.15],
+                    [5,0.3],
                 ]
             },
             'line-width': {
