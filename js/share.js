@@ -26,7 +26,14 @@ $('#map').on('click', function(ev) {
         .addClass('twitter-share-button')
         .attr('href', 'http://twitter.com/share')
         .attr('data-url', 'http://test.com')
+        .attr('data-via', 'CarbonBrief')
         .attr('data-text', $('#historic').text());
     $('#tweetBtn').append(tweetBtn);
     twttr.widgets.load();
+    // twttr.widgets.onload(changeColor);
+
+    // function changeColor () {
+    //     $('.btn').css("background-color", "#333333");
+    //     console.log("change color");
+    // }
 });
