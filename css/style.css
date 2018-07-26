@@ -73,6 +73,15 @@ a:hover {
     color: #ffffff;
 }
 
+button {
+    border: none;
+    color: #b4b4b4;
+}
+
+button:hover {
+    color: #ffffff;
+}
+
 i {
     width: 12px;
     height: 12px;
