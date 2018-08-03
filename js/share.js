@@ -40,6 +40,6 @@ newText2 = newText2.slice(2, -1);
 // add city to beginning
 newText2 = cityName + newText2;
 var encoded2 = encodeURI(newText2);
-console.log(encoded2);
+// console.log(encoded2);
 var customTweet2 = baseTweet2 += encoded2 += credit;
 $('#custom2 > a').attr('href', customTweet2);
