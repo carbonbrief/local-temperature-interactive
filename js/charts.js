@@ -1,7 +1,7 @@
 var margin = {top: 10, right: 15, bottom: 30, left: 45},
     // calculate the width of the chart from the width of the line-wrapper
     width = parseInt(d3.select("#graph1").style("width")) - margin.left - margin.right,
-    height = 2220 - margin.top - margin.bottom;
+    height = 220 - margin.top - margin.bottom;
 
 var parseDate = d3.timeParse("%Y");
 // var parseDate2 = d3.timeParse("%Y%m%d");
@@ -47,9 +47,9 @@ var yearFormat = d3.timeFormat("%Y");
 
 var decimalFormat = d3.format(",.0f");
 
-var csv = '../data/charts/gridcell' + 89.5 + "_" + 150.5 + ".csv";
+var csv = "../data/charts/gridcell_" + 89.5 + "_" + 150.5 + ".csv";
 
-function drawChart(csv){
+function drawChart(){
     d3.csv(csv, function(error, data) {
 
         if (error) throw error;
@@ -57,12 +57,12 @@ function drawChart(csv){
         // format the data
         data.forEach(function(d) {
             d.year = parseDate(d.year);
-            d.anomaly = d.obs_anoms;
+            d.anomaly = +d.obs_anoms;
         });
 
           // Scale the range of the data
         x.domain(d3.extent(data, function(d) { return d.year; }));
-        y.domain([0, d3.max(data, function(d) { return d.anomaly; })]);
+        y.domain(d3.extent(data, function(d) { return d.anomaly; }));
 
         // Add the valueline path.
         svg.append("path")
@@ -83,4 +83,4 @@ function drawChart(csv){
     })
 }
 
-drawChart();
+drawChart(csv);

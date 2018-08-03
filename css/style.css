@@ -363,3 +363,9 @@ form[name=rcps] label {
     width: 40px;
     height: 800px;       
 }
+
+.line {
+    fill: none;
+    stroke: white;
+    stroke-width: 1px;
+}
