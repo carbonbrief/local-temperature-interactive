@@ -140,7 +140,6 @@ map.on('load', function() {
             });
         }
     }
-
     
     var hoveredTileId = null;
 
@@ -245,6 +244,11 @@ map.on('load', function() {
                 bottom: 20
             }
         });
+
+        // ADD ID of tile to text
+
+        var id = e.features[0].id;
+        document.getElementById('city').innerText = id;
 
     })
 
