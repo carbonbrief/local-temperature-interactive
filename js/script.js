@@ -250,32 +250,21 @@ map.on('load', function() {
         var id = e.features[0].id;
         document.getElementById('city').innerText = id;
 
-        // find way of referencing CSV from Zeke's naming system
+        // VARIABLES FOR CSV
 
         console.log(coordinates);
         // grab first coordinate pair in square
         console.log(coordinates[0]);
-        // grab first of first pair
-        console.log(coordinates[0][0]);
-        // console.log(coordinates[0][0].toFixed(1));
-        // console.log(coordinates[0][0].toFixed(0));
-        // console.log(parseInt(coordinates[0][0]));
 
-        // variables that will use to obtains CSVs
-        // this is correct!
+        // centre coords of selected polygon that will use to obtains CSVs
+        // Mapbox adds lots of extra decimals so need to remove
+        // adding since goes L to R
         var midCoordLong = (coordinates[0][0] + 0.5).toFixed(1);
         // must subtract since goes top to bottom
         var midCoordLat = (coordinates[0][1] - 0.5).toFixed(1);
 
-        // var midCoordLong2 = (parseInt(coordinates[0][0])) + 0.5;
-        // var midCoordLong3 = coordinates[0][0].toFixed(0) + ".5";
-        // var midCoordLat2 = coordinates[0][1].toFixed(0) + ".5";
-
         console.log(midCoordLong);
         console.log(midCoordLat);
-        // console.log(midCoordLong2);
-        // console.log(midCoordLong3);
-        // console.log(midCoordLat2);
 
 
 

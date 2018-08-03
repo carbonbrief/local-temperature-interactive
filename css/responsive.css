@@ -1,5 +1,7 @@
 /* make sure that graphs not super wide on large screens */
 
+/* WHY DON'T JUST MAKE IT FIXED WIDTH ABOVE A CERTAIN SCREEN SIZE? */
+
 @media screen and (min-width: 1599px) {
     #second-console {
         width: calc(29% - 80px);
