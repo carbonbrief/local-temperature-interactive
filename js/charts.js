@@ -14,6 +14,7 @@ var y = d3.scaleLinear()
 
 // define the line
 var line = d3.line()
+    .defined(function(d) { return d; }) // Omit empty values
     .curve(d3.curveCardinal)
     .x(function(d) { return x(d.year); })
     .y(function(d) { return y(d.anomaly); });
@@ -49,6 +50,34 @@ var decimalFormat = d3.format(",.0f");
 
 var csv = "../data/charts/gridcell_" + 89.5 + "_" + 150.5 + ".csv";
 
+d3.csv(csv, function(error, data) {
+    var headers = d3.keys(data[0]).filter(function(head) {
+      return head != "year";
+    });
+
+    data.forEach(function(d) {
+      d.year = parseDate(d.year);
+    });
+
+    var categories = headers.map(function(name) {
+      
+      
+      return {
+        name: name,
+        // not yet working because an empty string is converted to 0 which is not NaN
+        // removes when add hyphens in place
+        values: data.filter(function(k){return !isNaN(+k[name]);}).map(function(d) {
+          return {
+            date: d.year,
+            rate: +(d[name]),
+          };
+        }),
+      };
+
+    });
+    console.log(categories)
+})
+
 function drawChart(){
     d3.csv(csv, function(error, data) {
 
@@ -60,7 +89,7 @@ function drawChart(){
             d.anomaly = +d.obs_anoms;
         });
 
-          // Scale the range of the data
+        // Extent should be fine for the x values once I've filter the null values from the data
         x.domain(d3.extent(data, function(d) { return d.year; }));
         y.domain(d3.extent(data, function(d) { return d.anomaly; }));
 
