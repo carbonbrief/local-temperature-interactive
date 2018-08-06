@@ -112,16 +112,9 @@ function drawChart(){
         
         circles.selectAll("circle")
         .data(data)
-        // .filter(function(d) {
-        //     if(d.anomaly != 1){
-        //         return d;
-        //     }
-        //     else{
-        //         return null;
-        //     }
-        // })
         .enter()
         .append("circle")
+        .filter(function(d) { return d.anomaly != 0 })
         .attr("r", 3)
         .attr("cx", function(d) { return x(d.year); })
         .attr("cy", function(d) { return y(d.anomaly); })
