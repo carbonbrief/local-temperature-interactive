@@ -372,6 +372,36 @@ form[name=rcps] label {
 
 .zero-line {
     fill: none;
-    stroke: rgb(97, 97, 97);
+    stroke: rgb(110, 110, 110);
     stroke-width: 1px;
+}
+
+.axis line{
+    stroke: #a5a5a5;
+}
+
+.axis path{
+    stroke: #a5a5a5;
+}
+
+.axis text{
+    fill: #d4d4d4;
+} 
+
+div.tooltip {
+    position: absolute;
+    max-width: 150px;
+    padding: 7px;
+    font-size: 12.5px;
+    background: #242a3a;
+    color: #f3f3f3;
+    border: 0px;
+    border-radius: 4px;
+    pointer-events: none;
+    z-index: 999999;
+  }
+  
+div.tooltip p {
+    margin-top: 3px;
+    margin-bottom: 0px;
 }

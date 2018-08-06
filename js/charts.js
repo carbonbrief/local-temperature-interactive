@@ -32,6 +32,12 @@ var xAxis = d3.axisBottom(x);
 
 var yAxis = d3.axisLeft(y);
 
+var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+var yearFormat = d3.timeFormat("%Y");
+
 var svg = d3.select("#graph1").append("svg")
     .attr("id", "svg-1")
     .attr("width", width + margin.left + margin.right)
@@ -39,12 +45,12 @@ var svg = d3.select("#graph1").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var svg2 = d3.select("#graph2").append("svg")
-    .attr("id", "svg-2")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+// var svg2 = d3.select("#graph2").append("svg")
+//     .attr("id", "svg-2")
+//     .attr("width", width + margin.left + margin.right)
+//     .attr("height", height + margin.top + margin.bottom)
+//     .append("g")
+//     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var div = d3.select("body").append("div")
     .attr("class", "tooltip")
@@ -71,7 +77,6 @@ function drawChart(){
             d.anomaly = +d.obs_anoms; // this is the bit that turns blanks to 0
         });
 
-        // Extent should be fine for the x values once I've filter the null values from the data
         x.domain([parseDate(1850), parseDate(2020)]);
         y.domain(d3.extent(data, function(d) { return d.anomaly; }));
 
@@ -89,12 +94,58 @@ function drawChart(){
 
         // Add the X Axis
         svg.append("g")
+        .attr("class", "x axis")
         .attr("transform", "translate(0," + height + ")")
         .call(d3.axisBottom(x));
 
         // Add the Y Axis
         svg.append("g")
+        .attr("class", "y axis")
         .call(d3.axisLeft(y));
+
+        // Add hover circles
+
+        circles = svg.append("g")
+        .attr("class", "hover-circles");
+        
+        circles.selectAll("circle")
+        .data([data])
+        .enter()
+        .append("circle")
+        .attr("r", 6)
+        .attr("cx", function(d) { return x(d.year); })
+        .attr("cy", function(d) { return y(d.anomaly); })
+        // in order to have a the circle to be the same color as the line, you need to access the data of the parentNode
+        .attr("fill", "white")
+        .attr("opacity", 0)
+        .on("mouseover", function(d) {
+            //show circle
+            d3.select(this)
+            .transition()
+            .duration(200)
+            .style("opacity", 0.5)
+            .attr("r", 5);
+            // show tooltip
+            div.transition()
+            .duration(100)
+            .style("opacity", .9);
+            div.html("</h3><p><span class='label-title'>Year: </span>" + getYear[yearFormat(d.year)] + 
+            "</p><p><span class='label-title'>Capacity: </span>" + decimalFormat(d.anomaly) + 
+            " MW</p>")
+            .style("left", (d3.event.pageX + 20) + "px")
+            .style("top", (d3.event.pageY - 50) + "px");
+            })
+        .on("mouseout", function(d) {
+            d3.select(this)
+            .transition()
+            .duration(200)
+            .style("opacity", 0)
+            .attr("r", 4);
+            // hide tooltip
+            div.transition()
+            .duration(200)
+            .style("opacity", 0);
+        });
 
 
     })
