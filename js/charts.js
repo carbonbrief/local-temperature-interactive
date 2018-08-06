@@ -141,9 +141,9 @@ function drawChart(){
             .style("opacity", .9);
             div.html("<p><span class='label-title'>Year: </span>" + yearFormat(d.year) + 
             "</p><p><span class='label-title'>Anomaly: </span>" + decimalFormat(d.anomaly) + 
-            " C</p>")
-            .style("left", (d3.event.pageX + 20) + "px")
-            .style("top", (d3.event.pageY - 50) + "px");
+            "C</p>")
+            .style("left", (d3.event.pageX - 55) + "px")
+            .style("top", (d3.event.pageY - 70) + "px");
             })
         .on("mouseout", function(d) {
             d3.select(this)
