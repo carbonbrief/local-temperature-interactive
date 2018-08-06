@@ -38,6 +38,8 @@ var div = d3.select("body").append("div")
 
 var yearFormat = d3.timeFormat("%Y");
 
+var decimalFormat = d3.format(".2f");
+
 var svg = d3.select("#graph1").append("svg")
     .attr("id", "svg-1")
     .attr("width", width + margin.left + margin.right)
@@ -58,7 +60,7 @@ var div = d3.select("body").append("div")
 
 var yearFormat = d3.timeFormat("%Y");
 
-var decimalFormat = d3.format(",.0f");
+var decimalFormat = d3.format(",.2f");
 
 var csv = "../data/charts/gridcell_" + 89.5 + "_" + 150.5 + ".csv";
 
@@ -110,6 +112,14 @@ function drawChart(){
         
         circles.selectAll("circle")
         .data(data)
+        // .filter(function(d) {
+        //     if(d.anomaly != 1){
+        //         return d;
+        //     }
+        //     else{
+        //         return null;
+        //     }
+        // })
         .enter()
         .append("circle")
         .attr("r", 3)
@@ -129,9 +139,9 @@ function drawChart(){
             div.transition()
             .duration(100)
             .style("opacity", .9);
-            div.html("</h3><p><span class='label-title'>Year: </span>" + getYear[yearFormat(d.year)] + 
-            "</p><p><span class='label-title'>Capacity: </span>" + decimalFormat(d.anomaly) + 
-            " MW</p>")
+            div.html("<p><span class='label-title'>Year: </span>" + yearFormat(d.year) + 
+            "</p><p><span class='label-title'>Anomaly: </span>" + decimalFormat(d.anomaly) + 
+            " C</p>")
             .style("left", (d3.event.pageX + 20) + "px")
             .style("top", (d3.event.pageY - 50) + "px");
             })

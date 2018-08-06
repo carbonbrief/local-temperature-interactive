@@ -405,3 +405,8 @@ div.tooltip p {
     margin-top: 3px;
     margin-bottom: 0px;
 }
+
+.label-title {
+    color: #dadada;
+    font-weight: bold;
+}
