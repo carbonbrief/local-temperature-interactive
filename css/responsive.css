@@ -1,46 +1,8 @@
-/* make sure that graphs not super wide on large screens */
 
-/* WHY DON'T JUST MAKE IT FIXED WIDTH ABOVE A CERTAIN SCREEN SIZE? */
-
-@media screen and (min-width: 1599px) {
+@media screen and (max-width: 900px) {
     #second-console {
-        width: calc(29% - 80px);
-        left: 71%;
-    }
-}
-
-@media screen and (max-width: 1600px) and (min-width: 1499px) {
-    #second-console {
-        width: calc(32% - 80px);
-        left: 68%;
-    }
-}
-
-@media screen and (max-width: 1500px) and (min-width: 1399px)  {
-    #second-console {
-        width: calc(36% - 80px);
-        left: 64%;
-    }
-}
-
-@media screen and (max-width: 1400px) and (min-width: 1299px)  {
-    #second-console {
-        width: calc(41% - 80px);
-        left: 59%;
-    }
-}
-
-@media screen and (max-width: 1300px) and (min-width: 1199px)  {
-    #second-console {
-        width: calc(44% - 80px);
-        left: 56%;
-    }
-}
-
-@media screen and (max-width: 1200px) and (min-width: 1099px)  {
-    #second-console {
-        width: calc(46% - 80px);
-        left: 54%;
+        width: calc(50% - 80px);
+        left: 50%;
     }
 }
 
