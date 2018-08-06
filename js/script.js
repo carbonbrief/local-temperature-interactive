@@ -300,3 +300,16 @@ $("#toggle-down").click(function() {
     $('#arrow-down').toggleClass('arrow-hidden arrow-showing');
 });
 
+// HOME BUTTON
+
+$("#home-button").click(function() {
+    map.flyTo({
+        center: [10, 10],
+        zoom: 1.5,
+        bearing: 0,
+        pitch: 0,
+        speed: 1,
+        animate: true
+    });
+})
+

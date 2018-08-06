@@ -28,7 +28,7 @@ body {
     z-index: 5;
     margin: 10px;
     border-radius: 5px;
-    padding: 10px 25px;
+    padding: 10px 35px;
 }
 
 #landing-console {
@@ -43,7 +43,6 @@ body {
     height: calc(800px - 40px);
     position: absolute;
     /* left: 50%; */
-    padding-left: 35px;
     overflow: scroll;
 }
   
@@ -415,4 +414,25 @@ div.tooltip p {
 .axis.label {
     fill: #8f8f8f;
     font-size: 11.2px;
+}
+
+#home-button-wrapper {
+    position: absolute;
+    top: 80px;
+    left: 10px;
+    height: 18px;
+    width: 18px;
+    z-index: 999999;
+    background-color: #ffffff;
+    border: 1px solid #bebebe;
+    border-radius: 5px;
+    padding: 5px;
+}
+
+#home-button-wrapper:hover {
+    background-color: #f3f3f3;
+}
+  
+#home-button {
+    color: #333333;
 }

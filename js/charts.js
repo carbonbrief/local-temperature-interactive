@@ -1,4 +1,4 @@
-var margin = {top: 10, right: 15, bottom: 30, left: 45},
+var margin = {top: 10, right: 25, bottom: 20, left: 35},
     // calculate the width of the chart from the width of the line-wrapper
     width = parseInt(d3.select("#graph1").style("width")) - margin.left - margin.right,
     height = 220 - margin.top - margin.bottom;
@@ -141,7 +141,7 @@ function drawChart(){
             // show tooltip
             div.transition()
             .duration(100)
-            .style("opacity", .9);
+            .style("opacity", .95);
             div.html("<p><span class='label-title'>Year: </span>" + yearFormat(d.year) + 
             "</p><p><span class='label-title'>Anomaly: </span>" + decimalFormat(d.anomaly) + 
             "C</p>")

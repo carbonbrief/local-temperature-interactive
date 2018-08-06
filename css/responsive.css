@@ -1,8 +1,15 @@
+@media screen and (max-width: 1150px) {
+    #landing-console {
+        padding-right: 30px;
+        padding-left: 30px;
+    }
+}
+
 
 @media screen and (max-width: 900px) {
     #second-console {
         width: calc(50% - 80px);
-        left: 50%;
+        left: calc(50% + 10px);
     }
 }
 
@@ -13,6 +20,12 @@
     #landing-console {
         width: 300px;
         top: 520px;
+        padding-right: 25px;
+        padding-left: 25px;
+    }
+
+    #home-button-wrapper {
+        display: none;
     }
 
     .console {
