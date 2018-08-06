@@ -14,7 +14,7 @@ var y = d3.scaleLinear()
 
 // define the line
 var line = d3.line()
-    .defined(function(d) { return d; }) // Omit empty values
+    .defined(function(d) { return d.anomaly != 0; }) // remove values with exactly 0, since these are the nulls
     .curve(d3.curveCardinal)
     .x(function(d) { return x(d.year); })
     .y(function(d) { return y(d.anomaly); });
@@ -28,13 +28,15 @@ var xAxis = d3.axisBottom(x);
 
 var yAxis = d3.axisLeft(y);
 
-// var line = d3.line()
-//     .curve(d3.curveCardinal) // see http://bl.ocks.org/emmasaunders/c25a147970def2b02d8c7c2719dc7502 for more details
-//     .x(function(d) { return x(d.year); })
-//     .y(function(d) { return y(d.capacity); });
-
 var svg = d3.select("#graph1").append("svg")
     .attr("id", "svg-1")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+var svg2 = d3.select("#graph2").append("svg")
+    .attr("id", "svg-2")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
@@ -50,43 +52,19 @@ var decimalFormat = d3.format(",.0f");
 
 var csv = "../data/charts/gridcell_" + 89.5 + "_" + 150.5 + ".csv";
 
-d3.csv(csv, function(error, data) {
-    var headers = d3.keys(data[0]).filter(function(head) {
-      return head != "year";
-    });
-
-    data.forEach(function(d) {
-      d.year = parseDate(d.year);
-    });
-
-    var categories = headers.map(function(name) {
-      
-      
-      return {
-        name: name,
-        // not yet working because an empty string is converted to 0 which is not NaN
-        // removes when add hyphens in place
-        values: data.filter(function(k){return !isNaN(+k[name]);}).map(function(d) {
-          return {
-            date: d.year,
-            rate: +(d[name]),
-          };
-        }),
-      };
-
-    });
-    console.log(categories)
-})
-
 function drawChart(){
     d3.csv(csv, function(error, data) {
 
         if (error) throw error;
 
+        data.filter(function(k){
+            return !isNaN
+        })
+
         // format the data
         data.forEach(function(d) {
             d.year = parseDate(d.year);
-            d.anomaly = +d.obs_anoms;
+            d.anomaly = +d.obs_anoms; // this is the bit that turns blanks to 0
         });
 
         // Extent should be fine for the x values once I've filter the null values from the data
