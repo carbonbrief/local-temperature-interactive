@@ -369,3 +369,9 @@ form[name=rcps] label {
     stroke: white;
     stroke-width: 1px;
 }
+
+.zero-line {
+    fill: none;
+    stroke: rgb(97, 97, 97);
+    stroke-width: 1px;
+}

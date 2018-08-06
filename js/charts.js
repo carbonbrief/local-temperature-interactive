@@ -19,6 +19,10 @@ var line = d3.line()
     .x(function(d) { return x(d.year); })
     .y(function(d) { return y(d.anomaly); });
 
+var zeroLine = d3.line()
+    .x(function(d) { return x(d.year); })
+    .y(function(d) { return y(0); });
+
 // var color = d3.scaleOrdinal()
 //     // thinking it might be nice to do a different colour for an average
 //     .domain(["Africa and Middle East", "China", "EU28", "Former USSR", "India", "Latin America", "Non-EU Europe", "Other",  "Other Asia", "United States"])
@@ -68,8 +72,14 @@ function drawChart(){
         });
 
         // Extent should be fine for the x values once I've filter the null values from the data
-        x.domain(d3.extent(data, function(d) { return d.year; }));
+        x.domain([parseDate(1850), parseDate(2020)]);
         y.domain(d3.extent(data, function(d) { return d.anomaly; }));
+
+        // Add the line at zero.
+        svg.append("path")
+        .data([data])
+        .attr("class", "zero-line")
+        .attr("d", zeroLine);
 
         // Add the valueline path.
         svg.append("path")
