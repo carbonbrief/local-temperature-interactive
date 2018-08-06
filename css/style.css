@@ -410,3 +410,8 @@ div.tooltip p {
     color: #dadada;
     font-weight: bold;
 }
+
+.axis.label {
+    fill: #8f8f8f;
+    font-size: 11.2px;
+}

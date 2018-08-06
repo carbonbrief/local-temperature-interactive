@@ -82,6 +82,16 @@ function drawChart(){
         x.domain([parseDate(1850), parseDate(2020)]);
         y.domain(d3.extent(data, function(d) { return d.anomaly; }));
 
+        // Add the axis label (before line so always underneath)
+
+        svg.append("text")
+        .attr("class", "axis label")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 10)
+        .attr("dy", ".5em")
+        .style("text-anchor", "end")
+        .text("Temperature anomaly (C)");
+
         // Add the line at zero.
         svg.append("path")
         .data([data])
