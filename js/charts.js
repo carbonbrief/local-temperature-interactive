@@ -109,10 +109,10 @@ function drawChart(){
         .attr("class", "hover-circles");
         
         circles.selectAll("circle")
-        .data([data])
+        .data(data)
         .enter()
         .append("circle")
-        .attr("r", 6)
+        .attr("r", 3)
         .attr("cx", function(d) { return x(d.year); })
         .attr("cy", function(d) { return y(d.anomaly); })
         // in order to have a the circle to be the same color as the line, you need to access the data of the parentNode
@@ -124,7 +124,7 @@ function drawChart(){
             .transition()
             .duration(200)
             .style("opacity", 0.5)
-            .attr("r", 5);
+            .attr("r", 4);
             // show tooltip
             div.transition()
             .duration(100)
@@ -140,7 +140,7 @@ function drawChart(){
             .transition()
             .duration(200)
             .style("opacity", 0)
-            .attr("r", 4);
+            .attr("r", 3);
             // hide tooltip
             div.transition()
             .duration(200)
