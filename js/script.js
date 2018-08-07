@@ -128,7 +128,7 @@ map.on('load', function() {
         "source": "outlines",
         "layout": {},
         "paint": {
-            'line-color': '#f3f3f3',
+            'line-color': '#333333',
             'line-opacity': {
                 "type": "exponential",
                 "stops": [
