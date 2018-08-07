@@ -15,3 +15,9 @@
 
 console.log(characteristics[0]);
 
+document.getElementById('map').addEventListener("click", function () {
+
+    console.log(midCoordLong);
+    console.log(midCoordLat);
+
+})

@@ -1,6 +1,8 @@
 // variables to use throughout
 var screenWidth = $(window).width();
 var consoleWidth = $("#second-console").width();
+var midCoordLat;
+var midCoordLong;
 
 var map = new mapboxgl.Map({
     container: 'map',
@@ -259,9 +261,9 @@ map.on('load', function() {
         // centre coords of selected polygon that will use to obtains CSVs
         // Mapbox adds lots of extra decimals so need to remove
         // adding since goes L to R
-        var midCoordLong = (coordinates[0][0] + 0.5).toFixed(1);
+        midCoordLong = (coordinates[0][0] + 0.5).toFixed(1);
         // must subtract since goes top to bottom
-        var midCoordLat = (coordinates[0][1] - 0.5).toFixed(1);
+        midCoordLat = (coordinates[0][1] - 0.5).toFixed(1);
 
         console.log(midCoordLong);
         console.log(midCoordLat);
@@ -313,26 +315,4 @@ $("#home-button").click(function() {
     });
 })
 
-// ADD SCRIPTS TO POPULATE TEXT OF SECOND CONSOLE
-// Delayed so that map loads more quickly
-
-// setTimeout (function() {
-//     var script = document.createElement('script');
-//     script.src = "js/characteristics.js";
-//     document.body.appendChild(script); 
-//     script.onload = loadSecond();
-// }, 4000);
-
-// function loadSecond () {
-//     var script = document.createElement('script');
-//     script.src = "js/text.js";
-//     document.body.appendChild(script); 
-// }
-
-// setTimeout (function() {
-//     var script = document.createElement('script');
-//     script.src = "js/text.js";
-//     document.body.appendChild(script); 
-//     // after to ensure that first is loaded
-// }, 6000);
 
