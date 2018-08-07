@@ -61,6 +61,12 @@ map.on('load', function() {
         "data": './data/tiles.geojson'
     });
 
+    map.addSource("outlines", {
+        "type": 'geojson',
+        // version correct to 4dp to reduce filesize
+        "data": './data/outlines.geojson'
+    });
+
     map.addLayer({
         id: 'tile-fills',
         type: 'fill',
@@ -116,6 +122,34 @@ map.on('load', function() {
         }
     });
 
+    map.addLayer({
+        "id": "country-outlines",
+        "type": 'line',
+        "source": "outlines",
+        "layout": {},
+        "paint": {
+            'line-color': '#f3f3f3',
+            'line-opacity': {
+                "type": "exponential",
+                "stops": [
+                    [1.5,0.5],
+                    [3,0.6],
+                    [5,0.7],
+                ]
+            },
+            'line-width': {
+                "type": "exponential",
+                "stops": [
+                    [1.5,0.3],
+                    [3,0.7],
+                    [5,0.9],
+                    [7,1.1]
+                ]
+            }
+        }
+
+    })
+
     // RADIO BUTTON INTERACTIONS
 
     var radios = document.getElementsByName('rcp-radio');
@@ -153,9 +187,6 @@ map.on('load', function() {
             }
             hoveredTileId = e.features[0].id;
 
-            // console.log(e.features[0]);
-            // console.log(hoveredTileId);
-
             map.setFeatureState({source: 'tiles', id: hoveredTileId}, { hover: true});
         }
     });
@@ -166,7 +197,6 @@ map.on('load', function() {
             map.setFeatureState({source: 'tiles', id: hoveredTileId}, { hover: false});
         }
         hoveredStateId =  null;
-        // console.log("leave");
     });
 
     map.on("click", "tile-fills", function(e) {
@@ -215,10 +245,10 @@ map.on('load', function() {
                 'line-width': {
                     "type": "exponential",
                     "stops": [
-                        [1.5,0.5],
-                        [3,1],
-                        [5,2],
-                        [7,3.2]
+                        [1.5,1],
+                        [3,2],
+                        [5,3],
+                        [7,4]
                     ]
                 }
             }
@@ -247,16 +277,7 @@ map.on('load', function() {
             }
         });
 
-        // ADD ID of tile to text
-
-        // var id = e.features[0].id;
-        // document.getElementById('city').innerText = id;
-
-        // VARIABLES FOR CSV
-
-        // console.log(coordinates);
-        // // grab first coordinate pair in square
-        // console.log(coordinates[0]);
+        // VARIABLES GRAPH AND TEXT
 
         // centre coords of selected polygon that will use to obtains CSVs
         // Mapbox adds lots of extra decimals so need to remove
@@ -264,10 +285,6 @@ map.on('load', function() {
         midCoordLong = (coordinates[0][0] + 0.5).toFixed(1);
         // must subtract since goes top to bottom
         midCoordLat = (coordinates[0][1] - 0.5).toFixed(1);
-
-        // console.log(midCoordLong);
-        // console.log(midCoordLat);
-
 
 
     })
