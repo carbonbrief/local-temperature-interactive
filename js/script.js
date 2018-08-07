@@ -249,14 +249,14 @@ map.on('load', function() {
 
         // ADD ID of tile to text
 
-        var id = e.features[0].id;
-        document.getElementById('city').innerText = id;
+        // var id = e.features[0].id;
+        // document.getElementById('city').innerText = id;
 
         // VARIABLES FOR CSV
 
-        console.log(coordinates);
-        // grab first coordinate pair in square
-        console.log(coordinates[0]);
+        // console.log(coordinates);
+        // // grab first coordinate pair in square
+        // console.log(coordinates[0]);
 
         // centre coords of selected polygon that will use to obtains CSVs
         // Mapbox adds lots of extra decimals so need to remove
@@ -265,8 +265,8 @@ map.on('load', function() {
         // must subtract since goes top to bottom
         midCoordLat = (coordinates[0][1] - 0.5).toFixed(1);
 
-        console.log(midCoordLong);
-        console.log(midCoordLat);
+        // console.log(midCoordLong);
+        // console.log(midCoordLat);
 
 
 
