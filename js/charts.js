@@ -23,10 +23,12 @@ var zeroLine = d3.line()
     .x(function(d) { return x(d.year); })
     .y(function(d) { return y(0); });
 
-// var color = d3.scaleOrdinal()
-//     // thinking it might be nice to do a different colour for an average
-//     .domain(["Africa and Middle East", "China", "EU28", "Former USSR", "India", "Latin America", "Non-EU Europe", "Other",  "Other Asia", "United States"])
-//     .range(["#ffc83e", "#ffc83e", "#ffc83e", "#ffc83e", "#ffc83e", "#ffc83e", "#ffc83e", "#ffc83e", "#ffc83e", "#ffc83e"]);
+// for the second chart
+var color = d3.scaleOrdinal()
+    .domain(["obs_anoms", "rcp26", "rcp45", "rcp60", "rcp85"])
+    // follows the colours of the map somewhat since implying the same thing
+    // will need a second scale since they're not exactly the same
+    .range(["#ffffff", "#802ba4", "#Ca4a78", "#f79649", "#F0f73f"]);
 
 var xAxis = d3.axisBottom(x);
 
@@ -62,10 +64,10 @@ var yearFormat = d3.timeFormat("%Y");
 
 var decimalFormat = d3.format(",.2f");
 
-var csv = "../data/charts/gridcell_" + 89.5 + "_" + 150.5 + ".csv";
+var chartCsv = "../data/charts/gridcell_" + 89.5 + "_" + 150.5 + ".csv";
 
 function drawChart(){
-    d3.csv(csv, function(error, data) {
+    d3.csv(chartCsv, function(error, data) {
 
         if (error) throw error;
 
@@ -164,4 +166,4 @@ function drawChart(){
     })
 }
 
-drawChart(csv);
+drawChart(chartCsv);

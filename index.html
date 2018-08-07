@@ -9,6 +9,7 @@
         <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js'></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="//d3js.org/d3.v4.min.js"></script>
+        <script src="js/jquery.csv.min.js"></script>
         <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/toggle.css">
@@ -100,8 +101,11 @@
         </div>
         <script src="js/script.js"></script>
         <script src="js/charts.js"></script>
-        <script src="js/text.js"></script>
         <script src="js/share.js"></script>
+        <!-- not sure this is exactly the best way of doing this -->
+        <!-- better instead to include as CSV or JSON so that don't have to load this script at the beginning? -->
+        <script src="js/characteristics.js"></script>
+        <script src="js/text.js"></script>
         <!-- Script needed for the popup share icon to work -->
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </body>

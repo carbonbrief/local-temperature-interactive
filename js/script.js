@@ -56,7 +56,7 @@ map.on('load', function() {
 
     map.addSource("tiles", {
         "type": 'geojson',
-        "data": './data/tiles-merge3.geojson'
+        "data": './data/tiles.geojson'
     });
 
     map.addLayer({
@@ -312,4 +312,27 @@ $("#home-button").click(function() {
         animate: true
     });
 })
+
+// ADD SCRIPTS TO POPULATE TEXT OF SECOND CONSOLE
+// Delayed so that map loads more quickly
+
+// setTimeout (function() {
+//     var script = document.createElement('script');
+//     script.src = "js/characteristics.js";
+//     document.body.appendChild(script); 
+//     script.onload = loadSecond();
+// }, 4000);
+
+// function loadSecond () {
+//     var script = document.createElement('script');
+//     script.src = "js/text.js";
+//     document.body.appendChild(script); 
+// }
+
+// setTimeout (function() {
+//     var script = document.createElement('script');
+//     script.src = "js/text.js";
+//     document.body.appendChild(script); 
+//     // after to ensure that first is loaded
+// }, 6000);
 
