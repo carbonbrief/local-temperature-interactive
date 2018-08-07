@@ -64,7 +64,7 @@ var yearFormat = d3.timeFormat("%Y");
 
 var decimalFormat = d3.format(",.2f");
 
-var chartCsv = "../data/charts/gridcell_" + 89.5 + "_" + 150.5 + ".csv";
+var chartCsv = "./data/charts/gridcell_" + "89.5" + "_" + "150.5" + ".csv";
 
 function drawChart(){
     d3.csv(chartCsv, function(error, data) {
