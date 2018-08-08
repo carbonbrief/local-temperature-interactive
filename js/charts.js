@@ -84,6 +84,9 @@ var initialCsv = "./data/charts/gridcell_" + "89.5" + "_" + "150.5" + ".csv";
 
 var csv;
 
+// columns to show in the multiline chart
+var filterData = {"obs_anoms":true,"rcp26":true,"rcp45":true, "rcp60": true, "rcp85":true};
+
 function drawChart1(){
     d3.csv(initialCsv, function(error, data) {
 
@@ -217,7 +220,7 @@ function drawChart2() {
 
         if (error) throw error;
 
-        color.domain(d3.keys(data[0]));
+        color.domain(d3.keys(data[0]).filter(function(key) { return key !== "year"; }));
 
         data.forEach(function(d) {
             d.year = parseDate(d.year);
@@ -235,10 +238,14 @@ function drawChart2() {
             };
         });
 
+        var scenariosFiltered = scenarios.filter(function(d){return filterData[d.name]==true;});
+
+        console.log(scenariosFiltered);
+
         x.domain([parseDate(2010), parseDate(2100)]);
         y.domain([
-            d3.min(scenarios, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); }),
-            d3.max(scenarios, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })
+            d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); }),
+            d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })
         ]);
 
         svg2.append("text")
@@ -251,7 +258,7 @@ function drawChart2() {
 
         // Add the line at zero.
         svg2.append("path")
-        .data(scenarios)
+        .data(scenariosFiltered)
         .attr("class", "zero-line")
         .attr("d", zeroLine);
 
@@ -267,14 +274,14 @@ function drawChart2() {
         .call(d3.axisLeft(y));
 
         svg2.append("path")
-        .data(scenarios)
+        .data(scenariosFiltered)
         .attr("class", "line")
         .attr("d", valueLine);
 
     })
 }
 
-drawChart2();
+drawChart2(filterData);
 
 setTimeout (function() {
     drawChart1();
