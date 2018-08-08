@@ -13,7 +13,7 @@ var y = d3.scaleLinear()
     .range([height, 0]);
 
 // define the line
-var line = d3.line()
+var valueLine = d3.line()
     .defined(function(d) { return d.anomaly != 0; }) // remove values with exactly 0, since these are the nulls
     .curve(d3.curveCardinal)
     .x(function(d) { return x(d.year); })
@@ -64,16 +64,23 @@ var yearFormat = d3.timeFormat("%Y");
 
 var decimalFormat = d3.format(",.2f");
 
+var t = d3.transition()
+    .duration(4000);
+
+var csv;
+
 var chartCsv = "./data/charts/gridcell_" + "89.5" + "_" + "150.5" + ".csv";
+
+var chartCsv2 = "./data/charts/gridcell_" + "-0.5" + "_" + "-21.5" + ".csv";
 
 function drawChart1(){
     d3.csv(chartCsv, function(error, data) {
 
         if (error) throw error;
 
-        data.filter(function(k){
-            return !isNaN
-        })
+        // data.filter(function(k){
+        //     return !isNaN
+        // })
 
         // format the data
         data.forEach(function(d) {
@@ -100,12 +107,6 @@ function drawChart1(){
         .attr("class", "zero-line")
         .attr("d", zeroLine);
 
-        // Add the valueline path.
-        svg.append("path")
-        .data([data])
-        .attr("class", "line")
-        .attr("d", line);
-
         // Add the X Axis
         svg.append("g")
         .attr("class", "x axis")
@@ -117,10 +118,53 @@ function drawChart1(){
         .attr("class", "y axis")
         .call(d3.axisLeft(y));
 
+        // Add the valueline path.
+        svg.append("path")
+        .data([data])
+        .attr("class", "line")
+        .attr("d", valueLine);
+
+
+
+
+    })
+}
+
+function updateChart1() {
+
+    // get the data again
+    d3.csv(csv, function(error, data) {
+
+        if (error) throw error;
+
+        // format the data
+        data.forEach(function(d) {
+            d.year = parseDate(d.year);
+            d.anomaly = +d.obs_anoms; // this is the bit that turns blanks to 0
+        });
+
+        // Scale the range of the data again 
+        y.domain(d3.extent(data, function(d) { return d.anomaly; }));
+
+        // Make the changes
+       svg.selectAll(".line")   // change the line
+            .data([data])
+            .transition(t)
+            .attr("d", valueLine);
+        svg.select(".y.axis") // change the y axis
+            .transition(t)
+            .call(yAxis);
+
         // Add hover circles
 
         circles = svg.append("g")
         .attr("class", "hover-circles");
+
+        // var circles = svg.select("g")
+        // .selectAll("circle")
+        // .data([data]);
+
+        // circles.exit().remove(); //remove unneeded circles
         
         circles.selectAll("circle")
         .data(data)
@@ -162,18 +206,61 @@ function drawChart1(){
             .style("opacity", 0);
         });
 
+    });
 
-    })
+
+    // // join data items and DOM elements with each other
+    // var line = svg.selectAll(".line")
+    // .data([data]);
+
+    // // line.exit()
+    // // .transition(t)
+    // // .style("opacity", 1e-6)
+    // // .remove();
+
+    // line.enter()
+    // .append("path")
+    // .attr("class", "line");
+
+    // line.transition(t)
+    // .attr("d", valueLine);
+
 }
 
 // DRAW CHART WHEN MAP CLICKED
 
-document.getElementById('map').addEventListener("click", function () {
-
-    console.log("click");
+setTimeout (function() {
 
     drawChart1(chartCsv);
 
-})
+}, 4000);
+
+var change = false;
+
+
+document.getElementById('map').addEventListener("click", function () {
+
+    if (change == false) {
+
+        csv = chartCsv2;
+
+        updateChart1(csv);
+
+        
+
+    } else if (change == true) {
+
+        csv = chartCsv;
+
+        updateChart1(csv);
+
+    }
+
+    change = true;
+    
+
+    console.log("click");
+
+});
 
 
