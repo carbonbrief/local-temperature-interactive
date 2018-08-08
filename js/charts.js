@@ -65,7 +65,9 @@ var yearFormat = d3.timeFormat("%Y");
 var decimalFormat = d3.format(",.2f");
 
 var t = d3.transition()
-    .duration(4000);
+    .delay(1500)
+    .duration(5000)
+    .ease(d3.easeSin);
 
 var csv;
 
@@ -157,14 +159,11 @@ function updateChart1() {
 
         // Add hover circles
 
+        // remove old circles before
+        svg.select(".hover-circles").remove();
+
         circles = svg.append("g")
         .attr("class", "hover-circles");
-
-        // var circles = svg.select("g")
-        // .selectAll("circle")
-        // .data([data]);
-
-        // circles.exit().remove(); //remove unneeded circles
         
         circles.selectAll("circle")
         .data(data)
