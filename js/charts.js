@@ -12,6 +12,12 @@ var x = d3.scaleTime()
 var y = d3.scaleLinear()
     .range([height, 0]);
 
+var valueLineInitial = d3.line()
+    .curve(d3.curveCardinal)
+    .x(function(d) { return x(d.year); })
+    // set to 0 initially
+    .y(function(d) { return y(0); }); 
+
 // define the line
 var valueLine = d3.line()
     .defined(function(d) { return d.anomaly != 0; }) // remove values with exactly 0, since these are the nulls
@@ -66,23 +72,18 @@ var decimalFormat = d3.format(",.2f");
 
 var t = d3.transition()
     .delay(1500)
-    .duration(5000)
+    .duration(7000)
     .ease(d3.easeSin);
+
+// placeholder data
+var initialCsv = "./data/charts/gridcell_" + "89.5" + "_" + "150.5" + ".csv";
 
 var csv;
 
-var chartCsv = "./data/charts/gridcell_" + "89.5" + "_" + "150.5" + ".csv";
-
-var chartCsv2 = "./data/charts/gridcell_" + "-0.5" + "_" + "-21.5" + ".csv";
-
 function drawChart1(){
-    d3.csv(chartCsv, function(error, data) {
+    d3.csv(initialCsv, function(error, data) {
 
         if (error) throw error;
-
-        // data.filter(function(k){
-        //     return !isNaN
-        // })
 
         // format the data
         data.forEach(function(d) {
@@ -124,15 +125,13 @@ function drawChart1(){
         svg.append("path")
         .data([data])
         .attr("class", "line")
-        .attr("d", valueLine);
-
-
+        .attr("d", valueLineInitial);
 
 
     })
 }
 
-function updateChart1() {
+function updateChart1(csv) {
 
     // get the data again
     d3.csv(csv, function(error, data) {
@@ -159,7 +158,7 @@ function updateChart1() {
 
         // Add hover circles
 
-        // remove old circles before
+        // remove old circles before appending new ones
         svg.select(".hover-circles").remove();
 
         circles = svg.append("g")
@@ -207,58 +206,26 @@ function updateChart1() {
 
     });
 
-
-    // // join data items and DOM elements with each other
-    // var line = svg.selectAll(".line")
-    // .data([data]);
-
-    // // line.exit()
-    // // .transition(t)
-    // // .style("opacity", 1e-6)
-    // // .remove();
-
-    // line.enter()
-    // .append("path")
-    // .attr("class", "line");
-
-    // line.transition(t)
-    // .attr("d", valueLine);
-
 }
 
 // DRAW CHART WHEN MAP CLICKED
 
 setTimeout (function() {
 
-    drawChart1(chartCsv);
+    drawChart1();
 
-}, 4000);
-
-var change = false;
+}, 4500);
 
 
 document.getElementById('map').addEventListener("click", function () {
 
-    if (change == false) {
+    var csv = "./data/charts/gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
 
-        csv = chartCsv2;
+    // console.log(csv);
 
-        updateChart1(csv);
+    updateChart1(csv);
 
-        
-
-    } else if (change == true) {
-
-        csv = chartCsv;
-
-        updateChart1(csv);
-
-    }
-
-    change = true;
-    
-
-    console.log("click");
+    // console.log("click");
 
 });
 
