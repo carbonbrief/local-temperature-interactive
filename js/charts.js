@@ -38,7 +38,8 @@ var color = d3.scaleOrdinal()
     .domain(["obs_anoms", "rcp26", "rcp45", "rcp60", "rcp85"])
     // follows the colours of the map somewhat since implying the same thing
     // will need a second scale since they're not exactly the same
-    .range(["#ffffff", "#802ba4", "#Ca4a78", "#f79649", "#F0f73f"]);
+    // note the order of the data matters
+    .range(["#802ba4", "#Ca4a78", "#f79649", "#F0f73f", "#ffffff"]);
 
 var xAxis = d3.axisBottom(x);
 
@@ -276,7 +277,9 @@ function drawChart2() {
         svg2.append("path")
         .data(scenariosFiltered)
         .attr("class", "line")
-        .attr("d", valueLine);
+        .attr("d", function(d) { return valueLine(d.values); })
+        .style("stroke", function(d) { return color(d.name); });
+
 
     })
 }
