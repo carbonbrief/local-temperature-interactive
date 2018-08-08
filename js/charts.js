@@ -25,6 +25,10 @@ var valueLine = d3.line()
     .x(function(d) { return x(d.year); })
     .y(function(d) { return y(d.anomaly); });
 
+// var multiValueLine = d3.line()
+//     .defined(function(d) { return d.anomaly != 0; })
+//     .curve(d3.curveCardinal)
+
 var zeroLine = d3.line()
     .x(function(d) { return x(d.year); })
     .y(function(d) { return y(0); });
@@ -55,12 +59,12 @@ var svg = d3.select("#graph1").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// var svg2 = d3.select("#graph2").append("svg")
-//     .attr("id", "svg-2")
-//     .attr("width", width + margin.left + margin.right)
-//     .attr("height", height + margin.top + margin.bottom)
-//     .append("g")
-//     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+var svg2 = d3.select("#graph2").append("svg")
+    .attr("id", "svg-2")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 var div = d3.select("body").append("div")
     .attr("class", "tooltip")
@@ -209,8 +213,68 @@ function updateChart1(csv) {
 }
 
 function drawChart2() {
-    
+    d3.csv(initialCsv, function(error, data) {
+
+        if (error) throw error;
+
+        color.domain(d3.keys(data[0]));
+
+        data.forEach(function(d) {
+            d.year = parseDate(d.year);
+        });
+
+        var scenarios = color.domain().map(function(name) {
+            return {
+            name: name,
+            values: data.map(function(d) {
+                return {
+                    year: d.year, 
+                    anomaly: +d[name]
+                };
+            })
+            };
+        });
+
+        x.domain([parseDate(2010), parseDate(2100)]);
+        y.domain([
+            d3.min(scenarios, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); }),
+            d3.max(scenarios, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })
+        ]);
+
+        svg2.append("text")
+        .attr("class", "axis label")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 10)
+        .attr("dy", ".5em")
+        .style("text-anchor", "end")
+        .text("Temperature anomaly (C)");
+
+        // Add the line at zero.
+        svg2.append("path")
+        .data(scenarios)
+        .attr("class", "zero-line")
+        .attr("d", zeroLine);
+
+        // Add the X Axis
+        svg2.append("g")
+        .attr("class", "x axis")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x));
+
+        // Add the Y Axis
+        svg2.append("g")
+        .attr("class", "y axis")
+        .call(d3.axisLeft(y));
+
+        svg2.append("path")
+        .data(scenarios)
+        .attr("class", "line")
+        .attr("d", valueLine);
+
+    })
 }
+
+drawChart2();
 
 setTimeout (function() {
     drawChart1();
