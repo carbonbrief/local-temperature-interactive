@@ -145,7 +145,7 @@ function updateChart1(csv) {
         });
 
         // Scale the range of the data again 
-        y.domain(d3.extent(data, function(d) { return d.anomaly; }));
+        y.domain((d3.extent(data, function(d) { return d.anomaly; }))*1.1);
 
         // Make the changes
        svg.selectAll(".line")   // change the line
@@ -208,24 +208,22 @@ function updateChart1(csv) {
 
 }
 
-// DRAW CHART WHEN MAP CLICKED
+function drawChart2() {
+    
+}
 
 setTimeout (function() {
-
     drawChart1();
+}, 6000);
 
-}, 4500);
-
+// DRAW CHART WHEN MAP CLICKED
 
 document.getElementById('map').addEventListener("click", function () {
 
     var csv = "./data/charts/gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
 
-    // console.log(csv);
-
     updateChart1(csv);
 
-    // console.log("click");
 
 });
 

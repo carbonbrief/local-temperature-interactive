@@ -2,11 +2,6 @@
 
 document.getElementById('map').addEventListener("click", function () {
 
-    // load characteristics data
-    var script = document.createElement('script');
-    script.src = "characteristics.js";
-    document.getElementsByTagName('head')[0].appendChild(script);
-
     var coords = midCoordLat + "," + midCoordLong;
 
     // create new array from characteristics.js based on click event

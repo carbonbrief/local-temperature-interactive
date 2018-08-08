@@ -304,7 +304,7 @@ $(document).ready(function () {
 
 setTimeout (function() {
     $('#loading').css('visibility', 'hidden');
-}, 5000);
+}, 8000);
 
 // TOGGLE BUTTON
 
