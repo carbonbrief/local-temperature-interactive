@@ -39,7 +39,7 @@ var color = d3.scaleOrdinal()
     // follows the colours of the map somewhat since implying the same thing
     // will need a second scale since they're not exactly the same
     // note the order of the data matters
-    .range(["#802ba4", "#Ca4a78", "#f79649", "#F0f73f", "#ffffff"]);
+    .range(["#F0f73f", "#ffffff", "#802ba4", "#Ca4a78", "#f79649"]);
 
 var xAxis = d3.axisBottom(x);
 
@@ -274,7 +274,11 @@ function drawChart2() {
         .attr("class", "y axis")
         .call(d3.axisLeft(y));
 
-        svg2.append("path")
+        var multilines = svg2.selectAll(".multiline")
+        .data(scenariosFiltered)
+        .enter().append("g");
+
+        multilines.append("path")
         .data(scenariosFiltered)
         .attr("class", "line")
         .attr("d", function(d) { return valueLine(d.values); })
