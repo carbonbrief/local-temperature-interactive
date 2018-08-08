@@ -63,7 +63,7 @@ map.on('load', function() {
 
     map.addSource("outlines", {
         "type": 'geojson',
-        // version correct to 4dp to reduce filesize
+        // version correct to 3dp to reduce filesize
         "data": './data/outlines.geojson'
     });
 
@@ -227,7 +227,8 @@ map.on('load', function() {
         }
         var feature = features[0];
         //I think you could add the vector tile feature to the map, but I'm more familiar with JSON
-        console.log(feature.toJSON());
+        // console.log(feature.toJSON());
+
         map.addSource('selectedTile', {
             "type":"geojson",
             "data": feature.toJSON()

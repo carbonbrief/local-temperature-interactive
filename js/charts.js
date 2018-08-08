@@ -66,7 +66,7 @@ var decimalFormat = d3.format(",.2f");
 
 var chartCsv = "./data/charts/gridcell_" + "89.5" + "_" + "150.5" + ".csv";
 
-function drawChart(){
+function drawChart1(){
     d3.csv(chartCsv, function(error, data) {
 
         if (error) throw error;
@@ -166,4 +166,14 @@ function drawChart(){
     })
 }
 
-drawChart(chartCsv);
+// DRAW CHART WHEN MAP CLICKED
+
+document.getElementById('map').addEventListener("click", function () {
+
+    console.log("click");
+
+    drawChart1(chartCsv);
+
+})
+
+

@@ -1,19 +1,4 @@
-// var city = {
-//     // create array from the data that Zeke sends?
-//     // or save as JSON?
-//     // saving it as a json triples the file size, so will see whether can use this 
-//     // jquery library to read the CSV
-//     1: "Lat: 89.5, Long: 150.5, over the ocean"
-// }
-
-// document.getElementById('city').innerText = city
-
-// couldn't get to work
-// var textCsv = "../data/characteristics.csv";
-
-// var characteristics = $.csv.toObjects(textCsv);
-
-// console.log(characteristics[0]);
+// UPDATE UI TEXT AS CLICK ON MAP
 
 document.getElementById('map').addEventListener("click", function () {
 
@@ -23,9 +8,6 @@ document.getElementById('map').addEventListener("click", function () {
     var newArray = characteristics.filter(function(x) {
         return x.place === coords;
     });
-
-    // console.log(newArray);
-    // console.log(newArray[0]);
 
     var country = (newArray[0]["country"]); 
     var observed = (newArray[0]["obs"]);
