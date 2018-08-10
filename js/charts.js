@@ -278,9 +278,16 @@ function drawChart2() {
         .data(scenariosFiltered)
         .enter().append("g");
 
+        multilines.append("clipPath")
+        .attr("id", "graph-clip")
+        .append("rect")
+        .attr("width", width) 
+        .attr("height", height); 
+
         multilines.append("path")
         .data(scenariosFiltered)
         .attr("class", "line")
+        .attr("clip-path","url(#graph-clip)")
         .attr("d", function(d) { return valueLine(d.values); })
         .style("stroke", function(d) { return color(d.name); });
 
