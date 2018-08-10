@@ -100,22 +100,38 @@ function drawChart1(){
         });
 
         x.domain([parseDate(1850), parseDate(2020)]);
-        y.domain(d3.extent(data, function(d) { return d.anomaly; }));
+        y.domain([
+            (d3.min(data, function(d) { return d.anomaly; })*1.1),
+            (d3.max(data, function(d) { return d.anomaly; })*1.1)
+
+        ]
+            // d3.extent(data, function(d) { return d.anomaly; })
+        );
 
         // Add the axis label (before line so always underneath)
 
         svg.append("text")
         .attr("class", "axis label")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 10)
+        // .attr("transform", "rotate(-90)")
+        .attr("y", 5)
+        .attr("x", 8)
         .attr("dy", ".5em")
-        .style("text-anchor", "end")
+        .style("text-anchor", "start")
         .text("Temperature anomaly (C)");
+
+        // var zeroline = svg.append("g");
+
+        svg.append("clipPath")
+        .attr("id", "graph-clip")
+        .append("rect")
+        .attr("width", width) 
+        .attr("height", height); 
 
         // Add the line at zero.
         svg.append("path")
         .data([data])
         .attr("class", "zero-line")
+        .attr("clip-path","url(#graph-clip)")
         .attr("d", zeroLine);
 
         // Add the X Axis
@@ -133,6 +149,7 @@ function drawChart1(){
         svg.append("path")
         .data([data])
         .attr("class", "line")
+        .attr("clip-path","url(#graph-clip)")
         .attr("d", valueLineInitial);
 
 
@@ -153,7 +170,12 @@ function updateChart1(csv) {
         });
 
         // Scale the range of the data again 
-        y.domain((d3.extent(data, function(d) { return d.anomaly; }))*1.1);
+        y.domain([
+            (d3.min(data, function(d) { return d.anomaly; })*1.1),
+            (d3.max(data, function(d) { return d.anomaly; })*1.1)
+        ]
+            // d3.extent(data, function(d) { return d.anomaly; })
+        );
 
         // Make the changes
        svg.selectAll(".line")   // change the line
@@ -251,10 +273,11 @@ function drawChart2() {
 
         svg2.append("text")
         .attr("class", "axis label")
-        .attr("transform", "rotate(-90)")
-        .attr("y", 10)
+        // .attr("transform", "rotate(-90)")
+        .attr("y", 5)
+        .attr("x", 8)
         .attr("dy", ".5em")
-        .style("text-anchor", "end")
+        .style("text-anchor", "start")
         .text("Temperature anomaly (C)");
 
         // Add the line at zero.
@@ -306,6 +329,8 @@ setTimeout (function() {
 document.getElementById('map').addEventListener("click", function () {
 
     var csv = "./data/charts/gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
+
+    console.log(csv);
 
     updateChart1(csv);
 
