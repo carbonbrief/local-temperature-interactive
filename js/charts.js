@@ -367,11 +367,15 @@ function updateChart2 (csv) {
         // remove old circles before appending new ones
         svg2.select(".hover-circles").remove();
 
-        circles = svg2.append("g")
+        var circles2 = svg2.selectAll(".hover-circles")
         .data(scenarios.filter(function(d){return filterData[d.name]==true;}))
+        .enter()
+        .append("g")
         .attr("class", "hover-circles");
+
+        console.log(scenariosFiltered);
         
-        circles.selectAll("circle")
+        circles2.selectAll("circle")
         .data(function(d){return d.values})
         .enter()
         .append("circle")
