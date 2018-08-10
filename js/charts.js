@@ -316,60 +316,61 @@ function drawChart2() {
     })
 }
 
-// function updateChart2 () {
+function updateChart2 (csv) {
 
-//     // get the data again
-//     d3.csv(csv, function(error, data) {
+    // get the data again
+    d3.csv(csv, function(error, data) {
 
-//         if (error) throw error;
+        if (error) throw error;
 
-//         color.domain(d3.keys(data[0]).filter(function(key) { return key !== "year"; }));
+        color.domain(d3.keys(data[0]).filter(function(key) { return key !== "year"; }));
 
-//         data.forEach(function(d) {
-//             d.year = parseDate(d.year);
-//         });
+        data.forEach(function(d) {
+            d.year = parseDate(d.year);
+        });
 
-//         var scenarios = color.domain().map(function(name) {
-//             return {
-//             name: name,
-//             values: data.map(function(d) {
-//                 return {
-//                     year: d.year, 
-//                     anomaly: +d[name]
-//                 };
-//             })
-//             };
-//         });
+        var scenarios = color.domain().map(function(name) {
+            return {
+            name: name,
+            values: data.map(function(d) {
+                return {
+                    year: d.year, 
+                    anomaly: +d[name]
+                };
+            })
+            };
+        });
 
-//         var scenariosFiltered = scenarios.filter(function(d){return filterData[d.name]==true;});
+        var scenariosFiltered = scenarios.filter(function(d){return filterData[d.name]==true;});
 
-//         // scale the range of y domain
-//         y.domain([
-//             (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); })*1.1),
-//             (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.1)
-//         ]);
+        // scale the range of y domain
+        y.domain([
+            (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); })*1.1),
+            (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.1)
+        ]);
 
-//                 // Make the changes
-//        svg2.selectAll(".line")   // change the line
-//        .data([data])
-//        .transition(t)
-//        .attr("d", function(d) { return valueLine(d.values); })
-//        .style("stroke", function(d) { return color(d.name); });
+                // Make the changes
+       svg2.selectAll(".line")   // change the line
+       .data([data])
+       .transition(t)
+       .attr("d", function(d) { return valueLine(d.values); })
+       .style("stroke", function(d) { return color(d.name); });
 
-//         svg2.select(".y.axis") // change the y axis
-//         .transition(t)
-//         .call(yAxis);
+        svg2.select(".y.axis") // change the y axis
+        .transition(t)
+        .call(yAxis);
 
-//     });
+    });
 
-// }
+}
 
 // for some reason it needs to go here or it breaks??
 drawChart2();
+drawChart1();
 
-setTimeout (function() {
-    drawChart1();
-}, 6000);
+// setTimeout (function() {
+//     drawChart1();
+// }, 6000);
 
 // DRAW CHART WHEN MAP CLICKED
 
@@ -380,6 +381,7 @@ document.getElementById('map').addEventListener("click", function () {
     console.log(csv);
 
     updateChart1(csv);
+    updateChart2(csv);
 
 
 });
