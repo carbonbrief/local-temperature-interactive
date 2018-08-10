@@ -77,7 +77,7 @@ var decimalFormat = d3.format(",.2f");
 
 var t = d3.transition()
     .delay(1500)
-    .duration(7000)
+    .duration(10000)
     .ease(d3.easeSin);
 
 // placeholder data
@@ -264,7 +264,7 @@ function drawChart2() {
 
         // console.log(scenariosFiltered);
 
-        x.domain([parseDate(2010), parseDate(2100)]);
+        x.domain([parseDate(2000), parseDate(2100)]);
         y.domain([
             (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); })*1.1),
             (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.1)
@@ -345,7 +345,7 @@ function updateChart2 (csv) {
         var scenariosFiltered = scenarios.filter(function(d){return filterData[d.name]==true;});
 
         // scale the range of y domain
-        x.domain([parseDate(2010), parseDate(2100)]);
+        x.domain([parseDate(2000), parseDate(2100)]);
         y.domain([
             (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); })*1.1),
             (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.1)
@@ -361,6 +361,55 @@ function updateChart2 (csv) {
         svg2.select(".y.axis") // change the y axis
         .transition(t)
         .call(yAxis);
+
+                // Add hover circles
+
+        // remove old circles before appending new ones
+        svg2.select(".hover-circles").remove();
+
+        circles = svg2.append("g")
+        .data(scenarios.filter(function(d){return filterData[d.name]==true;}))
+        .attr("class", "hover-circles");
+        
+        circles.selectAll("circle")
+        .data(function(d){return d.values})
+        .enter()
+        .append("circle")
+        // .filter(function(d) { return values[d.anomaly] != 0 })
+        .attr("r", 3)
+        .attr("cx", function(d) { return x(d.year) })
+        .attr("cy", function(d) { return y(d.anomaly) })
+        // in order to have a the circle to be the same color as the line, you need to access the data of the parentNode
+        .attr("fill", function(d){return color(this.parentNode.__data__.name)})
+        .attr("opacity", 0)
+        .on("mouseover", function(d) {
+            //show circle
+            d3.select(this)
+            .transition()
+            .duration(200)
+            .style("opacity", 0.5)
+            .attr("r", 4);
+            // show tooltip
+            div.transition()
+            .duration(100)
+            .style("opacity", .95);
+            div.html("<p><span class='label-title'>Year: </span>" + yearFormat(d.year) + 
+            "</p><p><span class='label-title'>Anomaly: </span>" + decimalFormat(d.values[d.anomaly]) + 
+            "C</p>")
+            .style("left", (d3.event.pageX - 55) + "px")
+            .style("top", (d3.event.pageY - 70) + "px");
+            })
+        .on("mouseout", function(d) {
+            d3.select(this)
+            .transition()
+            .duration(200)
+            .style("opacity", 0)
+            .attr("r", 3);
+            // hide tooltip
+            div.transition()
+            .duration(200)
+            .style("opacity", 0);
+        });
 
     });
 
