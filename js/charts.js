@@ -170,6 +170,7 @@ function updateChart1(csv) {
         });
 
         // Scale the range of the data again 
+        x.domain([parseDate(1850), parseDate(2020)]);
         y.domain([
             (d3.min(data, function(d) { return d.anomaly; })*1.1),
             (d3.max(data, function(d) { return d.anomaly; })*1.1)
@@ -344,6 +345,7 @@ function updateChart2 (csv) {
         var scenariosFiltered = scenarios.filter(function(d){return filterData[d.name]==true;});
 
         // scale the range of y domain
+        x.domain([parseDate(2010), parseDate(2100)]);
         y.domain([
             (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); })*1.1),
             (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.1)
@@ -351,7 +353,7 @@ function updateChart2 (csv) {
 
                 // Make the changes
        svg2.selectAll(".line")   // change the line
-       .data([data])
+       .data(scenariosFiltered)
        .transition(t)
        .attr("d", function(d) { return valueLine(d.values); })
        .style("stroke", function(d) { return color(d.name); });
