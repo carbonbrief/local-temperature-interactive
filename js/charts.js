@@ -173,9 +173,7 @@ function updateChart1(csv) {
         y.domain([
             (d3.min(data, function(d) { return d.anomaly; })*1.1),
             (d3.max(data, function(d) { return d.anomaly; })*1.1)
-        ]
-            // d3.extent(data, function(d) { return d.anomaly; })
-        );
+        ]);
 
         // Make the changes
        svg.selectAll(".line")   // change the line
@@ -267,8 +265,8 @@ function drawChart2() {
 
         x.domain([parseDate(2010), parseDate(2100)]);
         y.domain([
-            d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); }),
-            d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })
+            (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); })*1.1),
+            (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.1)
         ]);
 
         svg2.append("text")
