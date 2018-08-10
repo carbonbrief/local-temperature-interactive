@@ -150,7 +150,7 @@ function drawChart1(){
         .data([data])
         .attr("class", "line")
         .attr("clip-path","url(#graph-clip)")
-        .attr("d", valueLineInitial);
+        .attr("d", valueLine);
 
 
     })
@@ -261,7 +261,7 @@ function drawChart2() {
 
         var scenariosFiltered = scenarios.filter(function(d){return filterData[d.name]==true;});
 
-        console.log(scenariosFiltered);
+        // console.log(scenariosFiltered);
 
         x.domain([parseDate(2010), parseDate(2100)]);
         y.domain([
@@ -316,7 +316,56 @@ function drawChart2() {
     })
 }
 
-drawChart2(filterData);
+// function updateChart2 () {
+
+//     // get the data again
+//     d3.csv(csv, function(error, data) {
+
+//         if (error) throw error;
+
+//         color.domain(d3.keys(data[0]).filter(function(key) { return key !== "year"; }));
+
+//         data.forEach(function(d) {
+//             d.year = parseDate(d.year);
+//         });
+
+//         var scenarios = color.domain().map(function(name) {
+//             return {
+//             name: name,
+//             values: data.map(function(d) {
+//                 return {
+//                     year: d.year, 
+//                     anomaly: +d[name]
+//                 };
+//             })
+//             };
+//         });
+
+//         var scenariosFiltered = scenarios.filter(function(d){return filterData[d.name]==true;});
+
+//         // scale the range of y domain
+//         y.domain([
+//             (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); })*1.1),
+//             (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.1)
+//         ]);
+
+//                 // Make the changes
+//        svg2.selectAll(".line")   // change the line
+//        .data([data])
+//        .transition(t)
+//        .attr("d", function(d) { return valueLine(d.values); })
+//        .style("stroke", function(d) { return color(d.name); });
+
+//         svg2.select(".y.axis") // change the y axis
+//         .transition(t)
+//         .call(yAxis);
+
+//     });
+
+// }
+
+// for some reason it needs to go here or it breaks??
+drawChart2();
 
 setTimeout (function() {
     drawChart1();
