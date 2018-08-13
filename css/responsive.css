@@ -9,7 +9,9 @@
 @media screen and (max-width: 900px) {
     #second-console {
         width: calc(50% - 80px);
-        left: calc(50% + 10px);
+        left: calc(50%);
+        padding-right: 25px;
+        padding-left: 35px;
     }
 }
 
@@ -24,19 +26,9 @@
         padding-left: 25px;
     }
 
+
     #home-button-wrapper {
         display: none;
-    }
-
-    .console {
-        /* since changed padding also need to change console-close*/
-        padding: 8px 20px;
-    }
-
-    .console-close {
-        transform: translateX(calc(100% - 20px));
-        -ms-transform: translateX(calc(100% - 20px));
-        -webkit-transform: translateX(calc(100% - 20px));
     }
 
     h2 {
