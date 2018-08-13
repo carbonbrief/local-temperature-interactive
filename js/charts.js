@@ -45,7 +45,13 @@ var xAxis = d3.axisBottom(x);
 
 var yAxis = d3.axisLeft(y);
 
-var div = d3.select("body").append("div")
+var div1 = d3.select("body").append("div")
+    .attr("id", "tooltip1")
+    .attr("class", "tooltip")
+    .style("opacity", 0);
+
+var div2 = d3.select("body").append("div")
+    .attr("id", "tooltip2")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
@@ -67,10 +73,6 @@ var svg2 = d3.select("#graph2").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var div = d3.select("body").append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
-
 var yearFormat = d3.timeFormat("%Y");
 
 var decimalFormat = d3.format(",.2f");
@@ -87,6 +89,15 @@ var csv;
 
 // columns to show in the multiline chart
 var filterData = {"obs_anoms":true,"rcp26":true,"rcp45":true, "rcp60": true, "rcp85":true};
+
+// array to get column names in better format
+var getName = {
+    "obs_anoms": "Observed",
+    "rcp26": "RCP 2.6",
+    "rcp45": "RCP 4.5", 
+    "rcp60": "RCP 6.0", 
+    "rcp85": "RCP 8.5"
+}
 
 function drawChart1(){
     d3.csv(initialCsv, function(error, data) {
@@ -212,14 +223,16 @@ function updateChart1(csv) {
             .style("opacity", 0.5)
             .attr("r", 4);
             // show tooltip
-            div.transition()
+            div1.transition()
             .duration(100)
             .style("opacity", .95);
-            div.html("<p><span class='label-title'>Year: </span>" + yearFormat(d.year) + 
+            div1.html("<h3 style= color:" + color("obs_anoms") + 
+            ";>" + getName["obs_anoms"] +
+            "</h3><p><span class='label-title'>Year: </span>" + yearFormat(d.year) + 
             "</p><p><span class='label-title'>Anomaly: </span>" + decimalFormat(d.anomaly) + 
             "C</p>")
             .style("left", (d3.event.pageX - 55) + "px")
-            .style("top", (d3.event.pageY - 70) + "px");
+            .style("top", (d3.event.pageY - 90) + "px");
             })
         .on("mouseout", function(d) {
             d3.select(this)
@@ -228,7 +241,7 @@ function updateChart1(csv) {
             .style("opacity", 0)
             .attr("r", 3);
             // hide tooltip
-            div.transition()
+            div1.transition()
             .duration(200)
             .style("opacity", 0);
         });
@@ -394,14 +407,16 @@ function updateChart2 (csv) {
             .style("opacity", 0.5)
             .attr("r", 4);
             // show tooltip
-            div.transition()
+            div2.transition()
             .duration(100)
             .style("opacity", .95);
-            div.html("<p><span class='label-title'>Year: </span>" + yearFormat(d.year) + 
-            "</p><p><span class='label-title'>Anomaly: </span>" + decimalFormat(d.values[d.anomaly]) + 
+            div2.html("<h3 style= color:" + color(this.parentNode.__data__.name) + 
+            ";>" + getName[this.parentNode.__data__.name] +
+            "</h3><p><span class='label-title'>Year: </span>" + yearFormat(d.year) + 
+            "</p><p><span class='label-title'>Anomaly: </span>" + decimalFormat(d.anomaly) + 
             "C</p>")
             .style("left", (d3.event.pageX - 55) + "px")
-            .style("top", (d3.event.pageY - 70) + "px");
+            .style("top", (d3.event.pageY - 90) + "px");
             })
         .on("mouseout", function(d) {
             d3.select(this)
@@ -410,7 +425,7 @@ function updateChart2 (csv) {
             .style("opacity", 0)
             .attr("r", 3);
             // hide tooltip
-            div.transition()
+            div2.transition()
             .duration(200)
             .style("opacity", 0);
         });

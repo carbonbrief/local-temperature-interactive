@@ -416,6 +416,11 @@ div.tooltip p {
     margin-bottom: 0px;
 }
 
+div.tooltip h3 {
+    margin-top: 0px;
+    margin-bottom: 5px;
+}
+
 .label-title {
     color: #dadada;
     font-weight: bold;
