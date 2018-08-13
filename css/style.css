@@ -293,6 +293,38 @@ h4 {
 form[name=rcps] label {    
     color: #ffffff;
     font-size: 12px;
+    margin-right: 10px;
+}
+
+
+form[name=rcps] input {
+    /* display: none; */
+	cursor: pointer;
+}
+
+input[type=radio] {
+    /* Hide original inputs */
+  visibility: hidden;
+  position: absolute;
+}
+
+input[type=radio] + label:before{
+  height:12px;
+  width:12px;
+  margin-right: 4px;
+  content: " ";
+  display:inline-block;
+  vertical-align: baseline;
+  border:1px solid #777;
+  cursor: pointer;
+}
+input[type=radio]:checked + label:before{
+  background: #Fbc53d;
+}
+
+/* CUSTOM RADIO AND CHECKBOX STYLES */
+input[type=radio] + label:before{
+  border-radius:50%;
 }
 
 #loading {
