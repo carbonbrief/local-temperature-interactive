@@ -51,6 +51,13 @@ function getMinZoom () {
     }
 }
 
+// Add geocoding control
+var geocoder = new MapboxGeocoder({
+    accessToken: config.key1
+});
+
+map.addControl(geocoder, 'top-left');
+
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
 
@@ -149,6 +156,34 @@ map.on('load', function() {
         }
 
     })
+
+    map.addSource('single-point', {
+        "type": "geojson",
+        "data": {
+            "type": "FeatureCollection",
+            "features": []
+        }
+    });
+
+    map.addLayer({
+        "id": "point",
+        "source": "single-point",
+        "type": "circle",
+        "paint": {
+            "circle-radius": {
+                stops: [[1, 6], [3, 8], [5, 10]]
+            },
+            "circle-color": "#ffffff",
+            "circle-opacity": 0.95
+        }
+    });
+
+    // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
+    // makes a selection and add a symbol that matches the result.
+
+    geocoder.on('result', function(ev) {
+        map.getSource('single-point').setData(ev.result.geometry);
+    });
 
     // RADIO BUTTON INTERACTIONS
 

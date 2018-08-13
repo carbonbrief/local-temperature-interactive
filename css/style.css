@@ -38,7 +38,7 @@ body {
 }
 
 #second-console {
-    width: 400px;
+    width: 410px;
     right: 0px;
     height: calc(800px - 40px);
     position: absolute;
@@ -198,7 +198,7 @@ h4 {
     font-style: bold;
     color: white;
     background-color: rgba(51, 51, 51, 0.5);
-    padding: 2px;
+    padding: 3px;
     border-radius: 2px;
 }
 
@@ -433,11 +433,11 @@ div.tooltip h3 {
 
 #home-button-wrapper {
     position: absolute;
-    top: 80px;
+    top: 130px;
     left: 10px;
     height: 18px;
     width: 18px;
-    z-index: 999999;
+    z-index: 1;
     background-color: #ffffff;
     border: 1px solid #bebebe;
     border-radius: 5px;

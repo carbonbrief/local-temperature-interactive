@@ -6,10 +6,12 @@
         <meta name="description" content="Find out about past and present warming in your local area.">
         <meta name="author" content="Rosamund Pearce and Zeke Hausfather">
         <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
-        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.js'></script>
+        <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="//d3js.org/d3.v4.min.js"></script>
-        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.46.0/mapbox-gl.css' rel='stylesheet' />
+        <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+        <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />
+        <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css' type='text/css' />
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/toggle.css">
         <link rel="stylesheet" href="css/responsive.css">
@@ -101,6 +103,7 @@
             <div class="logo" id="logo-mobile"></div>
             <div class="logo" id="logo-laptop"></div>
         </div>
+        <script src="js/config.js"></script>
         <script src="js/script.js"></script>
         <script src="js/charts.js"></script>
         <script src="js/share.js"></script>
@@ -109,4 +112,4 @@
         <!-- Script needed for the popup share icon to work -->
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
     </body>
-</html>
+<!-- </html> -->
