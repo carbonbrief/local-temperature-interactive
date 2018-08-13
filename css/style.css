@@ -293,7 +293,7 @@ h4 {
 form[name=rcps] label {    
     color: #ffffff;
     font-size: 12px;
-    margin-right: 10px;
+    margin-right: 9px;
 }
 
 
@@ -311,15 +311,20 @@ input[type=radio] {
 input[type=radio] + label:before{
   height:12px;
   width:12px;
-  margin-right: 4px;
+  margin-right: 5px;
   content: " ";
   display:inline-block;
-  vertical-align: baseline;
+  vertical-align: -10%;
   border:1px solid #777;
+  background: rgba(255, 255, 255, 0.1);
   cursor: pointer;
 }
+
 input[type=radio]:checked + label:before{
-  background: #Fbc53d;
+    height:8px;
+    width:8px;
+    border:3px solid #Ca4a78;
+  background: rgb(255, 255, 255);
 }
 
 /* CUSTOM RADIO AND CHECKBOX STYLES */

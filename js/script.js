@@ -339,7 +339,8 @@ $(document).ready(function () {
 
 setTimeout (function() {
     $('#loading').css('visibility', 'hidden');
-}, 8000);
+}, 50);
+// previously 8000, shortening for development
 
 // TOGGLE BUTTON
 
