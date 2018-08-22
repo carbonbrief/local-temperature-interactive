@@ -199,10 +199,10 @@ function updateChart1(csv) {
         // Add hover circles
 
         // remove old circles before appending new ones
-        svg.select(".hover-circles").remove();
+        svg.select(".hover-circles1").remove();
 
         circles = svg.append("g")
-        .attr("class", "hover-circles");
+        .attr("class", "hover-circles1");
         
         circles.selectAll("circle")
         .data(data)
@@ -294,8 +294,9 @@ function drawChart2() {
 
         // Add the line at zero.
         svg2.append("path")
-        .data(scenariosFiltered)
+        .data([data])
         .attr("class", "zero-line")
+        .attr("clip-path","url(#graph-clip)")
         .attr("d", zeroLine);
 
         // Add the X Axis
@@ -375,16 +376,17 @@ function updateChart2 (csv) {
         .transition(t)
         .call(yAxis);
 
-                // Add hover circles
+        // Add hover circles
 
         // remove old circles before appending new ones
-        svg2.select(".hover-circles").remove();
+        // could bug be because they're being removed twice?
+        svg2.select(".hover-circles2").remove();
 
-        var circles2 = svg2.selectAll(".hover-circles")
+        var circles2 = svg2.selectAll(".hover-circles2")
         .data(scenarios.filter(function(d){return filterData[d.name]==true;}))
         .enter()
         .append("g")
-        .attr("class", "hover-circles");
+        .attr("class", "hover-circles2");
 
         console.log(scenariosFiltered);
         

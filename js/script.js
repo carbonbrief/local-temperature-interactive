@@ -30,7 +30,7 @@ var map = new mapboxgl.Map({
     center: [5, 10],
     zoom: getMinZoom(screenWidth) + 0.3,
     // set so that can zoom in less far on a mobile, to avoid disorientation
-    maxZoom: getMinZoom(screenWidth) + 3.8,
+    maxZoom: getMinZoom(screenWidth) + 4,
     // set so that can zoom out less far on a desktop, to avoid having to render too many tiles
     minZoom: getMinZoom(screenWidth),
     // remove options to rotate or change the pitch of the map
@@ -56,7 +56,10 @@ var geocoder = new MapboxGeocoder({
     accessToken: config.key1
 });
 
-map.addControl(geocoder, 'top-left');
+// Don't include Geocoder on small screens
+if (screenWidth > 980) {
+    map.addControl(geocoder, 'top-left');
+}
 
 // Add zoom and rotation controls to the map.
 map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), 'top-left');
@@ -171,10 +174,10 @@ map.on('load', function() {
         "type": "circle",
         "paint": {
             "circle-radius": {
-                stops: [[1, 6], [3, 8], [5, 10]]
+                stops: [[1, 6], [3, 7], [5, 8]]
             },
-            "circle-color": "#ffffff",
-            "circle-opacity": 0.95
+            "circle-color": "#242a3a",
+            "circle-opacity": 0.9
         }
     });
 
@@ -278,13 +281,14 @@ map.on('load', function() {
             },
             "paint": {
                 "line-color": "white",
+                "line-opacity": 0.95,
                 'line-width': {
                     "type": "exponential",
                     "stops": [
-                        [1.5,1],
-                        [3,2],
-                        [5,3],
-                        [7,4]
+                        [1.5,1.3],
+                        [3,2.3],
+                        [5,3.3],
+                        [7,4.3]
                     ]
                 }
             }
