@@ -39,6 +39,7 @@ var color = d3.scaleOrdinal()
     // follows the colours of the map somewhat since implying the same thing
     // will need a second scale since they're not exactly the same
     // note the order of the data matters
+    // order is out by one because of the first column
     .range(["#F0f73f", "#ffffff", "#802ba4", "#Ca4a78", "#f79649"]);
 
 var xAxis = d3.axisBottom(x);
@@ -379,11 +380,11 @@ function updateChart2 (csv) {
         // Add hover circles
 
         // remove old circles before appending new ones
-        // could bug be because they're being removed twice?
-        svg2.select(".hover-circles2").remove();
+        // make sure that 'selectAll' rather than select is use since it is a multiline chart
+        svg2.selectAll(".hover-circles2").remove();
 
         var circles2 = svg2.selectAll(".hover-circles2")
-        .data(scenarios.filter(function(d){return filterData[d.name]==true;}))
+        .data(scenariosFiltered)
         .enter()
         .append("g")
         .attr("class", "hover-circles2");
