@@ -37,10 +37,8 @@ var zeroLine = d3.line()
 var color = d3.scaleOrdinal()
     .domain(["obs_anoms", "rcp26", "rcp45", "rcp60", "rcp85"])
     // follows the colours of the map somewhat since implying the same thing
-    // will need a second scale since they're not exactly the same
     // note the order of the data matters
-    // order is out by one because of the first column
-    .range(["#F0f73f", "#ffffff", "#802ba4", "#Ca4a78", "#f79649"]);
+    .range(["#ffffff", "#802ba4", "#Ca4a78", "#f79649", "#F0f73f"]);
 
 var xAxis = d3.axisBottom(x);
 
@@ -256,7 +254,8 @@ function drawChart2() {
 
         if (error) throw error;
 
-        color.domain(d3.keys(data[0]).filter(function(key) { return key !== "year"; }));
+        // select exact columns since there are extra columns we won't be using
+        color.domain(d3.keys(data[0]).filter(function(key) { return key == "obs_anoms" || key == "rcp26" || key == "rcp45" || key == "rcp60" || key == "rcp85" ; }));
 
         data.forEach(function(d) {
             d.year = parseDate(d.year);
@@ -339,7 +338,7 @@ function updateChart2 (csv) {
 
         if (error) throw error;
 
-        color.domain(d3.keys(data[0]).filter(function(key) { return key !== "year"; }));
+        color.domain(d3.keys(data[0]).filter(function(key) { return key == "obs_anoms" || key == "rcp26" || key == "rcp45" || key == "rcp60" || key == "rcp85" ; }));
 
         data.forEach(function(d) {
             d.year = parseDate(d.year);
