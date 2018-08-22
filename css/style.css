@@ -451,11 +451,13 @@ div.tooltip {
 div.tooltip p {
     margin-top: 3px;
     margin-bottom: 0px;
+    font-size: 13px;
 }
 
 div.tooltip h3 {
     margin-top: 0px;
     margin-bottom: 5px;
+    font-size: 15px;
 }
 
 .label-title {

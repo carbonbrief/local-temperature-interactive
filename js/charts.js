@@ -12,22 +12,12 @@ var x = d3.scaleTime()
 var y = d3.scaleLinear()
     .range([height, 0]);
 
-var valueLineInitial = d3.line()
-    .curve(d3.curveCardinal)
-    .x(function(d) { return x(d.year); })
-    // set to 0 initially
-    .y(function(d) { return y(0); }); 
-
 // define the line
 var valueLine = d3.line()
     .defined(function(d) { return d.anomaly != 0; }) // remove values with exactly 0, since these are the nulls
     .curve(d3.curveCardinal)
     .x(function(d) { return x(d.year); })
     .y(function(d) { return y(d.anomaly); });
-
-// var multiValueLine = d3.line()
-//     .defined(function(d) { return d.anomaly != 0; })
-//     .curve(d3.curveCardinal)
 
 var zeroLine = d3.line()
     .x(function(d) { return x(d.year); })
@@ -39,6 +29,16 @@ var color = d3.scaleOrdinal()
     // follows the colours of the map somewhat since implying the same thing
     // note the order of the data matters
     .range(["#ffffff", "#9753B5", "#Ca4a78", "#f79649", "#F0f73f"]);
+
+// for the first chart
+var color2 = d3.scaleOrdinal()
+    .domain(["obs_anoms", "smoothed_anoms"])
+    .range(["#ffffff", "#Ca4a78"]);
+
+var lineWidth = {
+    "obs_anoms": 1,
+    "smoothed_anoms": 2.5
+}
 
 var xAxis = d3.axisBottom(x);
 
@@ -77,8 +77,8 @@ var yearFormat = d3.timeFormat("%Y");
 var decimalFormat = d3.format(",.2f");
 
 var t = d3.transition()
-    .delay(1500)
-    .duration(10000)
+    // .delay(1500) // removed delay to try to fix bug where not redrawing
+    .duration(2500) //shortened duration to avoid issues if second square is clicked before first transition completes
     .ease(d3.easeSin);
 
 // placeholder data
@@ -89,9 +89,13 @@ var csv;
 // columns to show in the multiline chart
 var filterData = {"obs_anoms":true,"rcp26":true,"rcp45":true, "rcp60": true, "rcp85":true};
 
+// columns to show in the first chart
+var filterData2 = {"obs_anoms":true,"smoothed_anoms":true};
+
 // array to get column names in better format
 var getName = {
     "obs_anoms": "Observed",
+    "smoothed_anoms": "Smoothed average",
     "rcp26": "RCP 2.6",
     "rcp45": "RCP 4.5", 
     "rcp60": "RCP 6.0", 
@@ -103,20 +107,33 @@ function drawChart1(){
 
         if (error) throw error;
 
+        // select exact columns since there are extra columns we won't be using
+        color2.domain(d3.keys(data[0]).filter(function(key) { return key == "obs_anoms" || key == "smoothed_anoms"}));
+        
         // format the data
         data.forEach(function(d) {
             d.year = parseDate(d.year);
-            d.anomaly = +d.obs_anoms; // this is the bit that turns blanks to 0
         });
+
+        var scenarios = color2.domain().map(function(name) {
+            return {
+            name: name,
+            values: data.map(function(d) {
+                return {
+                    year: d.year, 
+                    anomaly: +d[name] // this is the bit that turns blanks to 0
+                };
+            })
+            };
+        });
+
+        var scenariosFiltered = scenarios.filter(function(d){return filterData2[d.name]==true;});
 
         x.domain([parseDate(1850), parseDate(2020)]);
         y.domain([
-            (d3.min(data, function(d) { return d.anomaly; })*1.1),
-            (d3.max(data, function(d) { return d.anomaly; })*1.1)
-
-        ]
-            // d3.extent(data, function(d) { return d.anomaly; })
-        );
+            (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); })*1.1),
+            (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.1)
+        ]);
 
         // Add the axis label (before line so always underneath)
 
@@ -128,8 +145,6 @@ function drawChart1(){
         .attr("dy", ".5em")
         .style("text-anchor", "start")
         .text("Temperature anomaly (C)");
-
-        // var zeroline = svg.append("g");
 
         svg.append("clipPath")
         .attr("id", "graph-clip")
@@ -155,12 +170,23 @@ function drawChart1(){
         .attr("class", "y axis")
         .call(d3.axisLeft(y));
 
-        // Add the valueline path.
-        svg.append("path")
-        .data([data])
+        var multilines = svg.selectAll(".multiline")
+        .data(scenariosFiltered)
+        .enter().append("g");
+
+        multilines.append("clipPath")
+        .attr("id", "graph-clip")
+        .append("rect")
+        .attr("width", width) 
+        .attr("height", height); 
+
+        multilines.append("path")
+        .data(scenariosFiltered)
         .attr("class", "line")
         .attr("clip-path","url(#graph-clip)")
-        .attr("d", valueLine);
+        .attr("d", function(d) { return valueLine(d.values); })
+        .style("stroke", function(d) { return color2(d.name); })
+        .style("stroke-width", function(d) { return lineWidth[d.name]; });
 
 
     })
@@ -173,46 +199,72 @@ function updateChart1(csv) {
 
         if (error) throw error;
 
+        color2.domain(d3.keys(data[0]).filter(function(key) { return key == "obs_anoms" || key == "smoothed_anoms"}));
+
         // format the data
         data.forEach(function(d) {
             d.year = parseDate(d.year);
-            d.anomaly = +d.obs_anoms; // this is the bit that turns blanks to 0
         });
+
+        var scenarios = color2.domain().map(function(name) {
+            return {
+            name: name,
+            values: data.map(function(d) {
+                return {
+                    year: d.year, 
+                    anomaly: +d[name] // this is the bit that turns blanks to 0
+                };
+            })
+            };
+        });
+
+        var scenariosFiltered = scenarios.filter(function(d){return filterData2[d.name]==true;});
 
         // Scale the range of the data again 
         x.domain([parseDate(1850), parseDate(2020)]);
         y.domain([
-            (d3.min(data, function(d) { return d.anomaly; })*1.1),
-            (d3.max(data, function(d) { return d.anomaly; })*1.1)
+            (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); })*1.1),
+            (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.1)
         ]);
 
         // Make the changes
        svg.selectAll(".line")   // change the line
-            .data([data])
-            .transition(t)
-            .attr("d", valueLine);
-        svg.select(".y.axis") // change the y axis
-            .transition(t)
-            .call(yAxis);
+       .data(scenariosFiltered)
+       .transition(t)
+       .attr("d", function(d) { return valueLine(d.values); })
+       .style("stroke", function(d) { return color2(d.name); });
+
+        // change the y axis
+        svg.select(".y.axis")
+        .transition(t)
+        .call(yAxis);
+
+        // update the position of the zeroline
+        svg.select(".zero-line")
+        .transition(t)
+        .attr("d", zeroLine);
 
         // Add hover circles
 
         // remove old circles before appending new ones
-        svg.select(".hover-circles1").remove();
+        svg.selectAll(".hover-circles1").remove();
 
-        circles = svg.append("g")
+        var circles = svg.selectAll(".hover-circles1")
+        .data(scenariosFiltered)
+        .enter()
+        .append("g")
         .attr("class", "hover-circles1");
         
         circles.selectAll("circle")
-        .data(data)
+        .data(function(d){return d.values})
         .enter()
         .append("circle")
-        .filter(function(d) { return d.anomaly != 0 })
+        // .filter(function(d) { return d.anomaly != 0 })
         .attr("r", 3)
         .attr("cx", function(d) { return x(d.year); })
         .attr("cy", function(d) { return y(d.anomaly); })
         // in order to have a the circle to be the same color as the line, you need to access the data of the parentNode
-        .attr("fill", "white")
+        .attr("fill", function(d){return color2(this.parentNode.__data__.name)})
         .attr("opacity", 0)
         .on("mouseover", function(d) {
             //show circle
@@ -225,8 +277,8 @@ function updateChart1(csv) {
             div1.transition()
             .duration(100)
             .style("opacity", .95);
-            div1.html("<h3 style= color:" + color("obs_anoms") + 
-            ";>" + getName["obs_anoms"] +
+            div1.html("<h3 style= color:" + color2(this.parentNode.__data__.name) + 
+            ";>" + getName[this.parentNode.__data__.name] +
             "</h3><p><span class='label-title'>Year: </span>" + yearFormat(d.year) + 
             "</p><p><span class='label-title'>Anomaly: </span>" + decimalFormat(d.anomaly) + 
             "C</p>")
@@ -365,7 +417,7 @@ function updateChart2 (csv) {
             (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.1)
         ]);
 
-                // Make the changes
+        // Make the changes
        svg2.selectAll(".line")   // change the line
        .data(scenariosFiltered)
        .transition(t)
@@ -375,6 +427,11 @@ function updateChart2 (csv) {
         svg2.select(".y.axis") // change the y axis
         .transition(t)
         .call(yAxis);
+
+        // update the position of the zeroline
+        svg2.select(".zero-line")
+        .transition(t)
+        .attr("d", zeroLine);
 
         // Add hover circles
 
@@ -388,7 +445,7 @@ function updateChart2 (csv) {
         .append("g")
         .attr("class", "hover-circles2");
 
-        console.log(scenariosFiltered);
+        // console.log(scenariosFiltered);
         
         circles2.selectAll("circle")
         .data(function(d){return d.values})
