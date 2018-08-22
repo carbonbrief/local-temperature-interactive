@@ -38,7 +38,7 @@ var color = d3.scaleOrdinal()
     .domain(["obs_anoms", "rcp26", "rcp45", "rcp60", "rcp85"])
     // follows the colours of the map somewhat since implying the same thing
     // note the order of the data matters
-    .range(["#ffffff", "#802ba4", "#Ca4a78", "#f79649", "#F0f73f"]);
+    .range(["#ffffff", "#9753B5", "#Ca4a78", "#f79649", "#F0f73f"]);
 
 var xAxis = d3.axisBottom(x);
 
