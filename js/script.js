@@ -30,7 +30,7 @@ var map = new mapboxgl.Map({
     center: [5, 10],
     zoom: getMinZoom(screenWidth) + 0.3,
     // set so that can zoom in less far on a mobile, to avoid disorientation
-    maxZoom: getMinZoom(screenWidth) + 4,
+    maxZoom: getMinZoom(screenWidth) + 3.9,
     // set so that can zoom out less far on a desktop, to avoid having to render too many tiles
     minZoom: getMinZoom(screenWidth),
     // remove options to rotate or change the pitch of the map
@@ -370,6 +370,17 @@ $("#home-button").click(function() {
         speed: 1,
         animate: true
     });
+})
+
+// DOWNLOAD BUTTON
+
+// declare csv variable (which is also used in charts.js)
+var csv;
+
+$(".download").click(function() {
+
+    csv = "./data/charts/gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
+
 })
 
 

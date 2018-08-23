@@ -18,6 +18,8 @@
 // Remove existing iframe
 $('#tweet iframe').remove();
 
+// Problem is that these variables aren't updating every time you click
+
 var credit = "%20via%20@CarbonBrief";
 var cityName = document.getElementById('city').innerText;
 

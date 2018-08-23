@@ -84,8 +84,6 @@ var t = d3.transition()
 // placeholder data
 var initialCsv = "./data/charts/gridcell_" + "89.5" + "_" + "150.5" + ".csv";
 
-var csv;
-
 // columns to show in the multiline chart
 var filterData = {"obs_anoms":true,"rcp26":true,"rcp45":true, "rcp60": true, "rcp85":true};
 
@@ -186,7 +184,9 @@ function drawChart1(){
         .attr("clip-path","url(#graph-clip)")
         .attr("d", function(d) { return valueLine(d.values); })
         .style("stroke", function(d) { return color2(d.name); })
-        .style("stroke-width", function(d) { return lineWidth[d.name]; });
+        .style("stroke-width", function(d) { return lineWidth[d.name]; })
+        .on("mouseover", mouseover1)
+        .on("mouseout", mouseout1);
 
 
     })
@@ -377,7 +377,10 @@ function drawChart2() {
         .attr("class", "line")
         .attr("clip-path","url(#graph-clip)")
         .attr("d", function(d) { return valueLine(d.values); })
-        .style("stroke", function(d) { return color(d.name); });
+        .style("stroke", function(d) { return color(d.name); })
+        .style("stroke-width", "1.5")
+        .on("mouseover", mouseover2)
+        .on("mouseout", mouseout2);
 
 
     })
@@ -500,6 +503,40 @@ drawChart1();
 // setTimeout (function() {
 //     drawChart1();
 // }, 6000);
+
+function mouseover1 () {
+
+    d3.select(this)
+    .transition()
+    .duration(100)
+    .style("stroke-width", function(d) {
+        if (d.name == "obs_anoms") {
+            return 1.5;
+        } else if (d.name == "smoothed_anoms") {
+            return 3.5;
+        }
+    });
+
+    var self = this;
+
+    var lines = svg.selectAll('.line');
+    // Change opacity of other elements
+    lines.filter(function (x) { return self != this; })
+    .transition()
+    .duration(100)
+    .style("opacity", 0.7);
+
+}
+
+function mouseout1 () {
+
+    svg.selectAll(".line")
+    .transition()
+    .duration(100)
+    .style("opacity", 1)
+    .style("stroke-width", function(d) { return lineWidth[d.name]; });
+
+}
 
 // DRAW CHART WHEN MAP CLICKED
 
