@@ -111,6 +111,46 @@
         height: 220px;
     }
 
+    .axis.label {
+        font-size: 11px;
+    }
+
+    .axis {
+        font-size: 10px;
+    }
+
+}
+
+@media screen and (max-width: 800px) {
+
+    #second-console {
+        height: calc(800px - 100px);
+        width: calc(60% - 76px);
+        left: calc(40% - 4px);
+    }
+
+    /* Hide this toggle so that only one is functional */
+
+    #landing-console-toggle {
+        visibility: hidden;
+    }
+
+    /* hide landing console when second console is brought in */
+
+    .console-down {
+        transform: translateY(calc(110%)) !important;
+        -ms-transform: translateY(calc(110%)) !important;
+        -webkit-transform: translateY(calc(110%)) !important;
+    }
+
+    #loading-summary {
+        font-size: 14.5px;
+    }
+
+    .axis {
+        font-size: 9.5px;
+    }
+
 }
 
 @media screen and (max-width: 700px) {
@@ -146,21 +186,7 @@
     #second-console {
         height: calc(800px - 100px);
         width: calc(63% - 76px);
-        left: 37%;
-    }
-
-    /* Hide this toggle so that only one is functional */
-
-    #landing-console-toggle {
-        visibility: hidden;
-    }
-
-    /* hide landing console when second console is brought in */
-
-    .console-down {
-        transform: translateY(calc(108%)) !important;
-        -ms-transform: translateY(calc(108%)) !important;
-        -webkit-transform: translateY(calc(108%)) !important;
+        left: calc(37% - 4px);
     }
 
 }
@@ -176,8 +202,6 @@
 }
 
 @media screen and (max-width: 600px) {
-
-    /* move the console around as they start to interfere with each other */
 
     #key-colors {
         height: 7px;
@@ -198,14 +222,36 @@
     }
 
     #landing-console {
-        top: 330px;
+        top: 341px;
         width: 200px;
+        margin: 7px;
+        padding-top: 7px;
+        padding-bottom: 7px;
+        padding-left: 12px;
+        padding-right: 12px;
     }
 
     #second-console {
-        height: calc(510px - 40px);
-        width: calc(67% - 76px);
-        left: 33%;
+        height: calc(510px - 34px);
+        width: calc(76% - 53px);
+        left: 24%;
+        padding-right: 15px;
+        padding-left: 25px;
+        margin: 7px;
+    }
+
+    .toggle {
+        font-size: 11.5px;
+    }
+
+    .console-close {
+        transform: translateX(calc(100% - 18px));
+        -ms-transform: translateX(calc(100% - 18px));
+        -webkit-transform: translateX(calc(100% - 18px));
+    }
+
+    #console-toggle {
+        padding: 7px;
     }
 
     .graph {
@@ -248,6 +294,18 @@
 
     p {
         font-size: 13px;
+    }
+
+    #loading-summary {
+        font-size: 13.5px;
+    }
+
+    .axis.label {
+        font-size: 10.5px;
+    }
+
+    .axis {
+        font-size: 9px;
     }
 
     #pathway-toggle {
@@ -298,22 +356,47 @@
         font-size: 19px;
     }
 
+    h3 {
+        font-size: 13.5px;
+    }
+
     p {
         font-size: 12px;
     }
 
-    .toggle {
-        font-size: 11.5px;
+    #second-console {
+        height: calc(410px - 30px);
+        width: calc(87% - 40px);
+        left: 13%;
+        padding-right: 10px;
+        padding-left: 20px;
+        margin: 5px;
     }
 
-    #second-console {
-        height: calc(410px - 40px);
-        width: calc(70% - 80px);
-        left: 30%;
+    .console-close {
+        transform: translateX(calc(100% - 15px));
+        -ms-transform: translateX(calc(100% - 15px));
+        -webkit-transform: translateX(calc(100% - 15px));
+    }
+
+    .axis {
+        font-size: 8px;
+    }
+
+    .toggle {
+        font-size: 11px;
     }
 
     #landing-console {
-        top: 220px;
+        margin: 5px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    #landing-console {
+        top: 250px;
         width: 170px;
     }
 

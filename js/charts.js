@@ -2,7 +2,7 @@ var margin = {
     top: 10, 
     right: 25, 
     bottom: 28, 
-    left: 38
+    left: 37
 },
     // calculate the width of the chart from the width of the line-wrapper
     width = parseInt(d3.select("#graph1").style("width")) - margin.left - margin.right,

@@ -47,7 +47,7 @@ function getMinZoom () {
     }  else if (901 > screenWidth && screenWidth > 600) {
         return 0.5
     }  else {
-        return 0
+        return 0.3
     }
 }
 
@@ -361,11 +361,11 @@ setTimeout (function() {
 // TOGGLE BUTTON
 
 $("#toggle-across").click(function() {
-    if (screenWidth > 700) {
+    if (screenWidth > 800) {
         $("#second-console").toggleClass('console-close console-open');
         $('#arrow-left').toggleClass('arrow-showing arrow-hidden');
         $('#arrow-right').toggleClass('arrow-hidden arrow-showing');
-    } else if (screenWidth < 701) {
+    } else if (screenWidth < 801) {
         $("#second-console").toggleClass('console-close console-open');
         // also use this console to toggle the landing console on a smaller screen
         // since the second arrow is hidden. This means that only one can eb on the screen at once

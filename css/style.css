@@ -431,6 +431,10 @@ input[type=radio] + label:before{
     stroke: #a5a5a5;
 }
 
+.axis {
+    font-size: 10.5px;
+}
+
 .axis text{
     fill: #d4d4d4;
 } 
