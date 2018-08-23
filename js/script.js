@@ -385,18 +385,4 @@ $("#home-button").click(function() {
     });
 })
 
-// DOWNLOAD BUTTON
-
-// declare csv variable (which is also used in charts.js)
-// var csv;
-
-// $(".download").click(function() {
-
-//     csv = "./data/charts/gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
-
-//     // perhaps actually need to set the attribute of this button before click?
-//     this.setAttribute('download', filename);
-
-// })
-
 
