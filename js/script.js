@@ -150,10 +150,10 @@ map.on('load', function() {
             'line-width': {
                 "type": "exponential",
                 "stops": [
-                    [1.5,0.4],
-                    [3,0.9],
-                    [5,1.1],
-                    [7,1.5]
+                    [1.5,0.5],
+                    [3,1],
+                    [5,1.3],
+                    [7,1.7]
                 ]
             }
         }
@@ -383,6 +383,6 @@ $("#home-button").click(function() {
         speed: 1,
         animate: true
     });
-})
+});
 
 
