@@ -274,8 +274,8 @@ function updateChart1(csv) {
             d3.select(this)
             .transition()
             .duration(200)
-            .style("opacity", 0.5)
-            .attr("r", 4);
+            .style("opacity", 0.6)
+            .attr("r", 4.5);
 
             // show tooltip
             div1.transition()
@@ -505,8 +505,8 @@ function updateChart2 (csv) {
             d3.select(this)
             .transition()
             .duration(200)
-            .style("opacity", 0.5)
-            .attr("r", 4);
+            .style("opacity", 0.6)
+            .attr("r", 4.5);
 
             // show tooltip
             div2.transition()
