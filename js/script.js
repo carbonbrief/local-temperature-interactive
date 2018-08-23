@@ -326,6 +326,19 @@ map.on('load', function() {
         // must subtract since goes top to bottom
         midCoordLat = (coordinates[0][1] - 0.5).toFixed(1);
 
+        // UPDATE DOWNLOAD BUTTON
+        // no need to go up a filepath since will be adding this to the homepage
+        var filePath = "data/charts/gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
+        var fileName = "gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
+
+        document.getElementById("download1").setAttribute("download", fileName);
+        document.getElementById("download1").setAttribute("href", filePath);
+
+        document.getElementById("download2").setAttribute("download", fileName);
+        document.getElementById("download2").setAttribute("href", filePath);
+
+
+
 
     })
 
@@ -375,12 +388,15 @@ $("#home-button").click(function() {
 // DOWNLOAD BUTTON
 
 // declare csv variable (which is also used in charts.js)
-var csv;
+// var csv;
 
-$(".download").click(function() {
+// $(".download").click(function() {
 
-    csv = "./data/charts/gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
+//     csv = "./data/charts/gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
 
-})
+//     // perhaps actually need to set the attribute of this button before click?
+//     this.setAttribute('download', filename);
+
+// })
 
 

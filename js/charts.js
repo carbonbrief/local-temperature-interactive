@@ -78,8 +78,8 @@ var decimalFormat = d3.format(",.2f");
 
 var t = d3.transition()
     // .delay(1500) // removed delay to try to fix bug where not redrawing
-    .duration(2500) //shortened duration to avoid issues if second square is clicked before first transition completes
-    .ease(d3.easeSin);
+    .duration(2000) //shortened duration to avoid issues if second square is clicked before first transition completes
+    .ease(d3.easeQuad);
 
 // placeholder data
 var initialCsv = "./data/charts/gridcell_" + "89.5" + "_" + "150.5" + ".csv";
