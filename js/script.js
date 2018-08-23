@@ -361,9 +361,19 @@ setTimeout (function() {
 // TOGGLE BUTTON
 
 $("#toggle-across").click(function() {
-    $("#second-console").toggleClass('console-close console-open');
-    $('#arrow-left').toggleClass('arrow-showing arrow-hidden');
-    $('#arrow-right').toggleClass('arrow-hidden arrow-showing');
+    if (screenWidth > 700) {
+        $("#second-console").toggleClass('console-close console-open');
+        $('#arrow-left').toggleClass('arrow-showing arrow-hidden');
+        $('#arrow-right').toggleClass('arrow-hidden arrow-showing');
+    } else if (screenWidth < 701) {
+        $("#second-console").toggleClass('console-close console-open');
+        // also use this console to toggle the landing console on a smaller screen
+        // since the second arrow is hidden. This means that only one can eb on the screen at once
+        $("#landing-console").toggleClass('console-up console-down');
+        $('#arrow-left').toggleClass('arrow-showing arrow-hidden');
+        $('#arrow-right').toggleClass('arrow-hidden arrow-showing');
+    }
+    
 });
 
 $("#toggle-down").click(function() {

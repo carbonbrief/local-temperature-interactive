@@ -5,16 +5,6 @@
     }
 }
 
-
-@media screen and (max-width: 900px) {
-    #second-console {
-        width: calc(50% - 80px);
-        left: calc(50%);
-        padding-right: 25px;
-        padding-left: 35px;
-    }
-}
-
 /* adjust design for smaller screens and as iframe height changes */
 
 @media screen and (max-width: 1024px) {
@@ -26,6 +16,12 @@
         padding-left: 25px;
     }
 
+    #second-console {
+        width: calc(50% - 80px);
+        left: calc(50%);
+        padding-right: 25px;
+        padding-left: 35px;
+    }
 
     #home-button-wrapper {
         display: none;
@@ -50,6 +46,15 @@
     #scroll-area {
         width: 30px;
     }
+
+    div.tooltip p {
+        font-size: 12px;
+    }
+
+    div.tooltip h3 {
+        font-size: 14px;
+    }
+
 }
 
 @media screen and (max-width: 950px) {
@@ -111,7 +116,7 @@
 @media screen and (max-width: 700px) {
 
     .graph {
-        height: 190px;
+        height: 200px;
     }
 
     #landing-console {
@@ -124,6 +129,38 @@
 
     #scroll-area {
         width: 20px;
+    }
+
+    div.tooltip p {
+        font-size: 11.5px;
+    }
+
+    div.tooltip h3 {
+        font-size: 13.5px;
+    }
+
+    #landing-console {
+        width: 210px;
+    }
+
+    #second-console {
+        height: calc(800px - 100px);
+        width: calc(63% - 76px);
+        left: 37%;
+    }
+
+    /* Hide this toggle so that only one is functional */
+
+    #landing-console-toggle {
+        visibility: hidden;
+    }
+
+    /* hide landing console when second console is brought in */
+
+    .console-down {
+        transform: translateY(calc(108%)) !important;
+        -ms-transform: translateY(calc(108%)) !important;
+        -webkit-transform: translateY(calc(108%)) !important;
     }
 
 }
@@ -142,34 +179,12 @@
 
     /* move the console around as they start to interfere with each other */
 
-    #landing-console {
-        width: 200px;
-    }
-
-    #second-console {
-        height: calc(800px - 100px);
-        width: calc(65% - 76px);
-        left: 35%;
-    }
-
-    #landing-console-toggle {
-        visibility: hidden;
-    }
-
     #key-colors {
         height: 7px;
     }
 
     .tick {
         height: 17px;
-    }
-
-    /* hide landing console when second console is brought in */
-
-    .console-down {
-        transform: translateY(calc(120%)) !important;
-        -ms-transform: translateY(calc(120%)) !important;
-        -webkit-transform: translateY(calc(120%)) !important;
     }
 
 }
@@ -189,10 +204,12 @@
 
     #second-console {
         height: calc(510px - 40px);
+        width: calc(67% - 76px);
+        left: 33%;
     }
 
     .graph {
-        height: 160px;
+        height: 190px;
     }
 
     #wrapper {

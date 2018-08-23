@@ -1,7 +1,12 @@
-var margin = {top: 10, right: 25, bottom: 20, left: 35},
+var margin = {
+    top: 10, 
+    right: 25, 
+    bottom: 28, 
+    left: 38
+},
     // calculate the width of the chart from the width of the line-wrapper
     width = parseInt(d3.select("#graph1").style("width")) - margin.left - margin.right,
-    height = 220 - margin.top - margin.bottom;
+    height = parseInt(d3.select("#graph1").style("height")) - margin.top - margin.bottom;
 
 var parseDate = d3.timeParse("%Y");
 // var parseDate2 = d3.timeParse("%Y%m%d");
@@ -80,6 +85,8 @@ var t = d3.transition()
     // .delay(1500) // removed delay to try to fix bug where not redrawing
     .duration(2000) //shortened duration to avoid issues if second square is clicked before first transition completes
     .ease(d3.easeQuad);
+
+var csv;
 
 // placeholder data
 var initialCsv = "./data/charts/gridcell_" + "89.5" + "_" + "150.5" + ".csv";
@@ -575,7 +582,7 @@ drawChart1();
 
 document.getElementById('map').addEventListener("click", function () {
 
-    var csv = "./data/charts/gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
+    csv = "./data/charts/gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
 
     console.log(csv);
 
