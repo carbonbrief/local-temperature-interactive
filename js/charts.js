@@ -184,9 +184,9 @@ function drawChart1(){
         .attr("clip-path","url(#graph-clip)")
         .attr("d", function(d) { return valueLine(d.values); })
         .style("stroke", function(d) { return color2(d.name); })
-        .style("stroke-width", function(d) { return lineWidth[d.name]; })
-        .on("mouseover", mouseover1)
-        .on("mouseout", mouseout1);
+        .style("stroke-width", function(d) { return lineWidth[d.name]; });
+        // .on("mouseover", mouseover1)
+        // .on("mouseout", mouseout1);
 
 
     })
@@ -267,34 +267,72 @@ function updateChart1(csv) {
         .attr("fill", function(d){return color2(this.parentNode.__data__.name)})
         .attr("opacity", 0)
         .on("mouseover", function(d) {
+
+            var name = this.parentNode.__data__.name;
+
             //show circle
             d3.select(this)
             .transition()
             .duration(200)
             .style("opacity", 0.5)
             .attr("r", 4);
+
             // show tooltip
             div1.transition()
             .duration(100)
             .style("opacity", .95);
-            div1.html("<h3 style= color:" + color2(this.parentNode.__data__.name) + 
-            ";>" + getName[this.parentNode.__data__.name] +
+            div1.html("<h3 style= color:" + color2(name) + 
+            ";>" + getName[name] +
             "</h3><p><span class='label-title'>Year: </span>" + yearFormat(d.year) + 
             "</p><p><span class='label-title'>Anomaly: </span>" + decimalFormat(d.anomaly) + 
             "C</p>")
-            .style("left", (d3.event.pageX - 55) + "px")
-            .style("top", (d3.event.pageY - 90) + "px");
-            })
+            .style("left", (d3.event.pageX - 58) + "px")
+            .style("top", (d3.event.pageY - 100) + "px");
+
+            // highlight line actions
+            var lines = svg.selectAll('.line');
+
+            lines.filter(function (d) { return d.name != name; })
+            .transition()
+            .duration(100)
+            .style("opacity", 0.6);
+
+            var thisLine = svg.selectAll('.line');
+
+            thisLine.filter(function (d) { return d.name == name; })
+            .transition()
+            .duration(100)
+            .style("stroke-width", function(d) {
+                if (d.name == "obs_anoms") {
+                    return 1.5;
+                } else if (d.name == "smoothed_anoms") {
+                    return 3;
+                }
+            });
+
+
+         })
         .on("mouseout", function(d) {
+
+            // hide circles
             d3.select(this)
             .transition()
             .duration(200)
             .style("opacity", 0)
             .attr("r", 3);
+
             // hide tooltip
             div1.transition()
             .duration(200)
             .style("opacity", 0);
+
+            // reset opacity of lines
+            svg.selectAll(".line")
+            .transition()
+            .duration(100)
+            .style("opacity", 1)
+            .style("stroke-width", function(d) { return lineWidth[d.name]; });
+
         });
 
     });
@@ -378,9 +416,7 @@ function drawChart2() {
         .attr("clip-path","url(#graph-clip)")
         .attr("d", function(d) { return valueLine(d.values); })
         .style("stroke", function(d) { return color(d.name); })
-        .style("stroke-width", "1.5")
-        .on("mouseover", mouseover2)
-        .on("mouseout", mouseout2);
+        .style("stroke-width", "1.5");
 
 
     })
@@ -462,34 +498,65 @@ function updateChart2 (csv) {
         .attr("fill", function(d){return color(this.parentNode.__data__.name)})
         .attr("opacity", 0)
         .on("mouseover", function(d) {
+
+            var name = this.parentNode.__data__.name;
+
             //show circle
             d3.select(this)
             .transition()
             .duration(200)
             .style("opacity", 0.5)
             .attr("r", 4);
+
             // show tooltip
             div2.transition()
             .duration(100)
             .style("opacity", .95);
-            div2.html("<h3 style= color:" + color(this.parentNode.__data__.name) + 
-            ";>" + getName[this.parentNode.__data__.name] +
+            div2.html("<h3 style= color:" + color(name) + 
+            ";>" + getName[name] +
             "</h3><p><span class='label-title'>Year: </span>" + yearFormat(d.year) + 
             "</p><p><span class='label-title'>Anomaly: </span>" + decimalFormat(d.anomaly) + 
             "C</p>")
             .style("left", (d3.event.pageX - 55) + "px")
-            .style("top", (d3.event.pageY - 90) + "px");
-            })
+            .style("top", (d3.event.pageY - 100) + "px");
+
+            // highlight line actions
+            var lines = svg2.selectAll('.line');
+
+            lines.filter(function (d) { return d.name != name; })
+            .transition()
+            .duration(100)
+            .style("opacity", 0.6);
+
+            var thisLine = svg2.selectAll('.line');
+
+            thisLine.filter(function (d) { return d.name == name; })
+            .transition()
+            .duration(100)
+            .style("stroke-width", "2");
+
+
+        })
         .on("mouseout", function(d) {
+
+            // hide circles
             d3.select(this)
             .transition()
             .duration(200)
             .style("opacity", 0)
             .attr("r", 3);
+
             // hide tooltip
             div2.transition()
             .duration(200)
             .style("opacity", 0);
+
+            // reset opacity of lines
+            svg2.selectAll(".line")
+            .transition()
+            .duration(100)
+            .style("opacity", 1)
+            .style("stroke-width", "1.5");
         });
 
     });
@@ -503,40 +570,6 @@ drawChart1();
 // setTimeout (function() {
 //     drawChart1();
 // }, 6000);
-
-function mouseover1 () {
-
-    d3.select(this)
-    .transition()
-    .duration(100)
-    .style("stroke-width", function(d) {
-        if (d.name == "obs_anoms") {
-            return 1.5;
-        } else if (d.name == "smoothed_anoms") {
-            return 3.5;
-        }
-    });
-
-    var self = this;
-
-    var lines = svg.selectAll('.line');
-    // Change opacity of other elements
-    lines.filter(function (x) { return self != this; })
-    .transition()
-    .duration(100)
-    .style("opacity", 0.7);
-
-}
-
-function mouseout1 () {
-
-    svg.selectAll(".line")
-    .transition()
-    .duration(100)
-    .style("opacity", 1)
-    .style("stroke-width", function(d) { return lineWidth[d.name]; });
-
-}
 
 // DRAW CHART WHEN MAP CLICKED
 
