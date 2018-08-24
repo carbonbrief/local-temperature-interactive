@@ -137,7 +137,7 @@ function drawChart1(){
         x.domain([parseDate(1850), parseDate(2020)]);
         y.domain([
             (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); })*1.1),
-            (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.1)
+            (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.2)
         ]);
 
         // Add the axis label (before line so always underneath)
@@ -377,7 +377,7 @@ function drawChart2() {
         x.domain([parseDate(2000), parseDate(2100)]);
         y.domain([
             (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); })*1.1),
-            (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.1)
+            (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.2)
         ]);
 
         svg2.append("text")
@@ -460,7 +460,7 @@ function updateChart2 (csv) {
         x.domain([parseDate(2000), parseDate(2100)]);
         y.domain([
             (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); })*1.1),
-            (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.1)
+            (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.2)
         ]);
 
         // Make the changes
