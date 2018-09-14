@@ -140,7 +140,7 @@ function drawChart1(){
         ]);
         y.domain([
             -2,
-            5
+            4
         ]);
 
         // Add the axis label (before line so always underneath)
@@ -230,6 +230,31 @@ function updateChart1(csv) {
 
         var scenariosFiltered = scenarios.filter(function(d){return filterData2[d.name]==true;});
 
+        var calcMax = d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); });
+        var calcMin = d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); });
+
+
+        // y axis should change if the max value is over 2.8 but otherwise remain fixed at 3
+
+        var yMax = function () {
+            if (calcMax > 2.5) {
+                return calcMax + 0.5;
+            } else {
+                return 3;
+            }
+        }
+
+        var yMin = function () {
+            if (calcMin < -1.5) {
+                return calcMin - 0.5;
+            } else {
+                return -2;
+            }
+        }
+        
+        console.log(calcMax);
+        console.log(yMax());
+
         // Scale the range of the data again 
         x.domain([
             // (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.year; }); })*1.1), 
@@ -237,8 +262,8 @@ function updateChart1(csv) {
             parseDate(2020)
         ]);
         y.domain([
-            -2,
-            5
+            yMin(),
+            yMax()
         ]);
 
         // Make the changes
@@ -248,10 +273,10 @@ function updateChart1(csv) {
        .attr("d", function(d) { return valueLine(d.values); })
        .style("stroke", function(d) { return color2(d.name); });
 
-        // // change the y axis
-        // svg.select(".y.axis")
-        // .transition(t)
-        // .call(yAxis);
+        // change the y axis
+        svg.select(".y.axis")
+        .transition(t)
+        .call(yAxis);
 
         // change the x axis
         svg.select(".x.axis")
