@@ -84,7 +84,7 @@ map.on('load', function() {
         paint: {
             "fill-color": "#f3f3f3",
             'fill-color': {
-                property: 'rcp26',
+                property: '26',
                 stops: [
                     [0, '#0f1d85'],
                     [0.45, '#4b269f'],
