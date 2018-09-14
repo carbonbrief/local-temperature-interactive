@@ -237,10 +237,10 @@ function updateChart1(csv) {
         // y axis should change if the max value is over 2.8 but otherwise remain fixed at 3
 
         var yMax = function () {
-            if (calcMax > 2.5) {
+            if (calcMax > 3) {
                 return calcMax + 0.5;
             } else {
-                return 3;
+                return 3.5;
             }
         }
 
