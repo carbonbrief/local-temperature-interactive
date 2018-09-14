@@ -82,7 +82,6 @@ var yearFormat = d3.timeFormat("%Y");
 var decimalFormat = d3.format(",.2f");
 
 var t = d3.transition()
-    // .delay(1500) // removed delay to try to fix bug where not redrawing
     .duration(2000) //shortened duration to avoid issues if second square is clicked before first transition completes
     .ease(d3.easeQuad);
 
@@ -134,10 +133,14 @@ function drawChart1(){
 
         var scenariosFiltered = scenarios.filter(function(d){return filterData2[d.name]==true;});
 
-        x.domain([parseDate(1850), parseDate(2020)]);
+        x.domain([
+            // (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.year; }); })*1.1),
+            d3.min(data, function(d) {return d.year;}), 
+            parseDate(2020)
+        ]);
         y.domain([
-            (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); })*1.1),
-            (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.2)
+            -2,
+            5
         ]);
 
         // Add the axis label (before line so always underneath)
@@ -228,10 +231,14 @@ function updateChart1(csv) {
         var scenariosFiltered = scenarios.filter(function(d){return filterData2[d.name]==true;});
 
         // Scale the range of the data again 
-        x.domain([parseDate(1850), parseDate(2020)]);
+        x.domain([
+            // (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.year; }); })*1.1), 
+            d3.min(data, function(d) {return d.year;}),
+            parseDate(2020)
+        ]);
         y.domain([
-            (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); })*1.1),
-            (d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); })*1.1)
+            -2,
+            5
         ]);
 
         // Make the changes
@@ -241,10 +248,15 @@ function updateChart1(csv) {
        .attr("d", function(d) { return valueLine(d.values); })
        .style("stroke", function(d) { return color2(d.name); });
 
-        // change the y axis
-        svg.select(".y.axis")
+        // // change the y axis
+        // svg.select(".y.axis")
+        // .transition(t)
+        // .call(yAxis);
+
+        // change the x axis
+        svg.select(".x.axis")
         .transition(t)
-        .call(yAxis);
+        .call(xAxis);
 
         // update the position of the zeroline
         svg.select(".zero-line")
