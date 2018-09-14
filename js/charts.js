@@ -237,16 +237,16 @@ function updateChart1(csv) {
         // y axis should change if the max value is over 2.8 but otherwise remain fixed at 3
 
         var yMax = function () {
-            if (calcMax > 3) {
-                return calcMax + 0.5;
+            if (calcMax > 2.9) {
+                return calcMax + 0.1;
             } else {
-                return 3.5;
+                return 3;
             }
         }
 
         var yMin = function () {
-            if (calcMin < -1.5) {
-                return calcMin - 0.5;
+            if (calcMin < -1.9) {
+                return calcMin - 0.1;
             } else {
                 return -2;
             }
@@ -304,7 +304,7 @@ function updateChart1(csv) {
         .enter()
         .append("circle")
         // .filter(function(d) { return d.anomaly != 0 })
-        .attr("r", 3)
+        .attr("r", 4)
         .attr("cx", function(d) { return x(d.year); })
         .attr("cy", function(d) { return y(d.anomaly); })
         // in order to have a the circle to be the same color as the line, you need to access the data of the parentNode
@@ -319,7 +319,7 @@ function updateChart1(csv) {
             .transition()
             .duration(200)
             .style("opacity", 0.6)
-            .attr("r", 4.5);
+            .attr("r", 5);
 
             // show tooltip
             div1.transition()
@@ -363,7 +363,7 @@ function updateChart1(csv) {
             .transition()
             .duration(200)
             .style("opacity", 0)
-            .attr("r", 3);
+            .attr("r", 4);
 
             // hide tooltip
             div1.transition()
@@ -535,7 +535,7 @@ function updateChart2 (csv) {
         .enter()
         .append("circle")
         // .filter(function(d) { return values[d.anomaly] != 0 })
-        .attr("r", 3)
+        .attr("r", 4)
         .attr("cx", function(d) { return x(d.year) })
         .attr("cy", function(d) { return y(d.anomaly) })
         // in order to have a the circle to be the same color as the line, you need to access the data of the parentNode
@@ -550,7 +550,7 @@ function updateChart2 (csv) {
             .transition()
             .duration(200)
             .style("opacity", 0.6)
-            .attr("r", 4.5);
+            .attr("r", 5);
 
             // show tooltip
             div2.transition()
@@ -588,7 +588,7 @@ function updateChart2 (csv) {
             .transition()
             .duration(200)
             .style("opacity", 0)
-            .attr("r", 3);
+            .attr("r", 4);
 
             // hide tooltip
             div2.transition()
