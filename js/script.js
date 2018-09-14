@@ -68,13 +68,13 @@ map.on('load', function() {
 
     map.addSource("tiles", {
         "type": 'geojson',
-        "data": './data/tiles.geojson'
+        "data": './data/tiles.json'
     });
 
     map.addSource("outlines", {
         "type": 'geojson',
         // version correct to 3dp to reduce filesize
-        "data": './data/outlines.geojson'
+        "data": './data/outlines.json'
     });
 
     map.addLayer({
