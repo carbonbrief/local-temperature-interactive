@@ -252,8 +252,8 @@ function updateChart1(csv) {
             }
         }
         
-        console.log(calcMax);
-        console.log(yMax());
+        // console.log(calcMax);
+        // console.log(yMax());
 
         // Scale the range of the data again 
         x.domain([
@@ -621,7 +621,7 @@ document.getElementById('map').addEventListener("click", function () {
 
     csv = "./data/charts/gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
 
-    console.log(csv);
+    // console.log(csv);
 
     updateChart1(csv);
     updateChart2(csv);
