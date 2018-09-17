@@ -279,7 +279,7 @@ h4 {
     border-radius: 2px;
 }
 
-#loading-summary {
+.loading-summary {
     font-family: "PT Serif";
     font-size: 16px;
     margin-bottom: 20px;

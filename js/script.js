@@ -27,8 +27,9 @@ var map = new mapboxgl.Map({
         }]
     },
     // style: 'https://openmaptiles.github.io/positron-gl-style/style-cdn.json',
-    center: [5, 10],
-    zoom: getMinZoom(screenWidth) + 0.3,
+    center: [0, 15],
+    // zoomed in a bit to reduce the initial page load time
+    zoom: getMinZoom(screenWidth) + 0.8,
     // set so that can zoom in less far on a mobile, to avoid disorientation
     maxZoom: getMinZoom(screenWidth) + 3.9,
     // set so that can zoom out less far on a desktop, to avoid having to render too many tiles
@@ -41,13 +42,13 @@ var map = new mapboxgl.Map({
 
 function getMinZoom () {
     if (screenWidth > 1200) {
-        return 1.5
+        return 1.6
     } else if (1201 > screenWidth && screenWidth > 900) {
-        return 1
+        return 1.3
     }  else if (901 > screenWidth && screenWidth > 600) {
-        return 0.5
+        return 1
     }  else {
-        return 0.3
+        return 0.6
     }
 }
 
