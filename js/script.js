@@ -27,11 +27,11 @@ var map = new mapboxgl.Map({
         }]
     },
     // style: 'https://openmaptiles.github.io/positron-gl-style/style-cdn.json',
-    center: [0, 15],
+    center: [0, 18],
     // zoomed in a bit to reduce the initial page load time
-    zoom: getMinZoom(screenWidth) + 0.8,
+    zoom: getMinZoom(screenWidth) + 0.9,
     // set so that can zoom in less far on a mobile, to avoid disorientation
-    maxZoom: getMinZoom(screenWidth) + 3.9,
+    maxZoom: getMinZoom(screenWidth) + 3.5,
     // set so that can zoom out less far on a desktop, to avoid having to render too many tiles
     minZoom: getMinZoom(screenWidth),
     // remove options to rotate or change the pitch of the map
@@ -175,11 +175,17 @@ map.on('load', function() {
         "type": "circle",
         "paint": {
             "circle-radius": {
-                stops: [[1, 6], [3, 7], [5, 8]]
+                stops: [[1, 5], [3, 6], [5, 7]]
             },
             "circle-color": "#242a3a",
             "circle-opacity": 0.9
         }
+    });
+
+    // Create a popup, but don't add it to the map yet.
+    var popup = new mapboxgl.Popup({
+        closeButton: false,
+        closeOnClick: true
     });
 
     // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
@@ -187,6 +193,21 @@ map.on('load', function() {
 
     geocoder.on('result', function(ev) {
         map.getSource('single-point').setData(ev.result.geometry);
+
+        var promptLong = ev.result.geometry.coordinates[0];
+        var promptLat = ev.result.geometry.coordinates[1] + 3;
+
+        // add prompt
+
+        var coordinates = ev.result.geometry.coordinates.slice();
+
+        popup.setLngLat(coordinates)
+            .setHTML("<p>Click here!</p>")
+            .addTo(map);
+
+        console.log(ev.result.geometry);
+        console.log(ev.result.geometry.coordinates);
+        console.log(ev.result.geometry.coordinates[0]);
     });
 
     // RADIO BUTTON INTERACTIONS

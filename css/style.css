@@ -522,3 +522,48 @@ div.tooltip h3 {
 #home-button {
     color: #333333;
 }
+
+/* #prompt {
+    position: absolute;
+    visibility: hidden;
+    padding: 5px;
+    font-size: 12.5px;
+    background: #242a3a;
+    color: #f3f3f3;
+    border: 0px;
+    border-radius: 4px;
+    z-index: 999999;
+}
+
+#prompt p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+} */
+
+.mapboxgl-popup-content {
+    background: rgba(36, 42, 58, 0.7);
+    color: #f3f3f3;
+    padding: 5px;
+}
+
+.mapboxgl-popup-anchor-top .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-top-right .mapboxgl-popup-tip {
+  border-bottom-color: rgba(36, 42, 58, 0.7);
+}
+.mapboxgl-popup-anchor-bottom .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-left .mapboxgl-popup-tip,
+.mapboxgl-popup-anchor-bottom-right .mapboxgl-popup-tip {
+  border-top-color: rgba(36, 42, 58, 0.7);
+}
+.mapboxgl-popup-anchor-left .mapboxgl-popup-tip {
+  border-right-color: rgba(36, 42, 58, 0.7);
+}
+.mapboxgl-popup-anchor-right .mapboxgl-popup-tip {
+  border-left-color: rgba(36, 42, 58, 0.7);
+}
+
+.mapboxgl-popup-content p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
