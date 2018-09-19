@@ -42,6 +42,10 @@ var div2 = d3.select("body").append("div")
     .attr("class", "tooltip")
     .style("opacity", 0);
 
+var t = d3.transition()
+    .duration(2000) //shortened duration to avoid issues if second square is clicked before first transition completes
+    .ease(d3.easeQuad);
+
 var yearFormat = d3.timeFormat("%Y");
 
 var decimalFormat = d3.format(".2f");

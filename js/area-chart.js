@@ -16,12 +16,6 @@ var x = d3.scaleTime()
 var y = d3.scaleLinear()
     .range([height, 0]);
 
-// var xAxis = d3.axisBottom()
-//     .scale(x);
-
-// var yAxis = d3.axisLeft()
-//     .scale(y);
-
 var svg3 = d3.select("#graph1").append("svg")
     .attr("id", "svg-3")
     .attr("width", width + margin.left + margin.right)
@@ -40,10 +34,6 @@ var area = d3.area()
     .x(upperLine.x())
     .y0(function(d) { return y(d.obs_anoms - d.uncertainty); })
     .y1(upperLine.y());
-
-var t = d3.transition()
-    .duration(2000) //shortened duration to avoid issues if second square is clicked before first transition completes
-    .ease(d3.easeQuad);
 
 var csv;
 
@@ -129,9 +119,9 @@ function updateUncertainty (csv) {
         ]);
 
         // Make the changes
+        // No transition or behaves strangely with the .defined method
         svg3.selectAll(".area")
         .data([data])
-        .transition(t)
         .attr("d", area);
 
     })
