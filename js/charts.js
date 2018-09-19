@@ -211,16 +211,16 @@ function updateChart1(csv) {
         // y axis should change if the max value is over 2.9 but otherwise remain fixed at 3
 
         var yMax = function () {
-            if (calcMax > 2.9) {
-                return calcMax + 0.1;
+            if (calcMax > 2.6) {
+                return calcMax + 0.4;
             } else {
                 return 3;
             }
         }
 
         var yMin = function () {
-            if (calcMin < -1.9) {
-                return calcMin - 0.1;
+            if (calcMin < -1.6) {
+                return calcMin - 0.4;
             } else {
                 return -2;
             }
@@ -464,13 +464,12 @@ function updateChart2 (csv) {
         var scenariosFiltered = scenarios.filter(function(d){return filterData[d.name]==true;});
 
         var calcMax = d3.max(scenariosFiltered, function(c) { return d3.max(c.values, function(v) { return v.anomaly; }); });
-        var calcMin = d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); });
 
         var yMax = function () {
-            if (calcMax > 4.4) {
-                return calcMax + 0.1;
+            if (calcMax > 5.8) {
+                return calcMax + 0.2;
             } else {
-                return 4.5;
+                return 6;
             }
         }
 
