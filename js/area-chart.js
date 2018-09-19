@@ -16,11 +16,11 @@ var x = d3.scaleTime()
 var y = d3.scaleLinear()
     .range([height, 0]);
 
-var xAxis = d3.axisBottom()
-    .scale(x);
+// var xAxis = d3.axisBottom()
+//     .scale(x);
 
-var yAxis = d3.axisLeft()
-    .scale(y);
+// var yAxis = d3.axisLeft()
+//     .scale(y);
 
 var svg3 = d3.select("#graph1").append("svg")
     .attr("id", "svg-3")
@@ -34,6 +34,8 @@ var area = d3.area()
     .x(function(d) { return x(d.year); })
     .y0(function(d) { return y(d.obs_anoms - d.uncertainty); })
     .y1(function(d) { return y(d.obs_anoms + d.uncertainty); });
+
+var csv;
 
 // placeholder data
 var initialCsv = "./data/charts/gridcell_" + "89.5" + "_" + "150.5" + ".csv";

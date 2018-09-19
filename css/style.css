@@ -559,6 +559,10 @@ div.tooltip h3 {
     position: absolute;
 }
 
+#svg-1 {
+    position: absolute;
+}
+
 .area {
     fill: rgba(153, 153, 153, 0.3);
 }
