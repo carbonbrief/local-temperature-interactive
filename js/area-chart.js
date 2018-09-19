@@ -29,11 +29,17 @@ var svg3 = d3.select("#graph1").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var area = d3.area()
-    .curve(d3.curveCardinal)
+var upperLine = d3.line()
+    .defined(function(d) { return d.obs_anoms != 0; }) // remove values with exactly 0, since these are the nulls
     .x(function(d) { return x(d.year); })
+    .y(function(d) { return y(d.obs_anoms + d.uncertainty); });
+
+var area = d3.area()
+    .defined(upperLine.defined())
+    .curve(d3.curveCardinal)
+    .x(upperLine.x())
     .y0(function(d) { return y(d.obs_anoms - d.uncertainty); })
-    .y1(function(d) { return y(d.obs_anoms + d.uncertainty); });
+    .y1(upperLine.y());
 
 var t = d3.transition()
     .duration(2000) //shortened duration to avoid issues if second square is clicked before first transition completes

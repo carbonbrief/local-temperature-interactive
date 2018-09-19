@@ -1,21 +1,4 @@
-// var margin = {
-//     top: 10, 
-//     right: 25, 
-//     bottom: 28, 
-//     left: 37
-// },
-//     // calculate the width of the chart from the width of the line-wrapper
-//     width = parseInt(d3.select("#graph1").style("width")) - margin.left - margin.right,
-//     height = parseInt(d3.select("#graph1").style("height")) - margin.top - margin.bottom;
-
-// var parseDate = d3.timeParse("%Y");
-// // var parseDate2 = d3.timeParse("%Y%m%d");
-
-// var x = d3.scaleTime()
-//     .range([0, width]);
-
-// var y = d3.scaleLinear()
-//     .range([height, 0]);
+// other variables in area-chart.js
 
 // define the line
 var valueLine = d3.line()
@@ -76,15 +59,6 @@ var svg2 = d3.select("#graph2").append("svg")
     .attr("height", height + margin.top + margin.bottom)
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-// var t = d3.transition()
-//     .duration(2000) //shortened duration to avoid issues if second square is clicked before first transition completes
-//     .ease(d3.easeQuad);
-
-// var csv;
-
-// // placeholder data
-// var initialCsv = "./data/charts/gridcell_" + "89.5" + "_" + "150.5" + ".csv";
 
 // columns to show in the multiline chart
 var filterData = {"obs_anoms":true,"rcp26":true,"rcp45":true, "rcp60": true, "rcp85":true};
