@@ -189,6 +189,10 @@
         left: calc(37% - 4px);
     }
 
+    .graph-key li {
+        font-size: 10.5px;
+    }
+
 }
 
 @media screen and (max-width: 640px) {
@@ -197,6 +201,10 @@
 
     #logo-laptop {
         top: 725px;
+    }
+
+    .download-button {
+        margin-top: 35px;
     }
 
 }
@@ -322,12 +330,10 @@
         font-size: 12px;
     }
 
-}
-
-@media screen and (max-width: 480px) {
-    .download-button {
-        margin-top: 35px;
+    .graph-key li {
+        font-size: 10px;
     }
+
 }
 
 @media screen and (max-width: 410px) {
