@@ -59,7 +59,11 @@ body {
 .graph-key {
     position: absolute;
     left: 0px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
+}
+
+#overflow {
+    height: 15px;
 }
 
 .graph-key ul {
@@ -523,23 +527,6 @@ div.tooltip h3 {
     color: #333333;
 }
 
-/* #prompt {
-    position: absolute;
-    visibility: hidden;
-    padding: 5px;
-    font-size: 12.5px;
-    background: #242a3a;
-    color: #f3f3f3;
-    border: 0px;
-    border-radius: 4px;
-    z-index: 999999;
-}
-
-#prompt p {
-    margin-top: 0px;
-    margin-bottom: 0px;
-} */
-
 .mapboxgl-popup-content {
     background: rgba(36, 42, 58, 0.7);
     color: #f3f3f3;
@@ -566,4 +553,12 @@ div.tooltip h3 {
 .mapboxgl-popup-content p {
     margin-top: 0px;
     margin-bottom: 0px;
+}
+
+#svg-3 {
+    position: absolute;
+}
+
+.area {
+    fill: rgba(153, 153, 153, 0.3);
 }

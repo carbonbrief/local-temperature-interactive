@@ -194,20 +194,13 @@ map.on('load', function() {
     geocoder.on('result', function(ev) {
         map.getSource('single-point').setData(ev.result.geometry);
 
-        var promptLong = ev.result.geometry.coordinates[0];
-        var promptLat = ev.result.geometry.coordinates[1] + 3;
-
         // add prompt
-
         var coordinates = ev.result.geometry.coordinates.slice();
 
         popup.setLngLat(coordinates)
             .setHTML("<p>Click here!</p>")
             .addTo(map);
-
-        console.log(ev.result.geometry);
-        console.log(ev.result.geometry.coordinates);
-        console.log(ev.result.geometry.coordinates[0]);
+            
     });
 
     // RADIO BUTTON INTERACTIONS

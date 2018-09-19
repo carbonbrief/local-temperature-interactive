@@ -324,6 +324,12 @@
 
 }
 
+@media screen and (max-width: 480px) {
+    .download-button {
+        margin-top: 35px;
+    }
+}
+
 @media screen and (max-width: 410px) {
 
     /* breakpoint for our website's iframe */
