@@ -35,6 +35,10 @@ var area = d3.area()
     .y0(function(d) { return y(d.obs_anoms - d.uncertainty); })
     .y1(function(d) { return y(d.obs_anoms + d.uncertainty); });
 
+var t = d3.transition()
+    .duration(2000) //shortened duration to avoid issues if second square is clicked before first transition completes
+    .ease(d3.easeQuad);
+
 var csv;
 
 // placeholder data
@@ -74,6 +78,58 @@ function drawUncertainty(){
         .attr("d", area);
 
     })
+}
+
+function updateUncertainty (csv) {
+
+    // get the data again
+    d3.csv(csv, function(error, data) {
+
+        if (error) throw error;
+
+        data.forEach(function(d) {
+            d.year = parseDate(d.year);
+            d.obs_anoms = +d.obs_anoms;
+            d.uncertainty = +d.uncertainty;
+        });
+
+        var calcMax = d3.max(data, function(d) { return d.obs_anoms; });
+        var calcMin = d3.min(data, function(d) { return d.obs_anoms; });
+
+        var yMax = function () {
+            if (calcMax > 2.9) {
+                return calcMax + 0.1;
+            } else {
+                return 3;
+            }
+        }
+
+        var yMin = function () {
+            if (calcMin < -1.9) {
+                return calcMin - 0.1;
+            } else {
+                return -2;
+            }
+        }
+
+        // Scale the range of the data again 
+        x.domain([
+            parseDate(1850),
+            parseDate(2020)
+        ]);
+        y.domain([
+            yMin(),
+            yMax()
+        ]);
+
+        // Make the changes
+        svg3.selectAll(".area")
+        .data([data])
+        .transition(t)
+        .attr("d", area);
+
+    })
+
 }
 
 drawUncertainty();

@@ -77,9 +77,9 @@ var svg2 = d3.select("#graph2").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-var t = d3.transition()
-    .duration(2000) //shortened duration to avoid issues if second square is clicked before first transition completes
-    .ease(d3.easeQuad);
+// var t = d3.transition()
+//     .duration(2000) //shortened duration to avoid issues if second square is clicked before first transition completes
+//     .ease(d3.easeQuad);
 
 // var csv;
 
@@ -230,7 +230,7 @@ function updateChart1(csv) {
         var calcMin = d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.anomaly; }); });
 
 
-        // y axis should change if the max value is over 2.8 but otherwise remain fixed at 3
+        // y axis should change if the max value is over 2.9 but otherwise remain fixed at 3
 
         var yMax = function () {
             if (calcMax > 2.9) {
@@ -247,14 +247,10 @@ function updateChart1(csv) {
                 return -2;
             }
         }
-        
-        // console.log(calcMax);
-        // console.log(yMax());
 
         // Scale the range of the data again 
         x.domain([
-            // (d3.min(scenariosFiltered, function(c) { return d3.min(c.values, function(v) { return v.year; }); })*1.1), 
-            d3.min(data, function(d) {return d.year;}),
+            parseDate(1850),
             parseDate(2020)
         ]);
         y.domain([
@@ -523,8 +519,6 @@ function updateChart2 (csv) {
         .enter()
         .append("g")
         .attr("class", "hover-circles2");
-
-        // console.log(scenariosFiltered);
         
         circles2.selectAll("circle")
         .data(function(d){return d.values})
@@ -607,20 +601,15 @@ function updateChart2 (csv) {
 drawChart2();
 drawChart1();
 
-// setTimeout (function() {
-//     drawChart1();
-// }, 6000);
-
 // DRAW CHART WHEN MAP CLICKED
 
 document.getElementById('map').addEventListener("click", function () {
 
     csv = "./data/charts/gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
 
-    // console.log(csv);
-
     updateChart1(csv);
     updateChart2(csv);
+    updateUncertainty(csv);
 
 
 });
