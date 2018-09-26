@@ -43,10 +43,6 @@
         -webkit-transform: translateY(calc(55%)) !important;
     }
 
-    #scroll-area {
-        width: 30px;
-    }
-
     div.tooltip p {
         font-size: 12px;
     }

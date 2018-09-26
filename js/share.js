@@ -18,7 +18,7 @@ $("#custom").on("click", function() {
 
     cityName = document.getElementById('city').innerText;
 
-    baseTweet = "https://twitter.com/intent/tweet?url=http%3A%2F%2Fexample.com&text=";
+    baseTweet = "https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.carbonbrief.org/mapped-how-every-part-of-the-world-has-warmed-and-could-continue-to-warm&text=";
     newText = document.getElementById('historic').innerText;
     // remove full-stop from tweet text and beginning of text
     newText = newText.slice(11, -1);
@@ -35,7 +35,7 @@ $("#custom2").on("click", function() {
 
     cityName = document.getElementById('city').innerText;
 
-    baseTweet2 = "https://twitter.com/intent/tweet?url=http%3A%2F%2Fexample.com&text=";
+    baseTweet2 = "https://twitter.com/intent/tweet?url=https%3A%2F%2Fwww.carbonbrief.org/mapped-how-every-part-of-the-world-has-warmed-and-could-continue-to-warm&text=";
     newText2 = document.getElementById('future').innerText;
     // remove full-stop from tweet text and beginning of text
     newText2 = newText2.slice(2, -1);

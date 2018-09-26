@@ -40,6 +40,9 @@ var map = new mapboxgl.Map({
     touchZoomRotate: false
 });
 
+// disable map zoom when using scroll
+map.scrollZoom.disable();
+
 function getMinZoom () {
     if (screenWidth > 1200) {
         return 1.6
