@@ -1,6 +1,7 @@
 // variables to use throughout
 var screenWidth = $(window).width();
 var consoleWidth = $("#second-console").width();
+var getPaddingRight = (consoleWidth + 90);
 var midCoordLat;
 var midCoordLong;
 var coords;
@@ -259,15 +260,11 @@ map.on('load', function() {
     map.on("click", "tile-fills", function(e) {
 
         // BRING IN CONSOLE
-
         $('#second-console').removeClass('console-initial console-close').addClass('console-open');
         $('#arrow-left').removeClass("arrow-showing").addClass("arrow-hidden");
         $('#arrow-right').removeClass("arrow-hidden").addClass("arrow-showing");
 
-        // console.log("show console");
-
         // BRING DOWN KEY
-
         $('#landing-console').removeClass('console-up').addClass('console-down');
         $('#arrow-down').removeClass("arrow-showing").addClass("arrow-hidden");
         $('#arrow-up').removeClass("arrow-hidden").addClass("arrow-showing");
@@ -283,8 +280,6 @@ map.on('load', function() {
             map.removeSource('selectedTile');   
         }
         var feature = features[0];
-        //I think you could add the vector tile feature to the map, but I'm more familiar with JSON
-        // console.log(feature.toJSON());
 
         map.addSource('selectedTile', {
             "type":"geojson",
@@ -320,13 +315,6 @@ map.on('load', function() {
             return bounds.extend(coord);
         }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
 
-        // console.log(bounds);
-
-        var getPaddingRight = (consoleWidth + 90);
-
-        // console.log(consoleWidth);
-        // console.log(getPaddingRight);
-
         map.fitBounds(bounds, {
             padding: {
                 top: 20,
@@ -360,17 +348,7 @@ map.on('load', function() {
 
         coords = midCoordLong + "_" + midCoordLat;
 
-        console.log(coords);
-
-        function changeHash () {
-
-            window.location.hash = coords;
-            
-        }
-
-        changeHash();
-
-
+        window.location.hash = coords;
 
 
     })
@@ -427,5 +405,57 @@ $("#home-button").click(function() {
         animate: true
     });
 });
+
+// UPDATE LOCATION IF HASH IN URL
+
+if(window.location.hash) {
+    // Simulate behaviour of map click
+    // Unfortunately map.fire method is deprecated so can't just emulate click
+
+    coords = window.location.hash;
+
+    // remove hash symbol from beginning
+    coords = coords.substring(1);
+
+    var midCoords = coords.split("_");
+
+    midCoordLong = midCoords[0];
+
+    midCoordLat = midCoords[1];
+
+    console.log(midCoordLong);
+    console.log(midCoordLat);
+
+    // ADJUST MAP VIEW
+    // use the unary plus operator to convert coords to numbers first
+    var sw = new mapboxgl.LngLat((+midCoordLong - 0.5), (+midCoordLat - 0.5));
+    var ne = new mapboxgl.LngLat((+midCoordLong + 0.5), (+midCoordLat + 0.5));
+
+    var bounds = new mapboxgl.LngLatBounds(sw, ne);
+
+    map.fitBounds(bounds, {
+        padding: {
+            top: 20,
+            right: getPaddingRight,
+            left: 20,
+            bottom: 20
+        }
+    });
+
+    // BRING IN CONSOLE
+    $('#second-console').removeClass('console-initial console-close').addClass('console-open');
+    $('#arrow-left').removeClass("arrow-showing").addClass("arrow-hidden");
+    $('#arrow-right').removeClass("arrow-hidden").addClass("arrow-showing");
+
+    // BRING DOWN KEY
+    $('#landing-console').removeClass('console-up').addClass('console-down');
+    $('#arrow-down').removeClass("arrow-showing").addClass("arrow-hidden");
+    $('#arrow-up').removeClass("arrow-hidden").addClass("arrow-showing");
+    
+
+
+} else {
+    // do nothing if no hash appended to url
+}
 
 
