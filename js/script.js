@@ -3,6 +3,7 @@ var screenWidth = $(window).width();
 var consoleWidth = $("#second-console").width();
 var midCoordLat;
 var midCoordLong;
+var coords;
 
 var map = new mapboxgl.Map({
     container: 'map',
@@ -354,6 +355,20 @@ map.on('load', function() {
 
         document.getElementById("download2").setAttribute("download", fileName);
         document.getElementById("download2").setAttribute("href", filePath);
+
+        // UPDATE URL
+
+        coords = midCoordLong + "_" + midCoordLat;
+
+        console.log(coords);
+
+        function changeHash () {
+
+            window.location.hash = coords;
+            
+        }
+
+        changeHash();
 
 
 
