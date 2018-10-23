@@ -489,6 +489,13 @@ if(window.location.hash) {
 
     // UPDATE TEXT
     updateUIText();
+
+    // UPDATE GRAPHS
+    csv = "./data/charts/gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
+
+    updateChart1(csv);
+    updateChart2(csv);
+    updateUncertainty(csv);
     
 
 
