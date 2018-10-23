@@ -4,7 +4,7 @@ var consoleWidth = $("#second-console").width();
 var getPaddingRight = (consoleWidth + 90);
 var midCoordLat;
 var midCoordLong;
-var coords;
+var midCoords;
 
 var map = new mapboxgl.Map({
     container: 'map',
@@ -260,14 +260,7 @@ map.on('load', function() {
     map.on("click", "tile-fills", function(e) {
 
         // BRING IN CONSOLE
-        $('#second-console').removeClass('console-initial console-close').addClass('console-open');
-        $('#arrow-left').removeClass("arrow-showing").addClass("arrow-hidden");
-        $('#arrow-right').removeClass("arrow-hidden").addClass("arrow-showing");
-
-        // BRING DOWN KEY
-        $('#landing-console').removeClass('console-up').addClass('console-down');
-        $('#arrow-down').removeClass("arrow-showing").addClass("arrow-hidden");
-        $('#arrow-up').removeClass("arrow-hidden").addClass("arrow-showing");
+        enterSecondConsole();
 
         // HIGHLIGHT CLICKED FEATURE
 
@@ -334,15 +327,7 @@ map.on('load', function() {
         midCoordLat = (coordinates[0][1] - 0.5).toFixed(1);
 
         // UPDATE DOWNLOAD BUTTON
-        // no need to go up a filepath since will be adding this to the homepage
-        var filePath = "data/charts/gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
-        var fileName = "gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
-
-        document.getElementById("download1").setAttribute("download", fileName);
-        document.getElementById("download1").setAttribute("href", filePath);
-
-        document.getElementById("download2").setAttribute("download", fileName);
-        document.getElementById("download2").setAttribute("href", filePath);
+        updateDownload();
 
         // UPDATE URL
 
@@ -356,6 +341,32 @@ map.on('load', function() {
 
 
 });
+
+// place these behaviours in functions since using twice
+function updateDownload () {
+
+    // no need to go up a filepath since will be adding this to the homepage
+    var fileName = "gridcell_" + midCoordLat + "_" + midCoordLong + ".csv";
+    var filePath = "data/charts/" + fileName;
+
+    document.getElementById("download1").setAttribute("download", fileName);
+    document.getElementById("download1").setAttribute("href", filePath);
+
+    document.getElementById("download2").setAttribute("download", fileName);
+    document.getElementById("download2").setAttribute("href", filePath);
+}
+
+function enterSecondConsole () {
+    // BRING IN CONSOLE
+    $('#second-console').removeClass('console-initial console-close').addClass('console-open');
+    $('#arrow-left').removeClass("arrow-showing").addClass("arrow-hidden");
+    $('#arrow-right').removeClass("arrow-hidden").addClass("arrow-showing");
+
+    // BRING DOWN KEY
+    $('#landing-console').removeClass('console-up').addClass('console-down');
+    $('#arrow-down').removeClass("arrow-showing").addClass("arrow-hidden");
+    $('#arrow-up').removeClass("arrow-hidden").addClass("arrow-showing");
+}
 
 // RESET RADIO ON WINDOW RELOAD
 
@@ -406,25 +417,53 @@ $("#home-button").click(function() {
     });
 });
 
+// UPDATE UI TEXT AS CLICK ON MAP
+
+document.getElementById('map').addEventListener("click", function () {
+
+    updateUIText();
+
+})
+
+function updateUIText () {
+
+    var coords = midCoordLat + "," + midCoordLong;
+
+    // create new array from characteristics.js based on click event
+    var newArray = characteristics.filter(function(x) {
+        return x.geo === coords;
+    });
+
+    var country = (newArray[0]["adm"]); 
+    var observed = (newArray[0]["obs"]);
+    var rcp26 = (newArray[0]["26"]);
+    var rcp85 = (newArray[0]["85"]);
+    var city = (newArray[0]["city"]);
+
+    document.getElementById('country').innerText = country;
+    document.getElementById('city').innerText = city;
+    document.getElementById('warming').innerText = observed;
+    document.getElementById('future-warming1').innerText = rcp26;
+    document.getElementById('future-warming2').innerText = rcp85;
+
+}
+
 // UPDATE LOCATION IF HASH IN URL
 
 if(window.location.hash) {
     // Simulate behaviour of map click
     // Unfortunately map.fire method is deprecated so can't just emulate click
 
-    coords = window.location.hash;
+    midCoords = window.location.hash;
 
     // remove hash symbol from beginning
-    coords = coords.substring(1);
+    midCoords = midCoords.substring(1);
 
-    var midCoords = coords.split("_");
+    midCoords = midCoords.split("_");
 
     midCoordLong = midCoords[0];
 
     midCoordLat = midCoords[1];
-
-    console.log(midCoordLong);
-    console.log(midCoordLat);
 
     // ADJUST MAP VIEW
     // use the unary plus operator to convert coords to numbers first
@@ -443,14 +482,13 @@ if(window.location.hash) {
     });
 
     // BRING IN CONSOLE
-    $('#second-console').removeClass('console-initial console-close').addClass('console-open');
-    $('#arrow-left').removeClass("arrow-showing").addClass("arrow-hidden");
-    $('#arrow-right').removeClass("arrow-hidden").addClass("arrow-showing");
+    enterSecondConsole();
 
-    // BRING DOWN KEY
-    $('#landing-console').removeClass('console-up').addClass('console-down');
-    $('#arrow-down').removeClass("arrow-showing").addClass("arrow-hidden");
-    $('#arrow-up').removeClass("arrow-hidden").addClass("arrow-showing");
+    // UPDATE DOWNLOAD BUTTON
+    updateDownload();
+
+    // UPDATE TEXT
+    updateUIText();
     
 
 
