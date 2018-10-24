@@ -1,6 +1,7 @@
 // variables to use throughout
 var screenWidth = $(window).width();
 var consoleWidth = $("#second-console").width();
+var mapHeight = $("#wrapper").height();
 var getPaddingRight = (consoleWidth + 90);
 var midCoordLat;
 var midCoordLong;
@@ -265,6 +266,9 @@ map.on('load', function() {
         // HIGHLIGHT CLICKED FEATURE
 
         var features = map.queryRenderedFeatures(e.point, { layers: ['tile-fills'] });
+
+        console.log(features);
+
         if (!features.length) {
             return;
         }
@@ -496,8 +500,73 @@ if(window.location.hash) {
     updateChart1(csv);
     updateChart2(csv);
     updateUncertainty(csv);
-    
 
+    // HIGHTLIGHT REGION
+
+    map.on('load', function() {
+
+        var getX = (screenWidth - getPaddingRight)/2;
+        var getY = mapHeight/2;
+    
+        // var midPoint = {
+        //     x: getX,
+        //     y: getY
+        // }
+    
+        // console.log(midPoint);
+    
+        // var features = map.queryRenderedFeatures(midPoint, { layers: ['tile-fills'] });
+
+        // add setTimeout to ensure that rendered BEFORE the query is made
+
+        setTimeout(function(){
+
+            var features = map.queryRenderedFeatures(
+                [getX, getY],
+                { layers: ['tile-fills'] }
+            );
+    
+            console.log(features);
+    
+            if (!features.length) {
+                return;
+            }
+            if (typeof map.getLayer('selectedTile') !== "undefined" ){         
+                map.removeLayer('selectedTile')
+                map.removeSource('selectedTile');   
+            }
+            var feature = features[0];
+    
+            map.addSource('selectedTile', {
+                "type":"geojson",
+                "data": feature.toJSON()
+            });
+            map.addLayer({
+                "id": "selectedTile",
+                "type": "line",
+                "source": "selectedTile",
+                "layout": {
+                    "line-join": "round",
+                    "line-cap": "round"
+                },
+                "paint": {
+                    "line-color": "white",
+                    "line-opacity": 0.95,
+                    'line-width': {
+                        "type": "exponential",
+                        "stops": [
+                            [1.5,1.3],
+                            [3,2.3],
+                            [5,3.3],
+                            [7,4.3]
+                        ]
+                    }
+                }
+            });
+
+        }, 5000);
+
+    })
 
 } else {
     // do nothing if no hash appended to url
