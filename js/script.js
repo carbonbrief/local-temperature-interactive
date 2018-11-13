@@ -83,6 +83,15 @@ map.on('load', function() {
         "data": './data/tiles.json'
     });
 
+    map.addSource("tiles2", {
+        "type": 'geojson',
+        "buffer": 10,
+        "tolerance": 3,
+        "data": './data/tiles2.json'
+    });
+
+    // load in two halves to speed things up
+
     map.addSource("outlines", {
         "type": 'geojson',
         "buffer": 10,
@@ -121,9 +130,64 @@ map.on('load', function() {
     });
 
     map.addLayer({
+        id: 'tile-fills2',
+        type: 'fill',
+        source: "tiles2",
+        paint: {
+            "fill-color": "#f3f3f3",
+            'fill-color': {
+                property: '26',
+                stops: [
+                    [0, '#0f1d85'],
+                    [0.45, '#4b269f'],
+                    [0.9, '#802ba4'],
+                    [1.35, '#Aa2d93'],
+                    [2, '#Ca4a78'],
+                    [2.45, '#E66f5d'],
+                    [2.9, '#f79649'],
+                    [3.35, '#Fbc53d'],
+                    [4, '#F0f73f']
+                ]
+            },
+            "fill-opacity": ["case",
+                ["boolean", ["feature-state", "hover"], false],
+                0.2,
+                0.65
+            ]
+        }
+    });
+
+    map.addLayer({
         "id": 'tile-lines',
         "type": 'line',
         "source": "tiles",
+        "layout": {},
+        "paint": {
+            'line-color': '#f3f3f3',
+            'line-opacity': {
+                "type": "exponential",
+                "stops": [
+                    [1.5,0],
+                    [3,0.15],
+                    [5,0.3],
+                ]
+            },
+            'line-width': {
+                "type": "exponential",
+                "stops": [
+                    [1.5,0],
+                    [3,0.5],
+                    [5,0.7],
+                    [7,0.9]
+                ]
+            }
+        }
+    });
+
+    map.addLayer({
+        "id": 'tile-lines2',
+        "type": 'line',
+        "source": "tiles2",
         "layout": {},
         "paint": {
             'line-color': '#f3f3f3',
@@ -245,6 +309,7 @@ map.on('load', function() {
     }
     
     var hoveredTileId = null;
+    var hoveredTileId2 = null;
 
     map.on("mousemove", "tile-fills", function(e) {
 
@@ -258,12 +323,31 @@ map.on('load', function() {
         }
     });
 
+    map.on("mousemove", "tile-fills2", function(e) {
+
+        if (e.features.length > 0) {
+            if (hoveredTileId2) {
+                map.setFeatureState({source: 'tiles2', id: hoveredTileId2}, { hover: false});
+            }
+            hoveredTileId2 = e.features[0].id;
+
+            map.setFeatureState({source: 'tiles2', id: hoveredTileId2}, { hover: true});
+        }
+    });
+
     // Reset the state-fills-hover layer's filter when the mouse leaves the layer.
     map.on("mouseleave", "tile-fills", function() {
         if (hoveredTileId) {
             map.setFeatureState({source: 'tiles', id: hoveredTileId}, { hover: false});
         }
         hoveredStateId =  null;
+    });
+
+    map.on("mouseleave", "tile-fills2", function() {
+        if (hoveredTileId2) {
+            map.setFeatureState({source: 'tiles2', id: hoveredTileId2}, { hover: false});
+        }
+        hoveredStateId2 =  null;
     });
 
     map.on("click", "tile-fills", function(e) {
