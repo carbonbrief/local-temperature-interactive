@@ -75,12 +75,20 @@ map.on('load', function() {
 
     map.addSource("tiles", {
         "type": 'geojson',
+        "buffer": 10,
+        "tolerance": 3, // default is 0.375
+        // load GeoJSON from a data URL instead of holding it in a Javascript object
+        // this reduces client memory overhead
+        //"data": 'https://s3.eu-west-2.amazonaws.com/local-temperature-interactive/data/tiles.json'
         "data": './data/tiles.json'
     });
 
     map.addSource("outlines", {
         "type": 'geojson',
+        "buffer": 10,
+        "tolerance": 1,
         // version correct to 3dp to reduce filesize
+        // "data": 'https://s3.eu-west-2.amazonaws.com/local-temperature-interactive/data/outlines.json'
         "data": './data/outlines.json'
     });
 
