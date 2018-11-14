@@ -76,21 +76,21 @@ map.on('load', function() {
     map.addSource("tiles", {
         "type": 'geojson',
         "buffer": 10,
-        "tolerance": 3, // default is 0.375
+        "tolerance": 1, // default is 0.375
         // load GeoJSON from a data URL instead of holding it in a Javascript object
         // this reduces client memory overhead
         //"data": 'https://s3.eu-west-2.amazonaws.com/local-temperature-interactive/data/tiles.json'
         "data": './data/tiles.json'
     });
 
+    // load in two halves to speed up loading times
+
     map.addSource("tiles2", {
         "type": 'geojson',
         "buffer": 10,
-        "tolerance": 3,
+        "tolerance": 1,
         "data": './data/tiles2.json'
     });
-
-    // load in two halves to speed things up
 
     map.addSource("outlines", {
         "type": 'geojson',
@@ -305,6 +305,21 @@ map.on('load', function() {
                     [4, '#F0f73f']
                 ]
             });
+
+            map.setPaintProperty('tile-fills2', 'fill-color', {
+                property: scenario,
+                stops: [
+                    [0, '#0f1d85'],
+                    [0.45, '#4b269f'],
+                    [0.9, '#802ba4'],
+                    [1.35, '#Aa2d93'],
+                    [2, '#Ca4a78'],
+                    [2.45, '#E66f5d'],
+                    [2.9, '#f79649'],
+                    [3.35, '#Fbc53d'],
+                    [4, '#F0f73f']
+                ]
+            });
         }
     }
     
@@ -356,65 +371,47 @@ map.on('load', function() {
         enterSecondConsole();
 
         // HIGHLIGHT CLICKED FEATURE
-
-        var features = map.queryRenderedFeatures(e.point, { layers: ['tile-fills'] });
-
-        console.log(features);
-
-        if (!features.length) {
-            return;
-        }
-        if (typeof map.getLayer('selectedTile') !== "undefined" ){         
-            map.removeLayer('selectedTile')
-            map.removeSource('selectedTile');   
-        }
-        var feature = features[0];
-
-        map.addSource('selectedTile', {
-            "type":"geojson",
-            "data": feature.toJSON()
-        });
-        map.addLayer({
-            "id": "selectedTile",
-            "type": "line",
-            "source": "selectedTile",
-            "layout": {
-                "line-join": "round",
-                "line-cap": "round"
-            },
-            "paint": {
-                "line-color": "white",
-                "line-opacity": 0.95,
-                'line-width': {
-                    "type": "exponential",
-                    "stops": [
-                        [1.5,1.3],
-                        [3,2.3],
-                        [5,3.3],
-                        [7,4.3]
-                    ]
-                }
-            }
-        });
+        highlightClicked(e);
 
         // ADJUST VIEW OF MAP
 
-        var coordinates = e.features[0].geometry.coordinates[0];
-        var bounds = coordinates.reduce(function (bounds, coord) {
-            return bounds.extend(coord);
-        }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
-
-        map.fitBounds(bounds, {
-            padding: {
-                top: 20,
-                right: getPaddingRight,
-                left: 20,
-                bottom: 20
-            }
-        });
+        adjustMapView(e);
 
         // VARIABLES GRAPH AND TEXT
+        var coordinates = e.features[0].geometry.coordinates[0];
+        // centre coords of selected polygon that will use to obtains CSVs
+        // Mapbox adds lots of extra decimals so need to remove
+        // adding since goes L to R
+        midCoordLong = (coordinates[0][0] + 0.5).toFixed(1);
+        // must subtract since goes top to bottom
+        midCoordLat = (coordinates[0][1] - 0.5).toFixed(1);
 
+        // UPDATE DOWNLOAD BUTTON
+        updateDownload();
+
+        // UPDATE URL
+
+        coords = midCoordLong + "_" + midCoordLat;
+
+        window.location.hash = coords;
+
+
+    })
+
+    map.on("click", "tile-fills2", function(e) {
+
+        // BRING IN CONSOLE
+        enterSecondConsole();
+
+        // HIGHLIGHT CLICKED FEATURE
+        highlightClicked(e);
+
+        // ADJUST VIEW OF MAP
+
+        adjustMapView(e);
+
+        // VARIABLES GRAPH AND TEXT
+        var coordinates = e.features[0].geometry.coordinates[0];
         // centre coords of selected polygon that will use to obtains CSVs
         // Mapbox adds lots of extra decimals so need to remove
         // adding since goes L to R
@@ -435,10 +432,72 @@ map.on('load', function() {
     })
 
 
-
 });
 
 // place these behaviours in functions since using twice
+
+function adjustMapView (e) {
+
+    var coordinates = e.features[0].geometry.coordinates[0];
+    var bounds = coordinates.reduce(function (bounds, coord) {
+        return bounds.extend(coord);
+    }, new mapboxgl.LngLatBounds(coordinates[0], coordinates[0]));
+
+    map.fitBounds(bounds, {
+        padding: {
+            top: 20,
+            right: getPaddingRight,
+            left: 20,
+            bottom: 20
+        }
+    });
+
+}
+
+function highlightClicked (e) {
+
+    var features = map.queryRenderedFeatures(e.point, { layers: ['tile-fills', 'tile-fills2'] });
+
+    console.log(features);
+
+    if (!features.length) {
+        return;
+    }
+    if (typeof map.getLayer('selectedTile') !== "undefined" ){         
+        map.removeLayer('selectedTile')
+        map.removeSource('selectedTile');   
+    }
+    var feature = features[0];
+
+    map.addSource('selectedTile', {
+        "type":"geojson",
+        "data": feature.toJSON()
+    });
+    map.addLayer({
+        "id": "selectedTile",
+        "type": "line",
+        "source": "selectedTile",
+        "layout": {
+            "line-join": "round",
+            "line-cap": "round"
+        },
+        "paint": {
+            "line-color": "white",
+            "line-opacity": 0.95,
+            'line-width': {
+                "type": "exponential",
+                "stops": [
+                    [1.5,1.3],
+                    [3,2.3],
+                    [5,3.3],
+                    [7,4.3]
+                ]
+            }
+        }
+    });
+
+}
+
 function updateDownload () {
 
     // no need to go up a filepath since will be adding this to the homepage
@@ -474,7 +533,7 @@ $(document).ready(function () {
 
 setTimeout (function() {
     $('#loading').css('visibility', 'hidden');
-}, 8000);
+}, 5000);
 
 // TOGGLE BUTTON
 
@@ -615,7 +674,7 @@ if(window.location.hash) {
 
             var features = map.queryRenderedFeatures(
                 [getX, getY],
-                { layers: ['tile-fills'] }
+                { layers: ['tile-fills', 'tile-fills2'] }
             );
     
             console.log(features);
