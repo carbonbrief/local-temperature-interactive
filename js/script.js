@@ -32,7 +32,7 @@ var map = new mapboxgl.Map({
     // style: 'https://openmaptiles.github.io/positron-gl-style/style-cdn.json',
     center: [0, 18],
     // zoomed in a bit to reduce the initial page load time
-    zoom: getMinZoom(screenWidth) + 0.9,
+    zoom: getMinZoom(screenWidth) + 0.6,
     // set so that can zoom in less far on a mobile, to avoid disorientation
     maxZoom: getMinZoom(screenWidth) + 3.3,
     // set so that can zoom out less far on a desktop, to avoid having to render too many tiles
