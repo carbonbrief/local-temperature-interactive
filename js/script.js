@@ -31,7 +31,7 @@ var map = new mapboxgl.Map({
     },
     center: [0, 18],
     // zoomed in a bit to reduce the initial page load time
-    zoom: getMinZoom(screenWidth) + 0.6,
+    zoom: getMinZoom(screenWidth) + 0.65,
     // set so that can zoom in less far on a mobile, to avoid disorientation
     maxZoom: getMinZoom(screenWidth) + 3.3,
     // set so that can zoom out less far on a desktop, to avoid having to render too many tiles
@@ -528,7 +528,7 @@ $(document).ready(function () {
 
 setTimeout (function() {
     $('#loading').css('visibility', 'hidden');
-}, 4500);
+}, 5500);
 
 // TOGGLE BUTTON
 
